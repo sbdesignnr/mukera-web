@@ -254,7 +254,7 @@ export const Hero = () => {
               className="anim-5"
               style={{
                 display: "flex",
-                alignItems: "center",
+                alignItems: "flex-end",
                 gap: 36,
                 marginTop: "2.5rem",
               }}
@@ -315,6 +315,7 @@ export const Hero = () => {
                   alignItems: "center",
                   gap: 8,
                   padding: 0,
+                  paddingBottom: "10px",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = "rgba(255,255,255,0.55)";
