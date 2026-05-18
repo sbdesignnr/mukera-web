@@ -1,304 +1,436 @@
 "use client";
 
-import React from "react";
+import { useEffect, useRef, useState } from "react";
+import { ShimmerText } from "./ShimmerText";
 
 const STATS = [
-  { num: "15+", label: "Rokov skúseností" },
-  { num: "500+", label: "Vyriešených prípadov" },
-  { num: "6", label: "Právnych oblastí" },
+  { end: 15,  suffix: "+", label: "Rokov praxe" },
+  { end: 500, suffix: "+", label: "Klientov" },
+  { end: 6,   suffix: "",  label: "Právnych oblastí" },
 ];
 
-export const Hero = () => {
+const useCounter = (end: number, duration: number, started: boolean) => {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!started) return;
+    let startTime: number;
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * end));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [started, end, duration]);
+  return count;
+};
+
+const StatRow = ({ stat }: { stat: (typeof STATS)[number] }) => {
+  const [started, setStarted] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setStarted(true); observer.disconnect(); } },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+  const count = useCounter(stat.end, 2000, started);
   return (
-    <section className="relative h-screen overflow-hidden">
-
-      {/* 1 — Photo background */}
-      <div className="absolute inset-0">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/hero-bg.webp"
-          alt=""
-          className="w-full h-full object-cover object-center"
-        />
-      </div>
-
-      {/* 2 — Directional gradient */}
+    <div ref={ref} style={{ textAlign: "right" }}>
       <div
-        className="absolute inset-0"
         style={{
-          background:
-            "linear-gradient(110deg, rgba(4,9,20,0.97) 0%, rgba(4,9,20,0.95) 35%, rgba(4,9,20,0.82) 60%, rgba(4,9,20,0.55) 100%)",
-        }}
-      />
-
-      {/* 3 — Vignette */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.5) 100%)",
-        }}
-      />
-
-      {/* 4 — Left vertical accent line */}
-      <div
-        className="absolute left-[8%] top-1/2 -translate-y-1/2 w-px hidden lg:block"
-        style={{
-          height: "140px",
-          background:
-            "linear-gradient(to bottom, transparent, rgba(181,148,90,0.5), transparent)",
-          transformOrigin: "top",
-          animation: "lineGrow 0.7s ease-out 0.6s both",
-          willChange: "transform",
-        }}
-      />
-
-      {/* Content — 2-column grid */}
-      <div
-        className="absolute inset-0"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          alignItems: "center",
-          paddingLeft: "clamp(3rem, 10vw, 12rem)",
-          paddingRight: "clamp(3rem, 8vw, 10rem)",
-          paddingTop: "80px",
+          fontFamily: "var(--font-heading)",
+          fontSize: "38px",
+          fontWeight: 300,
+          color: "rgba(255,255,255,0.7)",
+          lineHeight: 1,
         }}
       >
-        {/* LEFT COLUMN */}
-        <div>
+        {count}{stat.suffix}
+      </div>
+      <div
+        style={{
+          fontFamily: "var(--font-ui)",
+          fontSize: "8px",
+          color: "rgba(181,148,90,0.65)",
+          letterSpacing: "0.18em",
+          textTransform: "uppercase",
+          marginTop: "4px",
+        }}
+      >
+        {stat.label}
+      </div>
+    </div>
+  );
+};
 
-          {/* Badge */}
-          <div className="fade-in flex items-center gap-3" style={{ animationDelay: "0s", willChange: "opacity, transform" }}>
-            <div className="h-px w-7 bg-[#B5945A] flex-shrink-0" />
-            <span
-              className="text-[10px] tracking-[0.28em] uppercase font-medium"
-              style={{ color: "#B5945A", fontFamily: "var(--font-body)" }}
+export const Hero = () => {
+  const underlineRef = useRef<HTMLDivElement>(null);
+  const h1Ref = useRef<HTMLHeadingElement>(null);
+  const [btnAHover, setBtnAHover] = useState(false);
+  const [shimmerSize, setShimmerSize] = useState(0);
+
+  useEffect(() => {
+    const update = () => {
+      if (!h1Ref.current) return;
+      const size = parseFloat(window.getComputedStyle(h1Ref.current).fontSize);
+      setShimmerSize(Math.round(size));
+    };
+    document.fonts.ready.then(() => setTimeout(update, 200));
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  return (
+    <section
+      style={{
+        position: "relative",
+        height: "100svh",
+        overflow: "hidden",
+        background: "#080F1E",
+      }}
+    >
+      {/* 1 — Background photo */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/hero-bg.webp"
+        alt=""
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "center",
+          opacity: 0.18,
+        }}
+      />
+
+      {/* 2 — Gradient overlay */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "linear-gradient(105deg, #080F1E 0%, #080F1E 42%, rgba(8,15,30,0.88) 65%, rgba(8,15,30,0.6) 100%)",
+        }}
+      />
+
+      {/* 3 — Vertical grid lines */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage:
+            "repeating-linear-gradient(90deg, rgba(181,148,90,0.025) 0px, rgba(181,148,90,0.025) 1px, transparent 1px, transparent 80px)",
+        }}
+      />
+
+      {/* 4 — Left gold accent line */}
+      <div
+        style={{
+          position: "absolute",
+          left: 32,
+          top: "50%",
+          transform: "translateY(-50%)",
+          width: 1,
+          height: 130,
+          background:
+            "linear-gradient(to bottom, transparent, rgba(181,148,90,0.45), transparent)",
+        }}
+      />
+
+      {/* 5 — Corner accent bottom-right */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          right: 0,
+          width: 160,
+          height: 160,
+          borderTop: "0.5px solid rgba(181,148,90,0.08)",
+          borderLeft: "0.5px solid rgba(181,148,90,0.08)",
+        }}
+      />
+
+      {/* ── Main content ── */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          display: "flex",
+          alignItems: "center",
+          padding: "0 48px",
+          paddingTop: "72px",
+        }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr auto",
+            gap: 60,
+            alignItems: "center",
+            width: "100%",
+            maxWidth: 1200,
+            margin: "0 auto",
+          }}
+        >
+          {/* LEFT COLUMN */}
+          <div>
+            {/* Eyebrow */}
+            <div
+              className="anim-1"
+              style={{ display: "flex", alignItems: "center", gap: 12 }}
             >
-              Advokátska kancelária
-            </span>
-          </div>
+              <div style={{ width: 28, height: 1, background: "#B5945A", flexShrink: 0 }} />
+              <span
+                style={{
+                  fontFamily: "var(--font-ui)",
+                  fontSize: "9px",
+                  color: "rgba(181,148,90,0.9)",
+                  letterSpacing: "0.3em",
+                  textTransform: "uppercase",
+                }}
+              >
+                Advokátska kancelária
+              </span>
+            </div>
 
-          {/* H1 */}
-          <h1
-            className="fade-in"
-            style={{
-              fontFamily: "var(--font-heading)",
-              fontSize: "clamp(3.2rem, 5.5vw, 5.5rem)",
-              fontWeight: 300,
-              lineHeight: 1.05,
-              color: "white",
-              marginTop: "1.25rem",
-              animationDelay: "0.2s",
-              willChange: "opacity, transform",
-            }}
-          >
-            Vaše práva.
-            <br />
-            Naša{" "}
-            <em style={{ fontStyle: "italic", color: "#C9A96E" }}>priorita.</em>
-          </h1>
-
-          {/* Divider */}
-          <div
-            className="fade-in w-12 h-px bg-[#B5945A]/40 mt-6"
-            style={{ animationDelay: "0.4s", willChange: "opacity, transform" }}
-          />
-
-          {/* Paragraph */}
-          <p
-            className="fade-in"
-            style={{
-              marginTop: "1.25rem",
-              color: "rgba(255,255,255,0.38)",
-              fontSize: "14px",
-              lineHeight: 1.9,
-              fontFamily: "var(--font-body)",
-              fontWeight: 300,
-              maxWidth: "360px",
-              animationDelay: "0.5s",
-              willChange: "opacity, transform",
-            }}
-          >
-            Komplexné právne služby s&nbsp;osobným prístupom
-            a&nbsp;odbornosťou, ktorej môžete dôverovať.
-          </p>
-
-          {/* CTAs */}
-          <div
-            className="fade-in flex items-center gap-10 mt-10"
-            style={{ animationDelay: "0.65s", willChange: "opacity, transform" }}
-          >
-            <button
+            {/* H1 */}
+            <h1
+              ref={h1Ref}
+              className="anim-2 hero-h1"
               style={{
-                border: "1px solid rgba(181,148,90,0.5)",
+                fontFamily: "var(--font-heading)",
+                fontWeight: 300,
+                fontSize: "clamp(3.2rem, 5.5vw, 5.8rem)",
                 color: "white",
-                fontSize: "11px",
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                padding: "14px 32px",
-                fontWeight: 300,
-                fontFamily: "var(--font-body)",
-                whiteSpace: "nowrap",
-                background: "rgba(181,148,90,0)",
-                cursor: "pointer",
-                transition:
-                  "border-color 400ms cubic-bezier(0.25,0.46,0.45,0.94), background 400ms cubic-bezier(0.25,0.46,0.45,0.94), color 400ms cubic-bezier(0.25,0.46,0.45,0.94)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "#B5945A";
-                e.currentTarget.style.background = "rgba(181,148,90,0.08)";
-                e.currentTarget.style.color = "#B5945A";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "rgba(181,148,90,0.5)";
-                e.currentTarget.style.background = "rgba(181,148,90,0)";
-                e.currentTarget.style.color = "white";
+                lineHeight: 0.95,
+                letterSpacing: "-0.01em",
+                marginTop: "1.5rem",
               }}
             >
-              Dohodnúť konzultáciu
-            </button>
+              Vaše práva.
+              <br />
+              Naša{" "}
+              {shimmerSize > 0 && <ShimmerText text="priorita." fontSize={shimmerSize} color="#C9A96E" />}
+            </h1>
 
-            <button
+            {/* Gold divider */}
+            <div
+              className="anim-3"
               style={{
-                background: "none",
-                border: "none",
-                color: "rgba(255,255,255,0.30)",
-                fontSize: "11px",
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                fontWeight: 300,
-                fontFamily: "var(--font-body)",
-                cursor: "pointer",
-                transition: "color 300ms",
+                width: 44,
+                height: 1,
+                background: "rgba(181,148,90,0.4)",
+                marginTop: "1.75rem",
+              }}
+            />
+
+            {/* Paragraph */}
+            <p
+              className="anim-4"
+              style={{
+                fontFamily: "var(--font-ui)",
+                fontSize: "13px",
+                color: "rgba(255,255,255,0.32)",
+                lineHeight: 1.95,
+                maxWidth: "340px",
+                marginTop: "1.25rem",
+                fontWeight: 400,
+              }}
+            >
+              Komplexné právne služby s&nbsp;osobným prístupom
+              a&nbsp;odbornosťou, ktorej môžete dôverovať.
+            </p>
+
+            {/* Buttons */}
+            <div
+              className="anim-5"
+              style={{
                 display: "flex",
                 alignItems: "center",
-                gap: "8px",
-                padding: 0,
-                whiteSpace: "nowrap",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = "rgba(255,255,255,0.65)";
-                const arrow = e.currentTarget.querySelector<HTMLSpanElement>("[data-arrow]");
-                if (arrow) arrow.style.transform = "translateX(5px)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = "rgba(255,255,255,0.30)";
-                const arrow = e.currentTarget.querySelector<HTMLSpanElement>("[data-arrow]");
-                if (arrow) arrow.style.transform = "translateX(0)";
+                gap: 36,
+                marginTop: "2.5rem",
               }}
             >
-              Naše služby
-              <span
-                data-arrow=""
-                style={{ display: "inline-block", transition: "transform 300ms" }}
+              <button
+                style={{
+                  fontFamily: "var(--font-ui)",
+                  fontSize: "10px",
+                  color: btnAHover ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.65)",
+                  letterSpacing: "0.25em",
+                  textTransform: "uppercase",
+                  padding: "0 0 10px 0",
+                  border: "none",
+                  borderBottom: "1px solid rgba(181,148,90,0.5)",
+                  background: "none",
+                  cursor: "pointer",
+                  position: "relative",
+                  whiteSpace: "nowrap",
+                  transition: "color 500ms cubic-bezier(0.25,0.46,0.45,0.94)",
+                }}
+                onMouseEnter={() => {
+                  setBtnAHover(true);
+                  if (underlineRef.current) underlineRef.current.style.width = "100%";
+                }}
+                onMouseLeave={() => {
+                  setBtnAHover(false);
+                  if (underlineRef.current) underlineRef.current.style.width = "0%";
+                }}
               >
-                →
-              </span>
-            </button>
+                Dohodnúť konzultáciu
+                <div
+                  ref={underlineRef}
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    height: "1px",
+                    width: "0%",
+                    background: "#B5945A",
+                    transition: "width 500ms cubic-bezier(0.25,0.46,0.45,0.94)",
+                  }}
+                />
+              </button>
+
+              <button
+                style={{
+                  fontFamily: "var(--font-ui)",
+                  fontSize: "10px",
+                  color: "rgba(255,255,255,0.22)",
+                  letterSpacing: "0.25em",
+                  textTransform: "uppercase",
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  transition: "color 400ms ease",
+                  whiteSpace: "nowrap",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: 0,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "rgba(255,255,255,0.55)";
+                  const arrow = e.currentTarget.querySelector<HTMLSpanElement>("[data-arrow]");
+                  if (arrow) {
+                    arrow.style.transform = "translateX(6px)";
+                    arrow.style.color = "#B5945A";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "rgba(255,255,255,0.22)";
+                  const arrow = e.currentTarget.querySelector<HTMLSpanElement>("[data-arrow]");
+                  if (arrow) {
+                    arrow.style.transform = "translateX(0)";
+                    arrow.style.color = "inherit";
+                  }
+                }}
+              >
+                Naše služby
+                <span
+                  data-arrow=""
+                  style={{ display: "inline-block", transition: "transform 400ms ease, color 400ms ease" }}
+                >
+                  →
+                </span>
+              </button>
+            </div>
           </div>
 
-          {/* Stats */}
+          {/* RIGHT COLUMN */}
           <div
-            className="fade-in flex items-center gap-8 mt-14"
-            style={{ animationDelay: "0.8s", willChange: "opacity, transform" }}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end",
+              gap: 0,
+              paddingBottom: "8px",
+              animation: "fadeUp 1s ease 0.9s both",
+            }}
           >
+            {/* Vertical label */}
+            <span
+              style={{
+                fontFamily: "var(--font-ui)",
+                fontSize: "8px",
+                color: "rgba(255,255,255,0.22)",
+                letterSpacing: "0.3em",
+                textTransform: "uppercase",
+                writingMode: "vertical-rl",
+                textOrientation: "mixed",
+                transform: "rotate(180deg)",
+                marginBottom: "24px",
+              }}
+            >
+              mukera.sk — advokát
+            </span>
+
+            {/* Stats */}
             {STATS.map((stat, i) => (
-              <React.Fragment key={i}>
-                {i > 0 && <div className="w-px h-8 bg-white/10 flex-shrink-0" />}
-                <div>
+              <div key={stat.end} style={{ marginBottom: i < STATS.length - 1 ? "20px" : 0 }}>
+                {i > 0 && (
                   <div
                     style={{
-                      fontFamily: "var(--font-heading)",
-                      fontSize: "2rem",
-                      color: "rgba(255,255,255,0.75)",
-                      fontWeight: 300,
-                      lineHeight: 1,
+                      width: 44,
+                      height: 1,
+                      background: "rgba(181,148,90,0.25)",
+                      marginBottom: "20px",
+                      marginLeft: "auto",
                     }}
-                  >
-                    {stat.num}
-                  </div>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "9px",
-                      color: "rgba(255,255,255,0.25)",
-                      letterSpacing: "0.15em",
-                      textTransform: "uppercase",
-                      marginTop: "6px",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {stat.label}
-                  </div>
-                </div>
-              </React.Fragment>
+                  />
+                )}
+                <StatRow stat={stat} />
+              </div>
             ))}
           </div>
         </div>
-
-        {/* RIGHT COLUMN — decorative quote */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "2rem",
-            animation: "fadeInRight 0.7s ease 0.6s both",
-            willChange: "opacity, transform",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--font-heading)",
-              fontSize: "clamp(1rem, 1.5vw, 1.3rem)",
-              fontWeight: 300,
-              fontStyle: "italic",
-              color: "rgba(255,255,255,0.18)",
-              lineHeight: 1.8,
-              textAlign: "center",
-              maxWidth: "320px",
-              borderLeft: "1px solid rgba(181,148,90,0.25)",
-              paddingLeft: "2rem",
-            }}
-          >
-            „Spravodlivosť nie je len cieľ —<br />
-            je to záväzok, ktorý si vyžaduje<br />
-            odbornosť, skúsenosť a odvahu."
-          </div>
-
-          <div
-            style={{
-              width: "1px",
-              height: "60px",
-              background: "linear-gradient(to bottom, rgba(181,148,90,0.3), transparent)",
-              marginTop: "1rem",
-            }}
-          />
-        </div>
       </div>
 
-      {/* Scroll indicator — static */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+      {/* ── Bottom bar ── */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 24,
+          left: 48,
+          right: 48,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ width: 32, height: 1, background: "rgba(181,148,90,0.35)" }} />
+          <span
+            style={{
+              fontFamily: "var(--font-ui)",
+              fontSize: "8px",
+              color: "rgba(255,255,255,0.35)",
+              letterSpacing: "0.25em",
+              textTransform: "uppercase",
+            }}
+          >
+            Scroll
+          </span>
+        </div>
+
         <span
           style={{
-            fontSize: "9px",
-            letterSpacing: "0.25em",
-            color: "rgba(255,255,255,0.18)",
+            fontFamily: "var(--font-ui)",
+            fontSize: "8px",
+            color: "rgba(255,255,255,0.28)",
+            letterSpacing: "0.15em",
             textTransform: "uppercase",
-            fontFamily: "var(--font-body)",
           }}
         >
-          Scroll
+          Banská Bystrica, Slovenská republika
         </span>
-        <div
-          className="w-px"
-          style={{
-            height: "48px",
-            background: "linear-gradient(to bottom, rgba(181,148,90,0.4), transparent)",
-          }}
-        />
       </div>
     </section>
   );

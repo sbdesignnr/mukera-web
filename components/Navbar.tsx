@@ -1,18 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const NAV_LINKS = [
-  { label: "Domov", href: "#" },
-  { label: "O nás", href: "#o-nas" },
-  { label: "Služby", href: "#sluzby" },
+  { label: "Domov",      href: "#" },
+  { label: "O nás",      href: "#o-nas" },
+  { label: "Služby",     href: "#sluzby" },
   { label: "Referencie", href: "#referencie" },
-  { label: "Kontakt", href: "#kontakt" },
+  { label: "Kontakt",    href: "#kontakt" },
 ];
 
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const navUnderlineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -27,136 +28,245 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav
-        className="fixed top-0 left-0 right-0 z-50"
+      {/* ── Main bar ── */}
+      <header
         style={{
-          animation: "navSlideIn 0.7s cubic-bezier(0.25,0.46,0.45,0.94) both",
-          backgroundColor: scrolled ? "rgba(6,14,30,0.90)" : "rgba(0,0,0,0)",
+          position: "fixed",
+          top: 0, left: 0, right: 0,
+          zIndex: 50,
+          borderBottom: "0.5px solid rgba(181,148,90,0.15)",
+          backgroundColor: scrolled ? "rgba(8,15,30,0.92)" : "transparent",
           backdropFilter: scrolled ? "blur(12px)" : "none",
-          borderBottom: scrolled
-            ? "1px solid rgba(181,148,90,0.15)"
-            : "1px solid transparent",
-          transition:
-            "background-color 500ms ease, backdrop-filter 500ms ease, border-color 500ms ease",
+          transition: "background 500ms ease, backdrop-filter 500ms ease",
+          animation: "navSlideIn 0.7s cubic-bezier(0.25,0.46,0.45,0.94) both",
           willChange: "background-color, backdrop-filter",
         }}
       >
-        <div className="mx-auto max-w-7xl px-8 lg:px-16">
-          <div className="grid grid-cols-3 items-center h-20">
-
-            {/* Logo */}
-            <a href="#" aria-label="Domov – JUDr. Peter Múkera" className="flex-shrink-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/logo-dark.png"
-                alt="JUDr. Peter Múkera"
-                style={{ height: "48px", width: "auto", display: "block" }}
-              />
-            </a>
-
-            {/* Center nav — desktop */}
-            <nav
-              className="hidden md:flex flex-nowrap items-center justify-center gap-6"
-              aria-label="Hlavná navigácia"
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr auto 1fr",
+            alignItems: "center",
+            padding: "20px 48px",
+          }}
+        >
+          {/* LEFT — identity */}
+          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            {/* Monogram box */}
+            <div
+              style={{
+                fontFamily: "var(--font-heading)",
+                fontSize: "22px",
+                fontWeight: 300,
+                color: "#B5945A",
+                border: "0.5px solid rgba(181,148,90,0.4)",
+                width: "42px",
+                height: "42px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                letterSpacing: "-0.01em",
+                flexShrink: 0,
+              }}
             >
-              {NAV_LINKS.map((link) => (
+              PM
+            </div>
+
+            {/* Text stack */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              <span
+                style={{
+                  fontFamily: "var(--font-ui)",
+                  fontSize: "11px",
+                  color: "rgba(255,255,255,0.85)",
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                }}
+              >
+                JUDr. Peter Múkera
+              </span>
+              <span
+                style={{
+                  fontFamily: "var(--font-ui)",
+                  fontSize: "8px",
+                  color: "rgba(181,148,90,0.65)",
+                  letterSpacing: "0.25em",
+                  textTransform: "uppercase",
+                }}
+              >
+                Advokátska kancelária
+              </span>
+            </div>
+          </div>
+
+          {/* CENTER — nav links (desktop) */}
+          <nav
+            className="hidden md:flex"
+            style={{ alignItems: "center", gap: 32 }}
+            aria-label="Hlavná navigácia"
+          >
+            {NAV_LINKS.map((link, i) => (
+              <span key={link.href} style={{ display: "flex", alignItems: "center", gap: 32 }}>
                 <a
-                  key={link.href}
                   href={link.href}
-                  className="whitespace-nowrap text-[11px] tracking-[0.2em] uppercase font-light text-white/50 hover:text-white/90 transition-colors duration-300"
-                  style={{ fontFamily: "var(--font-body)" }}
+                  style={{
+                    fontFamily: "var(--font-ui)",
+                    fontSize: "10px",
+                    color: "rgba(255,255,255,0.4)",
+                    letterSpacing: "0.2em",
+                    textTransform: "uppercase",
+                    textDecoration: "none",
+                    transition: "color 300ms",
+                    whiteSpace: "nowrap",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = "rgba(255,255,255,0.85)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(255,255,255,0.4)"; }}
                 >
                   {link.label}
                 </a>
+                {i < NAV_LINKS.length - 1 && (
+                  <div
+                    aria-hidden
+                    style={{
+                      width: 3, height: 3,
+                      borderRadius: "50%",
+                      background: "rgba(181,148,90,0.25)",
+                      flexShrink: 0,
+                    }}
+                  />
+                )}
+              </span>
+            ))}
+          </nav>
+
+          {/* RIGHT — CTA + hamburger */}
+          <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", gap: 20 }}>
+            <button
+              className="hidden md:block"
+              style={{
+                fontFamily: "var(--font-ui)",
+                fontSize: "9px",
+                color: "#B5945A",
+                letterSpacing: "0.25em",
+                textTransform: "uppercase",
+                padding: "0 0 8px 0",
+                border: "none",
+                background: "none",
+                cursor: "pointer",
+                position: "relative",
+                whiteSpace: "nowrap",
+              }}
+              onMouseEnter={() => {
+                if (navUnderlineRef.current) navUnderlineRef.current.style.width = "100%";
+              }}
+              onMouseLeave={() => {
+                if (navUnderlineRef.current) navUnderlineRef.current.style.width = "0%";
+              }}
+            >
+              Konzultácia
+              <div
+                ref={navUnderlineRef}
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  height: "1px",
+                  width: "0%",
+                  background: "#B5945A",
+                  transition: "width 500ms cubic-bezier(0.25,0.46,0.45,0.94)",
+                }}
+              />
+            </button>
+
+            {/* Hamburger */}
+            <button
+              className="md:hidden"
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-label={menuOpen ? "Zavrieť menu" : "Otvoriť menu"}
+              aria-expanded={menuOpen}
+              style={{ background: "none", border: "none", cursor: "pointer", padding: 4 }}
+            >
+              {[0, 1, 2].map((i) => (
+                <span
+                  key={i}
+                  style={{
+                    display: "block",
+                    width: 20,
+                    height: 1,
+                    backgroundColor: "rgba(255,255,255,0.7)",
+                    marginBottom: i < 2 ? 5 : 0,
+                    borderRadius: 2,
+                    transition: "transform 0.22s, opacity 0.22s",
+                    transform:
+                      menuOpen
+                        ? i === 0 ? "rotate(45deg) translateY(6px)"
+                        : i === 2 ? "rotate(-45deg) translateY(-6px)"
+                        : "none"
+                        : "none",
+                    opacity: menuOpen && i === 1 ? 0 : 1,
+                  }}
+                />
               ))}
-            </nav>
-
-            {/* Right — CTA + hamburger */}
-            <div className="flex items-center justify-end gap-6">
-              {/* Konzultácia */}
-              <div className="hidden md:block relative group cursor-pointer">
-                <a
-                  href="#kontakt"
-                  className="text-[11px] tracking-[0.2em] uppercase"
-                  style={{ color: "#B5945A", fontFamily: "var(--font-body)" }}
-                >
-                  Konzultácia
-                </a>
-                <div
-                  className="absolute bottom-0 left-0 h-px bg-[#B5945A] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
-                  style={{ width: "100%" }}
-                />
-              </div>
-
-              {/* Mobile hamburger */}
-              <button
-                className="md:hidden flex flex-col gap-[5px] p-1 cursor-pointer"
-                onClick={() => setMenuOpen((v) => !v)}
-                aria-label={menuOpen ? "Zavrieť menu" : "Otvoriť menu"}
-                aria-expanded={menuOpen}
-              >
-                <span
-                  className="block h-px w-5 bg-white/70 rounded-full"
-                  style={{
-                    transition: "transform 0.22s, opacity 0.22s",
-                    transform: menuOpen ? "rotate(45deg) translateY(6px)" : "none",
-                  }}
-                />
-                <span
-                  className="block h-px w-5 bg-white/70 rounded-full"
-                  style={{
-                    transition: "opacity 0.22s",
-                    opacity: menuOpen ? 0 : 1,
-                  }}
-                />
-                <span
-                  className="block h-px w-5 bg-white/70 rounded-full"
-                  style={{
-                    transition: "transform 0.22s, opacity 0.22s",
-                    transform: menuOpen ? "rotate(-45deg) translateY(-6px)" : "none",
-                  }}
-                />
-              </button>
-            </div>
+            </button>
           </div>
         </div>
-      </nav>
+      </header>
 
-      {/* Full-screen mobile menu */}
+      {/* ── Mobile full-screen menu ── */}
       <div
-        className="fixed inset-0 z-40 flex flex-col md:hidden"
+        className="md:hidden"
         style={{
-          backgroundColor: "rgba(4,9,20,0.98)",
+          position: "fixed",
+          inset: 0,
+          zIndex: 40,
+          backgroundColor: "rgba(8,15,30,0.97)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 32,
           opacity: menuOpen ? 1 : 0,
           pointerEvents: menuOpen ? "auto" : "none",
           transition: "opacity 0.3s ease",
         }}
         aria-hidden={!menuOpen}
       >
-        <nav
-          className="flex flex-col items-center justify-center flex-1 gap-8"
-          aria-label="Mobilná navigácia"
-        >
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              className="text-[13px] tracking-[0.25em] uppercase text-white/60 hover:text-white transition-colors duration-300"
-              style={{ fontFamily: "var(--font-body)" }}
-            >
-              {link.label}
-            </a>
-          ))}
+        {NAV_LINKS.map((link) => (
           <a
-            href="#kontakt"
+            key={link.href}
+            href={link.href}
             onClick={() => setMenuOpen(false)}
-            className="text-[13px] tracking-[0.25em] uppercase mt-4"
-            style={{ color: "#B5945A", fontFamily: "var(--font-body)" }}
+            style={{
+              fontFamily: "var(--font-ui)",
+              fontSize: "13px",
+              letterSpacing: "0.25em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.55)",
+              textDecoration: "none",
+              transition: "color 300ms",
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = "rgba(255,255,255,0.9)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(255,255,255,0.55)"; }}
           >
-            Konzultácia
+            {link.label}
           </a>
-        </nav>
+        ))}
+        <a
+          href="#kontakt"
+          onClick={() => setMenuOpen(false)}
+          style={{
+            fontFamily: "var(--font-ui)",
+            fontSize: "13px",
+            letterSpacing: "0.25em",
+            textTransform: "uppercase",
+            color: "#B5945A",
+            textDecoration: "none",
+            marginTop: 8,
+          }}
+        >
+          Konzultácia
+        </a>
       </div>
     </>
   );

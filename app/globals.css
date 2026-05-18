@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=Tenor+Sans&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -7,8 +8,9 @@
   --color-white: #FFFFFF;
   --color-text: #2C2C2C;
   --color-muted: #6B7280;
-  --font-heading: var(--font-cormorant), 'Cormorant Garamond', serif;
+  --font-heading: var(--font-cormorant), 'Cormorant', serif;
   --font-body: var(--font-inter), 'Inter', sans-serif;
+  --font-ui: 'Tenor Sans', sans-serif;
 }
 
 html {
@@ -18,26 +20,18 @@ html {
   background: var(--color-bg);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0);    }
-}
-.fade-in {
-  opacity: 0;
-  animation: fadeIn 0.8s ease both;
-}
-
-@keyframes fadeInRight {
-  from { opacity: 0; transform: translateX(30px); }
-  to   { opacity: 1; transform: translateX(0);    }
-}
-
-@keyframes lineGrow {
-  from { transform: scaleY(0); }
-  to   { transform: scaleY(1); }
-}
-
 @keyframes navSlideIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to   { opacity: 1; transform: translateY(0);     }
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.anim-1 { animation: fadeUp 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.1s  both; }
+.anim-2 { animation: fadeUp 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.25s both; }
+.anim-3 { animation: fadeUp 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.4s  both; }
+.anim-4 { animation: fadeUp 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.55s both; }
+.anim-5 { animation: fadeUp 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.7s  both; }
