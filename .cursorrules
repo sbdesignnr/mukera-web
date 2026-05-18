@@ -1,0 +1,34 @@
+# mukera.sk — Advokátska kancelária JUDr. Peter Múkera
+
+## Stack
+- Next.js 15, App Router, TypeScript strict
+- Tailwind CSS v4
+- Framer Motion pre animácie
+- Zod + React Hook Form pre kontaktný formulár
+- Statický export (output: export) — shared PHP hosting (Webglobe)
+- Kontaktný formulár posiela na /api/contact.php
+
+## Farby (VŽDY používaj presne tieto)
+- Navy:       #1B2A4A
+- Gold:       #B5945A
+- Background: #F8F7F4
+- White:      #FFFFFF
+- Text:       #2C2C2C
+- Muted:      #6B7280
+
+## Typografia
+- Headings: "Cormorant Garamond", serif
+- Body:      "Inter", sans-serif
+
+## Pravidlá
+- TypeScript vždy, nikdy any
+- Named exports
+- "use client" len kde treba
+- Framer Motion pre animácie
+- Mobile-first responsive
+- Texty v slovenčine
+
+## Klient
+- JUDr. Peter Múkera, advokát, Banská Bystrica
+- Služby: Trestné právo, Obchodné právo, Občianske právo,
+  Pracovné právo, Správne právo, Mimosúdne riešenia sporov
