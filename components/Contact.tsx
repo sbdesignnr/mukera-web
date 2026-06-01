@@ -314,11 +314,120 @@ const ContactItem = ({
   </div>
 );
 
+// ─── Team ────────────────────────────────────────────────────────────────────
+
+// Pozn.: e-maily a tel. čísla sú zatiaľ koncepčné placeholdery —
+// klient ich neskôr nahradí reálnymi údajmi.
+const TEAM = [
+  { name: "JUDr. Peter Múkera ml.",     role: "Advokát",   email: "peter.mukera.ml@mukera.sk",   phone: "+421 900 000 001" },
+  { name: "JUDr. Peter Múkera st.",     role: "Advokát",   email: "peter.mukera.st@mukera.sk",   phone: "+421 900 000 002" },
+  { name: "JUDr. Kornelia Múkerová",    role: "Advokátka", email: "kornelia.mukerova@mukera.sk", phone: "+421 900 000 003" },
+  { name: "JUDr. Sára Tarnociová, PhD.", role: "Advokátka", email: "sara.tarnociova@mukera.sk",   phone: "+421 900 000 004" },
+];
+
+const TeamMember = ({
+  name,
+  role,
+  email,
+  phone,
+}: {
+  name: string;
+  role: string;
+  email: string;
+  phone: string;
+}) => {
+  const rowStyle: React.CSSProperties = {
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+    fontFamily: "var(--font-ui)",
+    fontSize: "13px",
+    color: "rgba(255,255,255,0.6)",
+    textDecoration: "none",
+    transition: "color 250ms ease",
+  };
+
+  return (
+    <div
+      style={{
+        background: "rgba(255,255,255,0.03)",
+        border: "0.5px solid rgba(181,148,90,0.1)",
+        padding: "1.75rem",
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.6rem",
+        transition: "border-color 350ms ease, background 350ms ease",
+      }}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(181,148,90,0.35)";
+        (e.currentTarget as HTMLDivElement).style.background = "rgba(255,255,255,0.05)";
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(181,148,90,0.1)";
+        (e.currentTarget as HTMLDivElement).style.background = "rgba(255,255,255,0.03)";
+      }}
+    >
+      {/* Role */}
+      <span
+        style={{
+          fontFamily: "var(--font-ui)",
+          fontSize: "8px",
+          color: "rgba(181,148,90,0.6)",
+          letterSpacing: "0.25em",
+          textTransform: "uppercase",
+        }}
+      >
+        {role}
+      </span>
+
+      {/* Name */}
+      <h3
+        style={{
+          fontFamily: "var(--font-heading)",
+          fontWeight: 300,
+          fontSize: "1.45rem",
+          color: "white",
+          lineHeight: 1.2,
+        }}
+      >
+        {name}
+      </h3>
+
+      {/* Gold rule */}
+      <div style={{ width: 28, height: "1px", background: "rgba(181,148,90,0.4)", margin: "0.25rem 0 0.5rem" }} />
+
+      {/* E-mail */}
+      <a
+        href={`mailto:${email}`}
+        style={rowStyle}
+        onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "#C9A96E"; }}
+        onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.6)"; }}
+      >
+        <span style={{ color: "#B5945A", flexShrink: 0, display: "inline-flex" }}><IconMail /></span>
+        {email}
+      </a>
+
+      {/* Telefón */}
+      <a
+        href={`tel:${phone.replace(/\s/g, "")}`}
+        style={rowStyle}
+        onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "#C9A96E"; }}
+        onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.6)"; }}
+      >
+        <span style={{ color: "#B5945A", flexShrink: 0, display: "inline-flex" }}><IconPhone /></span>
+        {phone}
+      </a>
+    </div>
+  );
+};
+
 // ─── Section ─────────────────────────────────────────────────────────────────
 
 export const Contact = () => {
   const headerRef = useRef<HTMLDivElement>(null);
   const [headerVisible, setHeaderVisible] = useState(false);
+  const teamRef = useRef<HTMLDivElement>(null);
+  const [teamVisible, setTeamVisible] = useState(false);
 
   useEffect(() => {
     const el = headerRef.current;
@@ -331,6 +440,22 @@ export const Contact = () => {
         }
       },
       { threshold: 0.2 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const el = teamRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTeamVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -534,6 +659,48 @@ export const Contact = () => {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* ── Advokátsky tím ── */}
+        <div
+          ref={teamRef}
+          style={{
+            maxWidth: "1200px",
+            margin: "clamp(3.5rem, 7vw, 6rem) auto 0",
+            position: "relative",
+            opacity: teamVisible ? 1 : 0,
+            transform: teamVisible ? "translateY(0)" : "translateY(24px)",
+            transition: "opacity 0.8s ease, transform 0.8s ease",
+          }}
+        >
+          {/* Kicker */}
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "1.75rem" }}>
+            <div style={{ width: 28, height: "0.5px", background: "rgba(181,148,90,0.5)" }} />
+            <span
+              style={{
+                fontFamily: "var(--font-ui)",
+                fontSize: "9px",
+                color: "#B5945A",
+                letterSpacing: "0.35em",
+                textTransform: "uppercase",
+              }}
+            >
+              Advokátsky tím
+            </span>
+          </div>
+
+          {/* Cards */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))",
+              gap: "1.25rem",
+            }}
+          >
+            {TEAM.map((member) => (
+              <TeamMember key={member.email} {...member} />
+            ))}
           </div>
         </div>
       </section>
