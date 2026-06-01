@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 const NAV_LINKS = [
   { label: "Domov",      href: "#" },
   { label: "O nás",      href: "#o-nas" },
-  { label: "Služby",     href: "#sluzby" },
+  { label: "Právne služby", href: "#sluzby" },
   { label: "Referencie", href: "#referencie" },
   { label: "Kontakt",    href: "#kontakt" },
 ];
@@ -103,8 +103,8 @@ export const Navbar = () => {
             <span
               style={{
                 fontFamily: "var(--font-ui)",
-                fontSize: "10px",
-                color: "rgba(255,255,255,0.85)",
+                fontSize: "12px",
+                color: "rgba(255,255,255,1)",
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
                 whiteSpace: "nowrap",
@@ -115,8 +115,8 @@ export const Navbar = () => {
             <span
               style={{
                 fontFamily: "var(--font-ui)",
-                fontSize: "7px",
-                color: "rgba(181,148,90,0.6)",
+                fontSize: "8px",
+                color: "rgba(181,148,90,0.7)",
                 letterSpacing: "0.25em",
                 textTransform: "uppercase",
               }}
@@ -148,8 +148,8 @@ export const Navbar = () => {
                   href={link.href}
                   style={{
                     fontFamily: "var(--font-ui)",
-                    fontSize: "9px",
-                    color: "rgba(255,255,255,0.38)",
+                    fontSize: "12px",
+                    color: "rgba(255,255,255,1)",
                     letterSpacing: "0.2em",
                     textTransform: "uppercase",
                     textDecoration: "none",
@@ -157,10 +157,10 @@ export const Navbar = () => {
                     whiteSpace: "nowrap",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.color = "rgba(255,255,255,0.85)";
+                    e.currentTarget.style.color = "#B5945A";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.color = "rgba(255,255,255,0.38)";
+                    e.currentTarget.style.color = "rgba(255,255,255,1)";
                   }}
                 >
                   {link.label}
@@ -191,7 +191,7 @@ export const Navbar = () => {
               type="button"
               style={{
                 fontFamily: "var(--font-ui)",
-                fontSize: "9px",
+                fontSize: "11px",
                 color: "#B5945A",
                 letterSpacing: "0.25em",
                 textTransform: "uppercase",
@@ -335,8 +335,8 @@ export const Navbar = () => {
                 <span
                   style={{
                     fontFamily: "var(--font-heading)",
-                    fontSize: "clamp(2rem, 8vw, 3rem)",
-                    color: "#64748b",
+                    fontSize: "clamp(2.2rem, 8vw, 3.2rem)",
+                    color: "rgba(255,255,255,0.95)",
                   }}
                 >
                   {link.label}

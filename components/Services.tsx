@@ -35,10 +35,9 @@ const SERVICES = [
     id: "obcianske",
     title: "Občianske právo",
     intro:
-      "Dedičské konania, rodinné právo, susedské spory a komplexná ochrana osobnostných práv.",
+      "Dedičské konania, susedské spory a komplexná ochrana osobnostných práv.",
     detail: [
       "Zastupovanie v dedičských konaniach, správa dedičstva a spory medzi dedičmi.",
-      "Rodinné právo: rozvod, výživné, úprava styku s maloletými deťmi.",
       "Ochrana osobnosti, náhrada nemajetkovej ujmy a ochrana pred neoprávneným zásahom.",
       "Susedské spory, ochrana držby a vlastníckeho práva.",
       "Príprava a revízia občianskoprávnych zmlúv (kúpa, darovanie, pôžička).",
@@ -58,16 +57,16 @@ const SERVICES = [
     ],
   },
   {
-    id: "spravne",
-    title: "Správne právo",
+    id: "rodinne",
+    title: "Rodinné právo",
     intro:
-      "Zastupovanie v správnych konaniach, odvolaní proti rozhodnutiam orgánov a správne súdnictvo.",
+      "Rozvod manželstva, úprava rodičovských práv, výživné a majetkové vyrovnanie manželov.",
     detail: [
-      "Zastupovanie v správnych konaniach pred orgánmi štátnej správy a samosprávy.",
-      "Odvolania a rozklady proti rozhodnutiam správnych orgánov.",
-      "Správne súdnictvo — žaloby na preskúmanie zákonnosti rozhodnutí.",
-      "Poradenstvo v oblasti stavebného práva, životného prostredia a verejného obstarávania.",
-      "Zastupovanie pri priestupkových konaniach.",
+      "Zastupovanie v konaní o rozvod manželstva a o úpravu pomerov k maloletým deťom.",
+      "Určenie a vymáhanie výživného na deti, manžela aj rozvedeného manžela.",
+      "Úprava styku rodiča s maloletým dieťaťom a riešenie sporov o starostlivosť.",
+      "Vyporiadanie bezpodielového spoluvlastníctva manželov po rozvode.",
+      "Určenie a zapretie otcovstva, osvojenie a poručníctvo.",
     ],
   },
   {
@@ -118,10 +117,9 @@ const ICONS: Record<string, React.ReactNode> = {
       <polyline points="10 9 9 9 8 9" />
     </svg>
   ),
-  spravne: (
+  rodinne: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.25} strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10" />
-      <polyline points="12 6 12 12 16 14" />
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
     </svg>
   ),
   nehnutelnosti: (
@@ -289,8 +287,8 @@ const Drawer = ({
           <p
             style={{
               fontFamily: "var(--font-ui)",
-              fontSize: "14px",
-              color: "rgba(27,42,74,0.6)",
+              fontSize: "15px",
+              color: "rgba(27,42,74,0.65)",
               lineHeight: 1.9,
               marginBottom: "2rem",
             }}
@@ -330,8 +328,8 @@ const Drawer = ({
                 <span
                   style={{
                     fontFamily: "var(--font-ui)",
-                    fontSize: "13px",
-                    color: "rgba(27,42,74,0.65)",
+                    fontSize: "14px",
+                    color: "rgba(27,42,74,0.7)",
                     lineHeight: 1.75,
                   }}
                 >
@@ -463,7 +461,7 @@ const ServiceCard = ({
         style={{
           fontFamily: "var(--font-heading)",
           fontWeight: 300,
-          fontSize: "1.35rem",
+          fontSize: "1.6rem",
           color: "#1B2A4A",
           lineHeight: 1.2,
         }}
@@ -486,8 +484,8 @@ const ServiceCard = ({
       <p
         style={{
           fontFamily: "var(--font-ui)",
-          fontSize: "12px",
-          color: "rgba(27,42,74,0.5)",
+          fontSize: "14px",
+          color: "rgba(27,42,74,0.6)",
           lineHeight: 1.85,
           flexGrow: 1,
         }}
@@ -502,8 +500,8 @@ const ServiceCard = ({
           alignItems: "center",
           gap: "8px",
           fontFamily: "var(--font-ui)",
-          fontSize: "9px",
-          color: hover ? "#B5945A" : "rgba(181,148,90,0.55)",
+          fontSize: "10px",
+          color: hover ? "#B5945A" : "rgba(181,148,90,0.6)",
           letterSpacing: "0.2em",
           textTransform: "uppercase",
           transition: "color 350ms ease",

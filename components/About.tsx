@@ -187,8 +187,8 @@ export const About = () => {
             className="reveal"
             style={{
               fontFamily: "var(--font-ui)",
-              fontSize: "13px",
-              color: "rgba(27,42,74,0.55)",
+              fontSize: "15px",
+              color: "rgba(27,42,74,0.6)",
               lineHeight: 1.95,
               marginBottom: "1rem",
             }}
@@ -202,8 +202,8 @@ export const About = () => {
             className="reveal"
             style={{
               fontFamily: "var(--font-ui)",
-              fontSize: "13px",
-              color: "rgba(27,42,74,0.55)",
+              fontSize: "15px",
+              color: "rgba(27,42,74,0.6)",
               lineHeight: 1.95,
               marginBottom: "2.5rem",
             }}

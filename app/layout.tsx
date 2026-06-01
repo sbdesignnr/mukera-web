@@ -20,7 +20,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "JUDr. Peter Múkera | Advokátska kancelária",
   description:
-    "Advokátska kancelária JUDr. Peter Múkera v Banskej Bystrici. Trestné, obchodné, občianske, pracovné a správne právo.",
+    "Advokátska kancelária JUDr. Peter Múkera v Banskej Bystrici. Trestné, obchodné, občianske, pracovné a rodinné právo.",
 };
 
 export default function RootLayout({

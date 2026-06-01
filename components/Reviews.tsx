@@ -94,7 +94,7 @@ const ReviewCard = ({
           fontFamily: "var(--font-heading)",
           fontStyle: "italic",
           fontWeight: 300,
-          fontSize: "clamp(1rem, 1.5vw, 1.15rem)",
+          fontSize: "clamp(1.1rem, 1.5vw, 1.3rem)",
           color: "#2C3E50",
           lineHeight: 1.8,
           flexGrow: 1,
@@ -230,8 +230,8 @@ export const Reviews = () => {
           <p
             style={{
               fontFamily: "var(--font-ui)",
-              fontSize: "13px",
-              color: "rgba(27,42,74,0.45)",
+              fontSize: "15px",
+              color: "rgba(27,42,74,0.5)",
               lineHeight: 1.7,
               maxWidth: "460px",
               margin: "0 auto",

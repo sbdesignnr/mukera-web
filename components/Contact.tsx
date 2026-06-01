@@ -74,7 +74,7 @@ const inputStyle: React.CSSProperties = {
   borderBottom: "0.5px solid rgba(255,255,255,0.12)",
   padding: "10px 0",
   fontFamily: "var(--font-ui)",
-  fontSize: "13px",
+  fontSize: "15px",
   color: "rgba(255,255,255,0.75)",
   outline: "none",
   width: "100%",
@@ -289,7 +289,7 @@ const ContactItem = ({
           href={href}
           style={{
             fontFamily: "var(--font-ui)",
-            fontSize: "13px",
+            fontSize: "15px",
             color: "rgba(255,255,255,0.65)",
             textDecoration: "none",
             transition: "color 250ms ease",
@@ -303,7 +303,7 @@ const ContactItem = ({
         <p
           style={{
             fontFamily: "var(--font-ui)",
-            fontSize: "13px",
+            fontSize: "15px",
             color: "rgba(255,255,255,0.65)",
           }}
         >

@@ -47,7 +47,7 @@ const StatRow = ({ stat }: { stat: (typeof STATS)[number] }) => {
       <div style={{ fontFamily: "var(--font-heading)", fontSize: "38px", fontWeight: 300, color: "rgba(255,255,255,0.7)", lineHeight: 1 }}>
         {count}{stat.suffix}
       </div>
-      <div style={{ fontFamily: "var(--font-ui)", fontSize: "8px", color: "rgba(181,148,90,0.65)", letterSpacing: "0.18em", textTransform: "uppercase", marginTop: "4px" }}>
+      <div style={{ fontFamily: "var(--font-ui)", fontSize: "9px", color: "rgba(181,148,90,0.75)", letterSpacing: "0.18em", textTransform: "uppercase", marginTop: "4px" }}>
         {stat.label}
       </div>
     </div>
@@ -89,11 +89,11 @@ export const Hero = () => {
       <img
         src="/hero-bg.webp"
         alt=""
-        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", opacity: 0.18 }}
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", opacity: 0.4 }}
       />
 
       {/* Gradient overlay */}
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, #080F1E 0%, #080F1E 42%, rgba(8,15,30,0.88) 65%, rgba(8,15,30,0.6) 100%)" }} />
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, rgba(8,15,30,0.9) 0%, rgba(8,15,30,0.78) 42%, rgba(8,15,30,0.5) 65%, rgba(8,15,30,0.25) 100%)" }} />
 
       {/* Vertical grid lines */}
       <div style={{ position: "absolute", inset: 0, backgroundImage: "repeating-linear-gradient(90deg, rgba(181,148,90,0.025) 0px, rgba(181,148,90,0.025) 1px, transparent 1px, transparent 80px)" }} />
@@ -131,7 +131,7 @@ export const Hero = () => {
             {/* Eyebrow */}
             <div className="anim-1" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
               <div style={{ width: 28, height: 1, background: "#B5945A", flexShrink: 0 }} />
-              <span style={{ fontFamily: "var(--font-ui)", fontSize: "9px", color: "rgba(181,148,90,0.9)", letterSpacing: "0.3em", textTransform: "uppercase" }}>
+              <span style={{ fontFamily: "var(--font-ui)", fontSize: "11px", color: "rgba(181,148,90,0.95)", letterSpacing: "0.3em", textTransform: "uppercase" }}>
                 Advokátska kancelária
               </span>
             </div>
@@ -164,7 +164,7 @@ export const Hero = () => {
             {/* Paragraph */}
             <p
               className="anim-4"
-              style={{ fontFamily: "var(--font-ui)", fontSize: "13px", color: "rgba(255,255,255,0.32)", lineHeight: 1.95, maxWidth: "360px", marginTop: "1.25rem" }}
+              style={{ fontFamily: "var(--font-ui)", fontSize: "15px", color: "rgba(255,255,255,0.5)", lineHeight: 1.95, maxWidth: "400px", marginTop: "1.25rem" }}
             >
               Komplexné právne služby s&nbsp;osobným prístupom
               a&nbsp;odbornosťou, ktorej môžete dôverovať.
@@ -176,8 +176,8 @@ export const Hero = () => {
               <button
                 style={{
                   fontFamily: "var(--font-ui)",
-                  fontSize: "10px",
-                  color: btnAHover ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.65)",
+                  fontSize: "12px",
+                  color: btnAHover ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.8)",
                   letterSpacing: "0.25em",
                   textTransform: "uppercase",
                   padding: "0 0 10px",
@@ -203,8 +203,8 @@ export const Hero = () => {
               <button
                 style={{
                   fontFamily: "var(--font-ui)",
-                  fontSize: "10px",
-                  color: "rgba(255,255,255,0.22)",
+                  fontSize: "12px",
+                  color: "rgba(255,255,255,0.45)",
                   letterSpacing: "0.25em",
                   textTransform: "uppercase",
                   background: "none",
@@ -218,12 +218,12 @@ export const Hero = () => {
                   padding: "0 0 10px",
                 }}
                 onMouseEnter={e => {
-                  e.currentTarget.style.color = "rgba(255,255,255,0.55)";
+                  e.currentTarget.style.color = "rgba(255,255,255,0.75)";
                   const arrow = e.currentTarget.querySelector<HTMLSpanElement>("[data-arrow]");
                   if (arrow) { arrow.style.transform = "translateX(6px)"; arrow.style.color = "#B5945A"; }
                 }}
                 onMouseLeave={e => {
-                  e.currentTarget.style.color = "rgba(255,255,255,0.22)";
+                  e.currentTarget.style.color = "rgba(255,255,255,0.45)";
                   const arrow = e.currentTarget.querySelector<HTMLSpanElement>("[data-arrow]");
                   if (arrow) { arrow.style.transform = "translateX(0)"; arrow.style.color = "inherit"; }
                 }}
