@@ -2,11 +2,10 @@
 import { useEffect, useRef, useState } from "react";
 
 const NAV_LINKS = [
-  { label: "Domov",      href: "#" },
   { label: "O nás",      href: "#o-nas" },
   { label: "Právne služby", href: "#sluzby" },
-  { label: "Referencie", href: "#referencie" },
   { label: "Kontakt",    href: "#kontakt" },
+  { label: "Referencie", href: "#referencie" },
 ];
 
 export const Navbar = () => {
@@ -103,10 +102,9 @@ export const Navbar = () => {
             <span
               style={{
                 fontFamily: "var(--font-ui)",
-                fontSize: "12px",
-                color: "rgba(255,255,255,1)",
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
+                fontSize: "17px",
+                color: "rgba(255,255,255,0.95)",
+                letterSpacing: "0.02em",
                 whiteSpace: "nowrap",
               }}
             >
@@ -148,8 +146,8 @@ export const Navbar = () => {
                   href={link.href}
                   style={{
                     fontFamily: "var(--font-ui)",
-                    fontSize: "12px",
-                    color: "rgba(255,255,255,1)",
+                    fontSize: "13px",
+                    color: "rgba(255,255,255,0.95)",
                     letterSpacing: "0.2em",
                     textTransform: "uppercase",
                     textDecoration: "none",
@@ -160,7 +158,7 @@ export const Navbar = () => {
                     e.currentTarget.style.color = "#B5945A";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.color = "rgba(255,255,255,1)";
+                    e.currentTarget.style.color = "rgba(255,255,255,0.95)";
                   }}
                 >
                   {link.label}
@@ -189,9 +187,12 @@ export const Navbar = () => {
           {isDesktop && (
             <button
               type="button"
+              onClick={() =>
+                document.getElementById("kontakt")?.scrollIntoView({ behavior: "smooth" })
+              }
               style={{
                 fontFamily: "var(--font-ui)",
-                fontSize: "11px",
+                fontSize: "12px",
                 color: "#B5945A",
                 letterSpacing: "0.25em",
                 textTransform: "uppercase",

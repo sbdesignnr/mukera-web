@@ -44,19 +44,6 @@ const SERVICES = [
     ],
   },
   {
-    id: "pracovne",
-    title: "Pracovné právo",
-    intro:
-      "Pracovné zmluvy, neplatné výpovede, diskriminácia na pracovisku a kolektívne pracovné vzťahy.",
-    detail: [
-      "Príprava a revízia pracovných zmlúv, dohôd o pracovnej činnosti a konkurenčných doložiek.",
-      "Zastupovanie pri neplatnom skončení pracovného pomeru a náhrade mzdy.",
-      "Riešenie pracovných sporov — mediácia aj súdne konanie.",
-      "Poradenstvo zamestnávateľom pri organizačných zmenách, prepúšťaní a reštrukturalizácii.",
-      "Ochrana pred diskrimináciou a obťažovaním na pracovisku.",
-    ],
-  },
-  {
     id: "rodinne",
     title: "Rodinné právo",
     intro:
@@ -67,6 +54,19 @@ const SERVICES = [
       "Úprava styku rodiča s maloletým dieťaťom a riešenie sporov o starostlivosť.",
       "Vyporiadanie bezpodielového spoluvlastníctva manželov po rozvode.",
       "Určenie a zapretie otcovstva, osvojenie a poručníctvo.",
+    ],
+  },
+  {
+    id: "pracovne",
+    title: "Pracovné právo",
+    intro:
+      "Pracovné zmluvy, neplatné výpovede, diskriminácia na pracovisku a kolektívne pracovné vzťahy.",
+    detail: [
+      "Príprava a revízia pracovných zmlúv, dohôd o pracovnej činnosti a konkurenčných doložiek.",
+      "Zastupovanie pri neplatnom skončení pracovného pomeru a náhrade mzdy.",
+      "Riešenie pracovných sporov — mediácia aj súdne konanie.",
+      "Poradenstvo zamestnávateľom pri organizačných zmenách, prepúšťaní a reštrukturalizácii.",
+      "Ochrana pred diskrimináciou a obťažovaním na pracovisku.",
     ],
   },
   {
@@ -96,8 +96,7 @@ const ICONS: Record<string, React.ReactNode> = {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.25} strokeLinecap="round" strokeLinejoin="round">
       <rect x="2" y="7" width="20" height="14" rx="2" />
       <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-      <line x1="12" y1="12" x2="12" y2="16" />
-      <line x1="10" y1="14" x2="14" y2="14" />
+      <line x1="2" y1="13" x2="22" y2="13" />
     </svg>
   ),
   obcianske: (
@@ -287,7 +286,7 @@ const Drawer = ({
           <p
             style={{
               fontFamily: "var(--font-ui)",
-              fontSize: "15px",
+              fontSize: "16px",
               color: "rgba(27,42,74,0.65)",
               lineHeight: 1.9,
               marginBottom: "2rem",
@@ -328,7 +327,7 @@ const Drawer = ({
                 <span
                   style={{
                     fontFamily: "var(--font-ui)",
-                    fontSize: "14px",
+                    fontSize: "16px",
                     color: "rgba(27,42,74,0.7)",
                     lineHeight: 1.75,
                   }}
@@ -484,7 +483,7 @@ const ServiceCard = ({
       <p
         style={{
           fontFamily: "var(--font-ui)",
-          fontSize: "14px",
+          fontSize: "16px",
           color: "rgba(27,42,74,0.6)",
           lineHeight: 1.85,
           flexGrow: 1,

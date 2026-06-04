@@ -74,7 +74,7 @@ const inputStyle: React.CSSProperties = {
   borderBottom: "0.5px solid rgba(255,255,255,0.12)",
   padding: "10px 0",
   fontFamily: "var(--font-ui)",
-  fontSize: "15px",
+  fontSize: "16px",
   color: "rgba(255,255,255,0.75)",
   outline: "none",
   width: "100%",
@@ -289,7 +289,7 @@ const ContactItem = ({
           href={href}
           style={{
             fontFamily: "var(--font-ui)",
-            fontSize: "15px",
+            fontSize: "16px",
             color: "rgba(255,255,255,0.65)",
             textDecoration: "none",
             transition: "color 250ms ease",
@@ -303,7 +303,7 @@ const ContactItem = ({
         <p
           style={{
             fontFamily: "var(--font-ui)",
-            fontSize: "15px",
+            fontSize: "16px",
             color: "rgba(255,255,255,0.65)",
           }}
         >
@@ -316,110 +316,111 @@ const ContactItem = ({
 
 // ─── Team ────────────────────────────────────────────────────────────────────
 
-// Pozn.: e-maily a tel. čísla sú zatiaľ koncepčné placeholdery —
-// klient ich neskôr nahradí reálnymi údajmi.
+// Pozn.: tel. čísla a e-maily doplní klient neskôr — zatiaľ placeholder "[doplniť]".
+const PLACEHOLDER = "[doplniť]";
+
 const TEAM = [
-  { name: "JUDr. Peter Múkera ml.",     role: "Advokát",   email: "peter.mukera.ml@mukera.sk",   phone: "+421 900 000 001" },
-  { name: "JUDr. Peter Múkera st.",     role: "Advokát",   email: "peter.mukera.st@mukera.sk",   phone: "+421 900 000 002" },
-  { name: "JUDr. Kornelia Múkerová",    role: "Advokátka", email: "kornelia.mukerova@mukera.sk", phone: "+421 900 000 003" },
-  { name: "JUDr. Sára Tarnociová, PhD.", role: "Advokátka", email: "sara.tarnociova@mukera.sk",   phone: "+421 900 000 004" },
+  { name: "JUDr. Peter Múkera ml.",      phone: PLACEHOLDER, email: PLACEHOLDER },
+  { name: "JUDr. Peter Múkera st.",      phone: PLACEHOLDER, email: PLACEHOLDER },
+  { name: "JUDr. Kornelia Múkerová",     phone: PLACEHOLDER, email: PLACEHOLDER },
+  { name: "JUDr. Sára Tarnociová, PhD.", phone: PLACEHOLDER, email: PLACEHOLDER },
 ];
 
-const TeamMember = ({
-  name,
-  role,
-  email,
-  phone,
+const TeamContact = ({
+  icon,
+  value,
+  href,
 }: {
-  name: string;
-  role: string;
-  email: string;
-  phone: string;
+  icon: React.ReactNode;
+  value: string;
+  href: string;
 }) => {
   const rowStyle: React.CSSProperties = {
     display: "flex",
     alignItems: "center",
     gap: "10px",
     fontFamily: "var(--font-ui)",
-    fontSize: "13px",
+    fontSize: "16px",
     color: "rgba(255,255,255,0.6)",
     textDecoration: "none",
     transition: "color 250ms ease",
   };
+  const iconSpan = <span style={{ color: "#B5945A", flexShrink: 0, display: "inline-flex" }}>{icon}</span>;
+
+  // Placeholder -> neklikateľný text (aby mailto:/tel: neboli rozbité)
+  if (value === PLACEHOLDER) {
+    return (
+      <span style={{ ...rowStyle, color: "rgba(255,255,255,0.4)" }}>
+        {iconSpan}
+        {value}
+      </span>
+    );
+  }
 
   return (
-    <div
-      style={{
-        background: "rgba(255,255,255,0.03)",
-        border: "0.5px solid rgba(181,148,90,0.1)",
-        padding: "1.75rem",
-        display: "flex",
-        flexDirection: "column",
-        gap: "0.6rem",
-        transition: "border-color 350ms ease, background 350ms ease",
-      }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(181,148,90,0.35)";
-        (e.currentTarget as HTMLDivElement).style.background = "rgba(255,255,255,0.05)";
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(181,148,90,0.1)";
-        (e.currentTarget as HTMLDivElement).style.background = "rgba(255,255,255,0.03)";
-      }}
+    <a
+      href={href}
+      style={rowStyle}
+      onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "#C9A96E"; }}
+      onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.6)"; }}
     >
-      {/* Role */}
-      <span
-        style={{
-          fontFamily: "var(--font-ui)",
-          fontSize: "8px",
-          color: "rgba(181,148,90,0.6)",
-          letterSpacing: "0.25em",
-          textTransform: "uppercase",
-        }}
-      >
-        {role}
-      </span>
-
-      {/* Name */}
-      <h3
-        style={{
-          fontFamily: "var(--font-heading)",
-          fontWeight: 300,
-          fontSize: "1.45rem",
-          color: "white",
-          lineHeight: 1.2,
-        }}
-      >
-        {name}
-      </h3>
-
-      {/* Gold rule */}
-      <div style={{ width: 28, height: "1px", background: "rgba(181,148,90,0.4)", margin: "0.25rem 0 0.5rem" }} />
-
-      {/* E-mail */}
-      <a
-        href={`mailto:${email}`}
-        style={rowStyle}
-        onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "#C9A96E"; }}
-        onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.6)"; }}
-      >
-        <span style={{ color: "#B5945A", flexShrink: 0, display: "inline-flex" }}><IconMail /></span>
-        {email}
-      </a>
-
-      {/* Telefón */}
-      <a
-        href={`tel:${phone.replace(/\s/g, "")}`}
-        style={rowStyle}
-        onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "#C9A96E"; }}
-        onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.6)"; }}
-      >
-        <span style={{ color: "#B5945A", flexShrink: 0, display: "inline-flex" }}><IconPhone /></span>
-        {phone}
-      </a>
-    </div>
+      {iconSpan}
+      {value}
+    </a>
   );
 };
+
+const TeamMember = ({
+  name,
+  phone,
+  email,
+}: {
+  name: string;
+  phone: string;
+  email: string;
+}) => (
+  <div
+    style={{
+      background: "rgba(255,255,255,0.03)",
+      border: "0.5px solid rgba(181,148,90,0.1)",
+      padding: "1.75rem",
+      display: "flex",
+      flexDirection: "column",
+      gap: "0.6rem",
+      transition: "border-color 350ms ease, background 350ms ease",
+    }}
+    onMouseEnter={(e) => {
+      (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(181,148,90,0.35)";
+      (e.currentTarget as HTMLDivElement).style.background = "rgba(255,255,255,0.05)";
+    }}
+    onMouseLeave={(e) => {
+      (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(181,148,90,0.1)";
+      (e.currentTarget as HTMLDivElement).style.background = "rgba(255,255,255,0.03)";
+    }}
+  >
+    {/* Name */}
+    <h3
+      style={{
+        fontFamily: "var(--font-heading)",
+        fontWeight: 300,
+        fontSize: "1.5rem",
+        color: "rgba(255,255,255,0.95)",
+        lineHeight: 1.2,
+      }}
+    >
+      {name}
+    </h3>
+
+    {/* Gold rule */}
+    <div style={{ width: 28, height: "1px", background: "rgba(181,148,90,0.4)", margin: "0.25rem 0 0.6rem" }} />
+
+    {/* Telefón — najprv */}
+    <TeamContact icon={<IconPhone />} value={phone} href={`tel:${phone.replace(/\s/g, "")}`} />
+
+    {/* E-mail — potom */}
+    <TeamContact icon={<IconMail />} value={email} href={`mailto:${email}`} />
+  </div>
+);
 
 // ─── Section ─────────────────────────────────────────────────────────────────
 
@@ -493,6 +494,64 @@ export const Contact = () => {
           }}
         >
           IUS
+        </div>
+
+        {/* ── Advokátsky tím ── */}
+        <div
+          ref={teamRef}
+          style={{
+            maxWidth: "1200px",
+            margin: "0 auto",
+            marginBottom: "clamp(3.5rem, 7vw, 6rem)",
+            position: "relative",
+            opacity: teamVisible ? 1 : 0,
+            transform: teamVisible ? "translateY(0)" : "translateY(24px)",
+            transition: "opacity 0.8s ease, transform 0.8s ease",
+          }}
+        >
+          {/* Kicker */}
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "1rem" }}>
+            <div style={{ width: 28, height: "0.5px", background: "rgba(181,148,90,0.5)" }} />
+            <span
+              style={{
+                fontFamily: "var(--font-ui)",
+                fontSize: "9px",
+                color: "#B5945A",
+                letterSpacing: "0.35em",
+                textTransform: "uppercase",
+              }}
+            >
+              Advokátsky tím
+            </span>
+          </div>
+
+          {/* Heading */}
+          <h2
+            style={{
+              fontFamily: "var(--font-heading)",
+              fontWeight: 300,
+              fontSize: "clamp(1.9rem, 3.5vw, 3.2rem)",
+              color: "rgba(255,255,255,0.95)",
+              lineHeight: 1.1,
+              marginBottom: "2.25rem",
+            }}
+          >
+            Náš skúsený{" "}
+            <em style={{ fontStyle: "italic", color: "#C9A96E" }}>advokátsky tím</em>
+          </h2>
+
+          {/* Cards */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))",
+              gap: "1.25rem",
+            }}
+          >
+            {TEAM.map((member) => (
+              <TeamMember key={member.name} {...member} />
+            ))}
+          </div>
         </div>
 
         <div
@@ -662,47 +721,6 @@ export const Contact = () => {
           </div>
         </div>
 
-        {/* ── Advokátsky tím ── */}
-        <div
-          ref={teamRef}
-          style={{
-            maxWidth: "1200px",
-            margin: "clamp(3.5rem, 7vw, 6rem) auto 0",
-            position: "relative",
-            opacity: teamVisible ? 1 : 0,
-            transform: teamVisible ? "translateY(0)" : "translateY(24px)",
-            transition: "opacity 0.8s ease, transform 0.8s ease",
-          }}
-        >
-          {/* Kicker */}
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "1.75rem" }}>
-            <div style={{ width: 28, height: "0.5px", background: "rgba(181,148,90,0.5)" }} />
-            <span
-              style={{
-                fontFamily: "var(--font-ui)",
-                fontSize: "9px",
-                color: "#B5945A",
-                letterSpacing: "0.35em",
-                textTransform: "uppercase",
-              }}
-            >
-              Advokátsky tím
-            </span>
-          </div>
-
-          {/* Cards */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))",
-              gap: "1.25rem",
-            }}
-          >
-            {TEAM.map((member) => (
-              <TeamMember key={member.email} {...member} />
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* ── Footer ── */}

@@ -14,9 +14,9 @@ export default function Home() {
       <div id="o-nas" />
       <About />
       <Services />
-      <Faq />
-      <Reviews />
       <Contact />
+      <Reviews />
+      <Faq />
     </main>
   );
 }

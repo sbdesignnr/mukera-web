@@ -133,8 +133,8 @@ const FaqItem = ({
           <p
             style={{
               fontFamily: "var(--font-ui)",
-              fontSize: "15px",
-              color: "rgba(255,255,255,0.5)",
+              fontSize: "16px",
+              color: "rgba(255,255,255,0.55)",
               lineHeight: 1.95,
               paddingBottom: "1.6rem",
               paddingRight: "2.5rem",

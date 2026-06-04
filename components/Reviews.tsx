@@ -230,7 +230,7 @@ export const Reviews = () => {
           <p
             style={{
               fontFamily: "var(--font-ui)",
-              fontSize: "15px",
+              fontSize: "16px",
               color: "rgba(27,42,74,0.5)",
               lineHeight: 1.7,
               maxWidth: "460px",

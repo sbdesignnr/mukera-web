@@ -6,9 +6,8 @@ import { ShimmerText } from "./ShimmerText";
 // ─── Stats counter ────────────────────────────────────────────────────────────
 
 const STATS = [
-  { end: 15,  suffix: "+", label: "Rokov praxe" },
-  { end: 500, suffix: "+", label: "Klientov" },
-  { end: 6,   suffix: "",  label: "Právnych oblastí" },
+  { end: 25,  suffix: "+", label: "Rokov praxe" },
+  { end: 500, suffix: "+", label: "Spokojných klientov" },
 ];
 
 const useCounter = (end: number, duration: number, started: boolean) => {
@@ -44,10 +43,10 @@ const StatRow = ({ stat }: { stat: (typeof STATS)[number] }) => {
   const count = useCounter(stat.end, 2000, started);
   return (
     <div ref={ref} style={{ textAlign: "right" }}>
-      <div style={{ fontFamily: "var(--font-heading)", fontSize: "38px", fontWeight: 300, color: "rgba(255,255,255,0.7)", lineHeight: 1 }}>
+      <div style={{ fontFamily: "var(--font-heading)", fontSize: "52px", fontWeight: 300, color: "rgba(255,255,255,0.95)", lineHeight: 1 }}>
         {count}{stat.suffix}
       </div>
-      <div style={{ fontFamily: "var(--font-ui)", fontSize: "9px", color: "rgba(181,148,90,0.75)", letterSpacing: "0.18em", textTransform: "uppercase", marginTop: "4px" }}>
+      <div style={{ fontFamily: "var(--font-ui)", fontSize: "11px", color: "rgba(255,255,255,0.95)", letterSpacing: "0.18em", textTransform: "uppercase", marginTop: "6px" }}>
         {stat.label}
       </div>
     </div>
@@ -164,7 +163,7 @@ export const Hero = () => {
             {/* Paragraph */}
             <p
               className="anim-4"
-              style={{ fontFamily: "var(--font-ui)", fontSize: "15px", color: "rgba(255,255,255,0.5)", lineHeight: 1.95, maxWidth: "400px", marginTop: "1.25rem" }}
+              style={{ fontFamily: "var(--font-ui)", fontSize: "16px", color: "rgba(255,255,255,0.55)", lineHeight: 1.95, maxWidth: "420px", marginTop: "1.25rem" }}
             >
               Komplexné právne služby s&nbsp;osobným prístupom
               a&nbsp;odbornosťou, ktorej môžete dôverovať.
