@@ -173,6 +173,8 @@ export const Hero = () => {
             <div className="anim-5" style={{ display: "flex", alignItems: "flex-end", gap: "36px", marginTop: "2.5rem", flexWrap: "wrap" }}>
               {/* Primary */}
               <button
+                type="button"
+                onClick={() => document.getElementById("kontakt")?.scrollIntoView({ behavior: "smooth" })}
                 style={{
                   fontFamily: "var(--font-ui)",
                   fontSize: "12px",
@@ -200,6 +202,8 @@ export const Hero = () => {
 
               {/* Secondary */}
               <button
+                type="button"
+                onClick={() => document.getElementById("sluzby")?.scrollIntoView({ behavior: "smooth" })}
                 style={{
                   fontFamily: "var(--font-ui)",
                   fontSize: "12px",
