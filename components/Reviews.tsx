@@ -2,39 +2,73 @@
 
 import { useEffect, useRef, useState } from "react";
 
-// ─── Data ────────────────────────────────────────────────────────────────────
+// ─── Data — skutočné Google recenzie (všetky 5★) ──────────────────────────────
 
 const REVIEWS = [
   {
-    text: "Prístup pána doktora Múkeru bol od prvej chvíle vysoko profesionálny. Prípad vyriešil k našej maximálnej spokojnosti a ušetril nám nemalé finančné prostriedky i čas.",
-    author: "Konateľ stavebnej spoločnosti",
-    area: "Obchodné právo",
+    author: "Monika Sidorová",
+    text: "Chcem sa podeliť o skvelú skúsenosť so službami pána právnika Múkeru. Pomohol mi so založením, resp. prevzatím už existujúcej s.r.o, pripravil všetky potrebné dokumenty, vysvetlil celý proces. Všetko išlo hladko, rýchlo a bezproblémovo.",
   },
   {
-    text: "Oceňujem najmä absolútnu diskrétnosť a rýchlosť, s akou bola naša zmluvná dokumentácia pripravená. Advokátsku kanceláriu určite odporúčam každému podnikateľovi.",
-    author: "Zahraničný investor",
-    area: "Nehnuteľnosti a zmluvy",
+    author: "Nino Gál",
+    text: "Maximálna spokojnosť. Profesionálny, skúsený a veľmi ochotný právnik, ktorý sa naozaj venuje klientovi. Komunikácia bola rýchla a jasná, výsledok nad moje očakávania. Ak hľadáte spoľahlivého právnika, určite odporúčam.",
   },
   {
-    text: "Konečne advokát, ktorý hovorí ľudskou rečou a neskrýva sa len za zložité paragrafy. Veľmi mi pomohli pri riešení náročného a citlivého dedičského konania.",
-    author: "M. S., Banská Bystrica",
-    area: "Občianske právo",
+    author: "Miso Miso",
+    text: "Moja skúsenosť bola pozitívna a nebol žiadny problém. So službami som bol nadmieru spokojný a môžem doporučiť pána advokáta.",
+  },
+  {
+    author: "Eva Halajová",
+    text: "Veľmi milý a ústretový pán advokát. Po stretnutí s ním som získala úplne iný pohľad na náš problém. Veľmi pekne mu za to ďakujem.",
+  },
+  {
+    author: "Miroslav Švec",
+    text: "Chcem sa srdečne poďakovať a zároveň odporučiť právnika JUDr. Petra Múkeru, s ktorým som mal tú česť spolupracovať. Bol som nadmieru spokojný – jeho prístup bol profesionálny, rýchly a mimoriadne ústretový.",
+  },
+  {
+    author: "Peter Pochyba",
+    text: "Môžem len odporučiť. Pán JUDr. Peter Múkera ml. mi všetko dopodrobna vysvetlil, ako mám postupovať. Jeho právna pomoc mi veľmi pomohla, oceňujem aj ľudský prístup. Ďakujem.",
+  },
+  {
+    author: "Michal M",
+    text: "Vynikajúci pán advokát. Doporučujem využiť jeho profesionálne právne služby.",
+  },
+  {
+    author: "Alina Malčeková",
+    text: "Ďakujem za poradu a ochotný prístup v riešení mojej otázky.",
+  },
+  {
+    author: "Peter Havran",
+    text: "Môžem len odporučiť. Veľká spokojnosť po všetkých stránkach.",
+  },
+  {
+    author: "Miroslav Vavra",
+    text: "Profesionalita, príjemné a ľudské vystupovanie, dobrá komunikácia, rozhodne odporúčam.",
+  },
+  {
+    author: "Sara Tarnociova",
+    text: "Oceňujem vysokoprofesionálny prístup pána doktora JUDr. Petra Múkeru ml. a zároveň príjemné prostredie tejto rodinnej advokátskej kancelárie.",
+  },
+  {
+    author: "Alexander Vegso",
+    text: "Poradil správne a načas, úplna spokojnosť.",
   },
 ];
 
-// ─── Gold quote mark SVG ─────────────────────────────────────────────────────
+// ─── 5-star rating ─────────────────────────────────────────────────────────────
 
-const QuoteMark = () => (
-  <svg
-    width="32"
-    height="24"
-    viewBox="0 0 32 24"
-    fill="#B5945A"
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden="true"
+const Stars = () => (
+  <div
+    style={{ display: "flex", gap: "3px" }}
+    role="img"
+    aria-label="Hodnotenie 5 z 5 hviezdičiek"
   >
-    <path d="M0 24V14.4C0 10.08 1.04 6.6 3.12 3.96 5.28 1.32 8.44 0 12.6 0v4.08c-2.24.24-3.92 1.12-5.04 2.64C6.44 8.24 5.88 10 5.88 12h4.44V24H0zm18.96 0V14.4c0-4.32 1.04-7.8 3.12-10.44C24.24 1.32 27.4 0 31.56 0v4.08c-2.24.24-3.92 1.12-5.04 2.64-1.12 1.52-1.68 3.28-1.68 5.28h4.44V24H18.96z" />
-  </svg>
+    {Array.from({ length: 5 }).map((_, i) => (
+      <svg key={i} width="15" height="15" viewBox="0 0 24 24" fill="#B5945A" aria-hidden="true">
+        <path d="M12 2l2.94 5.96 6.58.96-4.76 4.64 1.12 6.55L12 17.77l-5.88 3.09 1.12-6.55L2.48 8.92l6.58-.96L12 2z" />
+      </svg>
+    ))}
+  </div>
 );
 
 // ─── Single card ─────────────────────────────────────────────────────────────
@@ -48,6 +82,7 @@ const ReviewCard = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [hover, setHover] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -59,7 +94,7 @@ const ReviewCard = ({
           observer.disconnect();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -68,25 +103,31 @@ const ReviewCard = ({
   return (
     <div
       ref={ref}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
       style={{
-        background: "#F8F7F4",
-        border: "0.5px solid rgba(27,42,74,0.07)",
-        padding: "clamp(2rem, 4vw, 2.5rem)",
+        background: "#0A1628",
+        border: hover
+          ? "0.5px solid rgba(181,148,90,0.4)"
+          : "0.5px solid rgba(181,148,90,0.16)",
+        padding: "clamp(1.75rem, 3vw, 2.25rem)",
         display: "flex",
         flexDirection: "column",
-        /* Snap scroll on mobile */
-        scrollSnapAlign: "center",
-        flexShrink: 0,
-        /* Reveal */
+        boxShadow: hover
+          ? "0 24px 60px rgba(0,0,0,0.45)"
+          : "0 8px 30px rgba(0,0,0,0.25)",
+        /* Reveal + hover lift */
         opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(24px)",
-        transition: `opacity 0.75s ease ${index * 120}ms, transform 0.75s ease ${index * 120}ms`,
+        transform: visible
+          ? hover
+            ? "translateY(-4px)"
+            : "translateY(0)"
+          : "translateY(24px)",
+        transition: `opacity 0.7s ease ${Math.min(index * 60, 500)}ms, transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.4s ease, border-color 0.4s ease`,
       }}
     >
-      {/* Quote mark */}
-      <div style={{ marginBottom: "1.5rem" }}>
-        <QuoteMark />
-      </div>
+      {/* Stars — všetci 5★ */}
+      <Stars />
 
       {/* Review text */}
       <p
@@ -94,10 +135,10 @@ const ReviewCard = ({
           fontFamily: "var(--font-heading)",
           fontStyle: "italic",
           fontWeight: 300,
-          fontSize: "clamp(1.1rem, 1.5vw, 1.3rem)",
-          color: "#2C3E50",
-          lineHeight: 1.8,
-          flexGrow: 1,
+          fontSize: "clamp(1.05rem, 1.2vw, 1.2rem)",
+          color: "rgba(255,255,255,0.9)",
+          lineHeight: 1.75,
+          marginTop: "1.25rem",
         }}
       >
         {review.text}
@@ -106,38 +147,24 @@ const ReviewCard = ({
       {/* Gold divider */}
       <div
         style={{
-          width: "44px",
+          width: "40px",
           height: "0.5px",
-          background: "#B5945A",
-          margin: "1.75rem 0",
+          background: "rgba(181,148,90,0.5)",
+          margin: "1.5rem 0 1rem",
         }}
       />
 
-      {/* Author */}
-      <div>
-        <p
-          style={{
-            fontFamily: "var(--font-ui)",
-            fontSize: "9px",
-            color: "#1B2A4A",
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            marginBottom: "5px",
-          }}
-        >
-          {review.author}
-        </p>
-        <p
-          style={{
-            fontFamily: "var(--font-ui)",
-            fontSize: "10px",
-            color: "rgba(181,148,90,0.75)",
-            letterSpacing: "0.1em",
-          }}
-        >
-          {review.area}
-        </p>
-      </div>
+      {/* Author — meno zlatou farbou */}
+      <p
+        style={{
+          fontFamily: "var(--font-ui)",
+          fontSize: "14px",
+          color: "#C9A96E",
+          letterSpacing: "0.06em",
+        }}
+      >
+        {review.author}
+      </p>
     </div>
   );
 };
@@ -168,8 +195,8 @@ export const Reviews = () => {
     <section
       id="referencie"
       style={{
-        background: "#FFFFFF",
-        borderTop: "0.5px solid rgba(27,42,74,0.06)",
+        background: "#080F1E",
+        borderTop: "0.5px solid rgba(181,148,90,0.12)",
         padding: "clamp(4rem, 8vw, 7rem) clamp(1.5rem, 6vw, 6rem)",
         overflow: "hidden",
       }}
@@ -217,13 +244,13 @@ export const Reviews = () => {
               fontFamily: "var(--font-heading)",
               fontWeight: 300,
               fontSize: "clamp(1.9rem, 3.5vw, 3.2rem)",
-              color: "#1B2A4A",
+              color: "rgba(255,255,255,0.95)",
               lineHeight: 1.15,
               marginBottom: "1rem",
             }}
           >
             Dôvera, ktorá{" "}
-            <em style={{ fontStyle: "italic", color: "#B5945A" }}>hovorí za všetko.</em>
+            <em style={{ fontStyle: "italic", color: "#C9A96E" }}>hovorí za všetko.</em>
           </h2>
 
           {/* Subtitle */}
@@ -231,47 +258,24 @@ export const Reviews = () => {
             style={{
               fontFamily: "var(--font-ui)",
               fontSize: "16px",
-              color: "rgba(27,42,74,0.5)",
+              color: "rgba(255,255,255,0.5)",
               lineHeight: 1.7,
-              maxWidth: "460px",
+              maxWidth: "480px",
               margin: "0 auto",
             }}
           >
-            Diskrétnosť je pre nás kľúčová. Tu sú ohlasy klientov,
-            ktorých sme úspešne zastupovali.
+            Skutočné ohlasy klientov, ktorých sme mali tú česť zastupovať.
           </p>
         </div>
 
         {/*
-          Cards container:
-          - Mobile: horizontal snap-scroll (overflow-x: auto, snap)
-          - Desktop (>= 768px): plain 3-column grid via CSS media query class
-          The inline style handles the mobile default; the className adds
-          the desktop grid override via a global CSS rule added to globals.css.
+          Cards — masonry stĺpce (premium „wall of testimonials"):
+          1 stĺpec na mobile, 2 na tablete, 3 na desktope.
+          Layout riadia .reviews-grid / .review-card-wrapper triedy v globals.css.
         */}
-        <div
-          className="reviews-grid"
-          style={{
-            display: "flex",
-            overflowX: "auto",
-            gap: "1.5rem",
-            scrollSnapType: "x mandatory",
-            paddingBottom: "0.5rem",
-            /* Hide scrollbar — covered by .reviews-grid CSS in globals.css */
-            msOverflowStyle: "none" as React.CSSProperties["msOverflowStyle"],
-            scrollbarWidth: "none" as React.CSSProperties["scrollbarWidth"],
-          }}
-        >
+        <div className="reviews-grid">
           {REVIEWS.map((review, i) => (
-            <div
-              key={i}
-              style={{
-                /* Mobile: card takes 85vw so the next peeks */
-                minWidth: "min(85vw, 320px)",
-                flex: "1 0 min(85vw, 320px)",
-              }}
-              className="review-card-wrapper"
-            >
+            <div key={i} className="review-card-wrapper">
               <ReviewCard review={review} index={i} />
             </div>
           ))}
@@ -282,7 +286,7 @@ export const Reviews = () => {
           style={{
             marginTop: "3.5rem",
             paddingTop: "2rem",
-            borderTop: "0.5px solid rgba(27,42,74,0.06)",
+            borderTop: "0.5px solid rgba(255,255,255,0.06)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -294,12 +298,12 @@ export const Reviews = () => {
             style={{
               fontFamily: "var(--font-ui)",
               fontSize: "9px",
-              color: "rgba(27,42,74,0.3)",
+              color: "rgba(255,255,255,0.4)",
               letterSpacing: "0.25em",
               textTransform: "uppercase",
             }}
           >
-            Všetky recenzie sú anonymizované z dôvodu ochrany súkromia
+            Recenzie našich klientov z Google
           </span>
           <div style={{ width: 24, height: "0.5px", background: "rgba(181,148,90,0.3)" }} />
         </div>

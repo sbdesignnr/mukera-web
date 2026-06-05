@@ -108,19 +108,19 @@ html {
   .hero-grid { grid-template-columns: 1fr !important; }
 }
 
-/* Reviews section — hide scrollbar on all browsers */
-.reviews-grid::-webkit-scrollbar { display: none; }
-
-/* Reviews section — desktop: switch from horizontal scroll to 3-col grid */
-@media (min-width: 768px) {
-  .reviews-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr);
-    overflow-x: visible;
-    scroll-snap-type: none;
-  }
-  .review-card-wrapper {
-    min-width: 0 !important;
-    flex: none !important;
-  }
+/* Reviews — masonry stĺpce (premium wall of testimonials) */
+.reviews-grid {
+  column-count: 1;
+  column-gap: 1.5rem;
+}
+@media (min-width: 640px) {
+  .reviews-grid { column-count: 2; }
+}
+@media (min-width: 1024px) {
+  .reviews-grid { column-count: 3; }
+}
+.review-card-wrapper {
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  margin-bottom: 1.5rem;
 }

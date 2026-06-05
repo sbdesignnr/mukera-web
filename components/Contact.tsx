@@ -669,7 +669,7 @@ export const Contact = () => {
               </span>
             </div>
 
-            {/* Map iframe — dark filter applied inline */}
+            {/* Map iframe — štandardné farebné Google Maps */}
             <div
               style={{
                 width: "100%",
@@ -688,7 +688,6 @@ export const Contact = () => {
                   border: "none",
                   position: "absolute",
                   inset: 0,
-                  filter: "grayscale(100%) invert(92%) contrast(83%) brightness(0.9)",
                 }}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
