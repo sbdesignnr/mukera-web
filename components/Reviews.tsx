@@ -55,126 +55,87 @@ const REVIEWS = [
   },
 ];
 
+const AUTOPLAY_MS = 6000;
+
 // ─── 5-star rating ─────────────────────────────────────────────────────────────
 
 const Stars = () => (
   <div
-    style={{ display: "flex", gap: "3px" }}
+    style={{ display: "flex", gap: "4px" }}
     role="img"
     aria-label="Hodnotenie 5 z 5 hviezdičiek"
   >
     {Array.from({ length: 5 }).map((_, i) => (
-      <svg key={i} width="15" height="15" viewBox="0 0 24 24" fill="#B5945A" aria-hidden="true">
+      <svg key={i} width="17" height="17" viewBox="0 0 24 24" fill="#B5945A" aria-hidden="true">
         <path d="M12 2l2.94 5.96 6.58.96-4.76 4.64 1.12 6.55L12 17.77l-5.88 3.09 1.12-6.55L2.48 8.92l6.58-.96L12 2z" />
       </svg>
     ))}
   </div>
 );
 
-// ─── Single card ─────────────────────────────────────────────────────────────
+// ─── Arrow icon ──────────────────────────────────────────────────────────────
 
-const ReviewCard = ({
-  review,
-  index,
+const Chevron = ({ dir }: { dir: "left" | "right" }) => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+    {dir === "left" ? <polyline points="15 18 9 12 15 6" /> : <polyline points="9 18 15 12 9 6" />}
+  </svg>
+);
+
+// ─── Arrow button ──────────────────────────────────────────────────────────────
+
+const ArrowButton = ({
+  dir,
+  onClick,
+  label,
 }: {
-  review: (typeof REVIEWS)[number];
-  index: number;
-}) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  const [hover, setHover] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      style={{
-        background: "#0A1628",
-        border: hover
-          ? "0.5px solid rgba(181,148,90,0.4)"
-          : "0.5px solid rgba(181,148,90,0.16)",
-        padding: "clamp(1.75rem, 3vw, 2.25rem)",
-        display: "flex",
-        flexDirection: "column",
-        boxShadow: hover
-          ? "0 24px 60px rgba(0,0,0,0.45)"
-          : "0 8px 30px rgba(0,0,0,0.25)",
-        /* Reveal + hover lift */
-        opacity: visible ? 1 : 0,
-        transform: visible
-          ? hover
-            ? "translateY(-4px)"
-            : "translateY(0)"
-          : "translateY(24px)",
-        transition: `opacity 0.7s ease ${Math.min(index * 60, 500)}ms, transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.4s ease, border-color 0.4s ease`,
-      }}
-    >
-      {/* Stars — všetci 5★ */}
-      <Stars />
-
-      {/* Review text */}
-      <p
-        style={{
-          fontFamily: "var(--font-heading)",
-          fontStyle: "italic",
-          fontWeight: 300,
-          fontSize: "clamp(1.05rem, 1.2vw, 1.2rem)",
-          color: "rgba(255,255,255,0.9)",
-          lineHeight: 1.75,
-          marginTop: "1.25rem",
-        }}
-      >
-        {review.text}
-      </p>
-
-      {/* Gold divider */}
-      <div
-        style={{
-          width: "40px",
-          height: "0.5px",
-          background: "rgba(181,148,90,0.5)",
-          margin: "1.5rem 0 1rem",
-        }}
-      />
-
-      {/* Author — meno zlatou farbou */}
-      <p
-        style={{
-          fontFamily: "var(--font-ui)",
-          fontSize: "14px",
-          color: "#C9A96E",
-          letterSpacing: "0.06em",
-        }}
-      >
-        {review.author}
-      </p>
-    </div>
-  );
-};
+  dir: "left" | "right";
+  onClick: () => void;
+  label: string;
+}) => (
+  <button
+    type="button"
+    onClick={onClick}
+    aria-label={label}
+    style={{
+      width: "46px",
+      height: "46px",
+      flexShrink: 0,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      background: "none",
+      border: "0.5px solid rgba(181,148,90,0.3)",
+      color: "rgba(255,255,255,0.7)",
+      cursor: "pointer",
+      transition: "border-color 300ms ease, color 300ms ease, background 300ms ease",
+    }}
+    onMouseEnter={(e) => {
+      e.currentTarget.style.borderColor = "#B5945A";
+      e.currentTarget.style.color = "#C9A96E";
+      e.currentTarget.style.background = "rgba(181,148,90,0.08)";
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.borderColor = "rgba(181,148,90,0.3)";
+      e.currentTarget.style.color = "rgba(255,255,255,0.7)";
+      e.currentTarget.style.background = "none";
+    }}
+  >
+    <Chevron dir={dir} />
+  </button>
+);
 
 // ─── Section ─────────────────────────────────────────────────────────────────
 
 export const Reviews = () => {
+  const count = REVIEWS.length;
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [reduced, setReduced] = useState(false);
+
   const headerRef = useRef<HTMLDivElement>(null);
   const [headerVisible, setHeaderVisible] = useState(false);
 
+  // Header reveal
   useEffect(() => {
     const el = headerRef.current;
     if (!el) return;
@@ -191,6 +152,29 @@ export const Reviews = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Respect prefers-reduced-motion (no autoplay / no transitions)
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduced(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setReduced(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  // Autoplay — re-arms on every active change; pauses on hover/focus
+  useEffect(() => {
+    if (paused || reduced || count <= 1) return;
+    const id = setTimeout(() => setActive((a) => (a + 1) % count), AUTOPLAY_MS);
+    return () => clearTimeout(id);
+  }, [active, paused, reduced, count]);
+
+  const go = (dir: number) => setActive((a) => (a + dir + count) % count);
+
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowLeft") go(-1);
+    else if (e.key === "ArrowRight") go(1);
+  };
+
   return (
     <section
       id="referencie"
@@ -201,13 +185,13 @@ export const Reviews = () => {
         overflow: "hidden",
       }}
     >
-      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+      <div style={{ maxWidth: "980px", margin: "0 auto" }}>
         {/* Header */}
         <div
           ref={headerRef}
           style={{
             textAlign: "center",
-            marginBottom: "3.5rem",
+            marginBottom: "clamp(2.5rem, 5vw, 3.5rem)",
             opacity: headerVisible ? 1 : 0,
             transform: headerVisible ? "translateY(0)" : "translateY(24px)",
             transition: "opacity 0.8s ease, transform 0.8s ease",
@@ -268,23 +252,161 @@ export const Reviews = () => {
           </p>
         </div>
 
-        {/*
-          Cards — masonry stĺpce (premium „wall of testimonials"):
-          1 stĺpec na mobile, 2 na tablete, 3 na desktope.
-          Layout riadia .reviews-grid / .review-card-wrapper triedy v globals.css.
-        */}
-        <div className="reviews-grid">
-          {REVIEWS.map((review, i) => (
-            <div key={i} className="review-card-wrapper">
-              <ReviewCard review={review} index={i} />
+        {/* ── Carousel ── */}
+        <div
+          className="reviews-carousel"
+          role="group"
+          aria-roledescription="carousel"
+          aria-label="Recenzie klientov"
+          tabIndex={0}
+          onKeyDown={onKeyDown}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onFocusCapture={() => setPaused(true)}
+          onBlurCapture={() => setPaused(false)}
+          style={{ position: "relative" }}
+        >
+          {/* Slides — všetky v jednej grid bunke (crossfade, konzistentná výška) */}
+          <div style={{ display: "grid" }}>
+            {REVIEWS.map((review, i) => {
+              const isActive = i === active;
+              return (
+                <article
+                  key={i}
+                  aria-hidden={!isActive}
+                  aria-roledescription="slide"
+                  aria-label={`${i + 1} z ${count}`}
+                  style={{
+                    gridArea: "1 / 1",
+                    background: "#0A1628",
+                    border: "0.5px solid rgba(181,148,90,0.18)",
+                    boxShadow: "0 30px 80px rgba(0,0,0,0.4)",
+                    padding: "clamp(2.5rem, 5vw, 4rem)",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    position: "relative",
+                    overflow: "hidden",
+                    opacity: isActive ? 1 : 0,
+                    transform: isActive ? "translateY(0)" : "translateY(14px)",
+                    pointerEvents: isActive ? "auto" : "none",
+                    transition: reduced
+                      ? "none"
+                      : "opacity 0.7s ease, transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94)",
+                  }}
+                >
+                  {/* Decorative quote watermark */}
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      position: "absolute",
+                      top: "-0.5rem",
+                      left: "1.5rem",
+                      fontFamily: "var(--font-heading)",
+                      fontSize: "clamp(6rem, 13vw, 9rem)",
+                      lineHeight: 1,
+                      color: "rgba(181,148,90,0.08)",
+                      pointerEvents: "none",
+                      userSelect: "none",
+                    }}
+                  >
+                    &ldquo;
+                  </span>
+
+                  {/* Stars */}
+                  <Stars />
+
+                  {/* Quote */}
+                  <p
+                    style={{
+                      fontFamily: "var(--font-heading)",
+                      fontStyle: "italic",
+                      fontWeight: 300,
+                      fontSize: "clamp(1.25rem, 2.2vw, 1.85rem)",
+                      color: "rgba(255,255,255,0.92)",
+                      lineHeight: 1.6,
+                      maxWidth: "680px",
+                      marginTop: "1.75rem",
+                      position: "relative",
+                    }}
+                  >
+                    {review.text}
+                  </p>
+
+                  {/* Gold divider */}
+                  <div
+                    style={{
+                      width: "44px",
+                      height: "0.5px",
+                      background: "rgba(181,148,90,0.5)",
+                      margin: "clamp(1.5rem, 3vw, 2rem) 0 1.25rem",
+                    }}
+                  />
+
+                  {/* Author — zlatou farbou */}
+                  <p
+                    style={{
+                      fontFamily: "var(--font-ui)",
+                      fontSize: "15px",
+                      color: "#C9A96E",
+                      letterSpacing: "0.08em",
+                    }}
+                  >
+                    {review.author}
+                  </p>
+                </article>
+              );
+            })}
+          </div>
+
+          {/* Controls */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "clamp(1rem, 3vw, 1.75rem)",
+              marginTop: "clamp(2rem, 4vw, 2.75rem)",
+            }}
+          >
+            <ArrowButton dir="left" onClick={() => go(-1)} label="Predchádzajúca recenzia" />
+
+            {/* Dots */}
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap", justifyContent: "center" }}>
+              {REVIEWS.map((_, i) => {
+                const isActive = i === active;
+                return (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => setActive(i)}
+                    aria-label={`Zobraziť recenziu ${i + 1}`}
+                    aria-current={isActive}
+                    style={{
+                      width: isActive ? "24px" : "7px",
+                      height: "7px",
+                      padding: 0,
+                      border: "none",
+                      borderRadius: "4px",
+                      background: isActive ? "#B5945A" : "rgba(181,148,90,0.28)",
+                      cursor: "pointer",
+                      transition: "width 350ms ease, background 350ms ease",
+                    }}
+                  />
+                );
+              })}
             </div>
-          ))}
+
+            <ArrowButton dir="right" onClick={() => go(1)} label="Nasledujúca recenzia" />
+          </div>
         </div>
 
         {/* Bottom signature line */}
         <div
           style={{
-            marginTop: "3.5rem",
+            marginTop: "clamp(2.5rem, 5vw, 3.5rem)",
             paddingTop: "2rem",
             borderTop: "0.5px solid rgba(255,255,255,0.06)",
             display: "flex",

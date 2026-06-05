@@ -108,19 +108,9 @@ html {
   .hero-grid { grid-template-columns: 1fr !important; }
 }
 
-/* Reviews — masonry stĺpce (premium wall of testimonials) */
-.reviews-grid {
-  column-count: 1;
-  column-gap: 1.5rem;
-}
-@media (min-width: 640px) {
-  .reviews-grid { column-count: 2; }
-}
-@media (min-width: 1024px) {
-  .reviews-grid { column-count: 3; }
-}
-.review-card-wrapper {
-  break-inside: avoid;
-  -webkit-column-break-inside: avoid;
-  margin-bottom: 1.5rem;
+/* Reviews carousel — focus ring len pri klávesovej navigácii */
+.reviews-carousel { outline: none; }
+.reviews-carousel:focus-visible {
+  outline: 0.5px solid rgba(181,148,90,0.4);
+  outline-offset: 4px;
 }
