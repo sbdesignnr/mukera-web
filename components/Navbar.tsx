@@ -68,17 +68,15 @@ export const Navbar = () => {
 
   const monogramStyle: React.CSSProperties = {
     fontFamily: "var(--font-heading)",
-    fontSize: "19px",
-    fontWeight: 300,
+    fontSize: "34px",
+    fontWeight: 500,
     color: "#B5945A",
-    border: "0.5px solid rgba(181,148,90,0.4)",
-    width: "38px",
-    height: "38px",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     flexShrink: 0,
-    letterSpacing: "-0.01em",
+    letterSpacing: "-0.05em",
+    lineHeight: 1,
   };
 
   return (
@@ -101,20 +99,23 @@ export const Navbar = () => {
           <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
             <span
               style={{
-                fontFamily: "var(--font-ui)",
-                fontSize: "17px",
-                color: "rgba(255,255,255,0.95)",
-                letterSpacing: "0.02em",
+                fontFamily: "var(--font-heading)",
+                fontSize: "23px",
+                fontWeight: 500,
+                color: "rgba(255,255,255,0.98)",
+                letterSpacing: "0.06em",
+                textTransform: "uppercase",
                 whiteSpace: "nowrap",
+                lineHeight: 1.1,
               }}
             >
-              JUDr. Peter Múkera
+              Peter Múkera
             </span>
             <span
               style={{
                 fontFamily: "var(--font-ui)",
-                fontSize: "8px",
-                color: "rgba(181,148,90,0.7)",
+                fontSize: "9px",
+                color: "rgba(181,148,90,0.8)",
                 letterSpacing: "0.25em",
                 textTransform: "uppercase",
               }}
@@ -390,7 +391,7 @@ export const Navbar = () => {
                 </span>
               </div>
               <a
-                href="mailto:kancelaria@mukera.sk"
+                href="mailto:office@mukera.sk"
                 style={{
                   fontFamily: "var(--font-ui)",
                   fontSize: "10px",
@@ -400,7 +401,7 @@ export const Navbar = () => {
                   textDecoration: "none",
                 }}
               >
-                KANCELARIA@MUKERA.SK
+                OFFICE@MUKERA.SK
               </a>
             </div>
           </div>

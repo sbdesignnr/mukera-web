@@ -145,7 +145,7 @@ export const About = () => {
             <span
               style={{
                 fontFamily: "var(--font-ui)",
-                fontSize: "9px",
+                fontSize: "11px",
                 color: "#B5945A",
                 letterSpacing: "0.3em",
                 textTransform: "uppercase",
@@ -226,7 +226,7 @@ export const About = () => {
               {
                 num: "02",
                 title: "Odbornosť & prax",
-                desc: "Viac ako 15 rokov skúseností v oblasti slovenského práva.",
+                desc: "Viac ako 25 rokov skúseností v oblasti slovenského práva.",
               },
               {
                 num: "03",
@@ -256,11 +256,11 @@ export const About = () => {
                   <div
                     style={{
                       fontFamily: "var(--font-ui)",
-                      fontSize: "10px",
+                      fontSize: "13px",
                       color: "#1B2A4A",
                       letterSpacing: "0.15em",
                       textTransform: "uppercase",
-                      marginBottom: "5px",
+                      marginBottom: "7px",
                     }}
                   >
                     {item.title}
@@ -268,9 +268,9 @@ export const About = () => {
                   <div
                     style={{
                       fontFamily: "var(--font-ui)",
-                      fontSize: "12px",
-                      color: "rgba(27,42,74,0.4)",
-                      lineHeight: 1.6,
+                      fontSize: "15px",
+                      color: "rgba(27,42,74,0.55)",
+                      lineHeight: 1.65,
                     }}
                   >
                     {item.desc}
@@ -285,27 +285,26 @@ export const About = () => {
             className="reveal"
             style={{
               display: "grid",
-              gridTemplateColumns: "1fr 1fr 1fr",
+              gridTemplateColumns: "1fr 1fr",
               borderTop: "0.5px solid rgba(27,42,74,0.08)",
             }}
           >
             {[
-              { num: "15+", label: "Rokov praxe" },
-              { num: "500+", label: "Klientov" },
-              { num: "6", label: "Oblastí práva" },
+              { num: "25+", label: "Rokov praxe" },
+              { num: "500+", label: "Spokojných klientov" },
             ].map((stat, i) => (
               <div
                 key={stat.label}
                 style={{
-                  padding: "20px 0",
+                  padding: "24px 0",
                   textAlign: "center",
-                  borderRight: i < 2 ? "0.5px solid rgba(27,42,74,0.08)" : "none",
+                  borderRight: i < 1 ? "0.5px solid rgba(27,42,74,0.08)" : "none",
                 }}
               >
                 <div
                   style={{
                     fontFamily: "var(--font-heading)",
-                    fontSize: "2rem",
+                    fontSize: "2.5rem",
                     color: "#1B2A4A",
                     fontWeight: 300,
                     lineHeight: 1,
@@ -316,11 +315,11 @@ export const About = () => {
                 <div
                   style={{
                     fontFamily: "var(--font-ui)",
-                    fontSize: "8px",
-                    color: "rgba(181,148,90,0.7)",
+                    fontSize: "10px",
+                    color: "rgba(181,148,90,0.75)",
                     letterSpacing: "0.18em",
                     textTransform: "uppercase",
-                    marginTop: "6px",
+                    marginTop: "8px",
                   }}
                 >
                   {stat.label}

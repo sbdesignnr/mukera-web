@@ -53,9 +53,9 @@ const Field = ({
     <label
       style={{
         fontFamily: "var(--font-ui)",
-        fontSize: "8px",
-        color: error ? "#e07070" : "rgba(181,148,90,0.7)",
-        letterSpacing: "0.25em",
+        fontSize: "11px",
+        color: error ? "#e07070" : "rgba(181,148,90,0.85)",
+        letterSpacing: "0.2em",
         textTransform: "uppercase",
         marginBottom: "8px",
       }}
@@ -275,11 +275,11 @@ const ContactItem = ({
       <p
         style={{
           fontFamily: "var(--font-ui)",
-          fontSize: "8px",
-          color: "rgba(181,148,90,0.6)",
+          fontSize: "11px",
+          color: "rgba(181,148,90,0.85)",
           letterSpacing: "0.2em",
           textTransform: "uppercase",
-          marginBottom: "4px",
+          marginBottom: "5px",
         }}
       >
         {label}
@@ -316,14 +316,14 @@ const ContactItem = ({
 
 // ─── Team ────────────────────────────────────────────────────────────────────
 
-// Pozn.: tel. čísla a e-maily doplní klient neskôr — zatiaľ placeholder "[doplniť]".
+// Placeholder fallback — ak by niektorý údaj ešte chýbal, zobrazí sa ako neklikateľný text.
 const PLACEHOLDER = "[doplniť]";
 
 const TEAM = [
-  { name: "JUDr. Peter Múkera ml.",      phone: PLACEHOLDER, email: PLACEHOLDER },
-  { name: "JUDr. Peter Múkera st.",      phone: PLACEHOLDER, email: PLACEHOLDER },
-  { name: "JUDr. Kornelia Múkerová",     phone: PLACEHOLDER, email: PLACEHOLDER },
-  { name: "JUDr. Sára Tarnociová, PhD.", phone: PLACEHOLDER, email: PLACEHOLDER },
+  { name: "JUDr. Peter Múkera ml.",      phone: "0904 808 234", email: "peter.mukera.ml@mukera.sk" },
+  { name: "JUDr. Peter Múkera st.",      phone: "0903 440 799", email: "peter.mukera@mukera.sk" },
+  { name: "JUDr. Kornelia Múkerová",     phone: "0904 385 972", email: "kornelia.mukerova@mukera.sk" },
+  { name: "JUDr. Sára Tarnociová, PhD.", phone: "0905 892 658", email: "tarnociova.sara@gmail.com" },
 ];
 
 const TeamContact = ({
@@ -398,12 +398,12 @@ const TeamMember = ({
       (e.currentTarget as HTMLDivElement).style.background = "rgba(255,255,255,0.03)";
     }}
   >
-    {/* Name */}
+    {/* Name — celé meno na jeden riadok (široké 2-stĺpcové karty) */}
     <h3
       style={{
         fontFamily: "var(--font-heading)",
         fontWeight: 300,
-        fontSize: "1.5rem",
+        fontSize: "clamp(1.2rem, 2.2vw, 1.45rem)",
         color: "rgba(255,255,255,0.95)",
         lineHeight: 1.2,
       }}
@@ -515,7 +515,7 @@ export const Contact = () => {
             <span
               style={{
                 fontFamily: "var(--font-ui)",
-                fontSize: "9px",
+                fontSize: "11px",
                 color: "#B5945A",
                 letterSpacing: "0.35em",
                 textTransform: "uppercase",
@@ -544,7 +544,7 @@ export const Contact = () => {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 420px), 1fr))",
               gap: "1.25rem",
             }}
           >
@@ -582,7 +582,7 @@ export const Contact = () => {
                 <span
                   style={{
                     fontFamily: "var(--font-ui)",
-                    fontSize: "9px",
+                    fontSize: "11px",
                     color: "#B5945A",
                     letterSpacing: "0.35em",
                     textTransform: "uppercase",
@@ -613,24 +613,40 @@ export const Contact = () => {
                 <ContactItem
                   icon={<IconPin />}
                   label="Adresa"
-                  value="Československej armády 25, Banská Bystrica"
+                  value="974 01 Banská Bystrica"
                 />
                 <ContactItem
                   icon={<IconMail />}
                   label="E-mail"
-                  value="kancelaria@mukera.sk"
-                  href="mailto:kancelaria@mukera.sk"
+                  value="office@mukera.sk"
+                  href="mailto:office@mukera.sk"
                 />
                 <ContactItem
                   icon={<IconPhone />}
                   label="Telefón"
-                  value="+421 900 000 000"
-                  href="tel:+421900000000"
+                  value="+421 904 808 234"
+                  href="tel:+421904808234"
                 />
               </div>
 
               {/* Thin gold divider before form */}
               <div style={{ width: "100%", height: "0.5px", background: "rgba(181,148,90,0.12)", marginBottom: "2rem" }} />
+            </div>
+
+            {/* Kicker — kontaktný formulár */}
+            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "1.5rem" }}>
+              <div style={{ width: 28, height: "0.5px", background: "rgba(181,148,90,0.5)" }} />
+              <span
+                style={{
+                  fontFamily: "var(--font-ui)",
+                  fontSize: "11px",
+                  color: "#B5945A",
+                  letterSpacing: "0.35em",
+                  textTransform: "uppercase",
+                }}
+              >
+                Kontaktný formulár
+              </span>
             </div>
 
             <ContactForm />
@@ -659,9 +675,9 @@ export const Contact = () => {
               <span
                 style={{
                   fontFamily: "var(--font-ui)",
-                  fontSize: "8px",
-                  color: "rgba(181,148,90,0.55)",
-                  letterSpacing: "0.25em",
+                  fontSize: "11px",
+                  color: "#B5945A",
+                  letterSpacing: "0.35em",
                   textTransform: "uppercase",
                 }}
               >
@@ -681,7 +697,7 @@ export const Contact = () => {
             >
               <iframe
                 title="Poloha kancelárie"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2635.8!2d19.1462!3d48.7363!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47153b88e5f4f3b5%3A0x1!2s%C4%8Ceskoslovenskej%20arm%C3%A1dy%2025%2C%20Bansk%C3%A1%20Bystrica!5e0!3m2!1ssk!2ssk!4v1700000000000"
+                src="https://maps.google.com/maps?q=974%2001%20Bansk%C3%A1%20Bystrica&z=14&hl=sk&output=embed"
                 width="100%"
                 height="100%"
                 style={{
@@ -708,12 +724,11 @@ export const Contact = () => {
               }}
             >
               {[
-                { day: "Pondelok — Piatok", time: "8:00 – 17:00" },
-                { day: "Sobota", time: "na dohovore" },
+                { day: "Pondelok – Piatok", time: "9:00 – 17:00" },
               ].map((row) => (
                 <div key={row.day} style={{ gridColumn: "span 2 / span 2", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ fontFamily: "var(--font-ui)", fontSize: "11px", color: "rgba(255,255,255,0.35)" }}>{row.day}</span>
-                  <span style={{ fontFamily: "var(--font-ui)", fontSize: "11px", color: "rgba(181,148,90,0.6)" }}>{row.time}</span>
+                  <span style={{ fontFamily: "var(--font-ui)", fontSize: "15px", color: "rgba(255,255,255,0.6)" }}>{row.day}</span>
+                  <span style={{ fontFamily: "var(--font-ui)", fontSize: "15px", color: "rgba(181,148,90,0.75)" }}>{row.time}</span>
                 </div>
               ))}
             </div>
