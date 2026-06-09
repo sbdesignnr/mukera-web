@@ -133,7 +133,7 @@ export const About = () => {
 
         {/* RIGHT — Content */}
         <div
-          className="w-full lg:w-1/2 flex flex-col justify-center px-8 md:px-16 lg:px-20 py-12 lg:py-24 pt-20 lg:pt-0 mt-12 lg:mt-0"
+          className="w-full lg:w-1/2 flex flex-col justify-center px-8 md:px-16 lg:px-20 py-12 lg:py-24 pt-20 lg:pt-32 mt-12 lg:mt-0"
           style={{ borderLeft: "0.5px solid rgba(27,42,74,0.08)" }}
         >
           {/* Badge */}
@@ -145,7 +145,7 @@ export const About = () => {
             <span
               style={{
                 fontFamily: "var(--font-ui)",
-                fontSize: "11px",
+                fontSize: "13px",
                 color: "#B5945A",
                 letterSpacing: "0.3em",
                 textTransform: "uppercase",

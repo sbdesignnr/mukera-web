@@ -515,7 +515,7 @@ export const Contact = () => {
             <span
               style={{
                 fontFamily: "var(--font-ui)",
-                fontSize: "11px",
+                fontSize: "13px",
                 color: "#B5945A",
                 letterSpacing: "0.35em",
                 textTransform: "uppercase",
@@ -582,7 +582,7 @@ export const Contact = () => {
                 <span
                   style={{
                     fontFamily: "var(--font-ui)",
-                    fontSize: "11px",
+                    fontSize: "13px",
                     color: "#B5945A",
                     letterSpacing: "0.35em",
                     textTransform: "uppercase",
@@ -613,7 +613,7 @@ export const Contact = () => {
                 <ContactItem
                   icon={<IconPin />}
                   label="Adresa"
-                  value="974 01 Banská Bystrica"
+                  value="Československej armády 1007/25, 974 01 Banská Bystrica"
                 />
                 <ContactItem
                   icon={<IconMail />}
@@ -639,7 +639,7 @@ export const Contact = () => {
               <span
                 style={{
                   fontFamily: "var(--font-ui)",
-                  fontSize: "11px",
+                  fontSize: "13px",
                   color: "#B5945A",
                   letterSpacing: "0.35em",
                   textTransform: "uppercase",
@@ -675,7 +675,7 @@ export const Contact = () => {
               <span
                 style={{
                   fontFamily: "var(--font-ui)",
-                  fontSize: "11px",
+                  fontSize: "13px",
                   color: "#B5945A",
                   letterSpacing: "0.35em",
                   textTransform: "uppercase",
@@ -697,7 +697,7 @@ export const Contact = () => {
             >
               <iframe
                 title="Poloha kancelárie"
-                src="https://maps.google.com/maps?q=974%2001%20Bansk%C3%A1%20Bystrica&z=14&hl=sk&output=embed"
+                src="https://maps.google.com/maps?q=%C4%8Ceskoslovenskej%20arm%C3%A1dy%201007%2F25%2C%20974%2001%20Bansk%C3%A1%20Bystrica&z=16&hl=sk&output=embed"
                 width="100%"
                 height="100%"
                 style={{

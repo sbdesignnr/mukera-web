@@ -130,7 +130,7 @@ export const Hero = () => {
             {/* Eyebrow */}
             <div className="anim-1" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
               <div style={{ width: 28, height: 1, background: "#B5945A", flexShrink: 0 }} />
-              <span style={{ fontFamily: "var(--font-ui)", fontSize: "11px", color: "rgba(181,148,90,0.95)", letterSpacing: "0.3em", textTransform: "uppercase" }}>
+              <span style={{ fontFamily: "var(--font-ui)", fontSize: "13px", color: "rgba(181,148,90,0.95)", letterSpacing: "0.3em", textTransform: "uppercase" }}>
                 Advokátska kancelária
               </span>
             </div>
@@ -269,15 +269,9 @@ export const Hero = () => {
           right: "clamp(1.25rem, 5vw, 3rem)",
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: "flex-end",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <div style={{ width: 32, height: 1, background: "rgba(181,148,90,0.35)" }} />
-          <span style={{ fontFamily: "var(--font-ui)", fontSize: "8px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.25em", textTransform: "uppercase" }}>
-            Scroll
-          </span>
-        </div>
         <span style={{ fontFamily: "var(--font-ui)", fontSize: "8px", color: "rgba(255,255,255,0.28)", letterSpacing: "0.15em", textTransform: "uppercase" }}>
           Banská Bystrica, Slovenská republika
         </span>

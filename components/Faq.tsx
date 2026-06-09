@@ -231,7 +231,7 @@ export const Faq = () => {
             <span
               style={{
                 fontFamily: "var(--font-ui)",
-                fontSize: "11px",
+                fontSize: "13px",
                 color: "#B5945A",
                 letterSpacing: "0.35em",
                 textTransform: "uppercase",
