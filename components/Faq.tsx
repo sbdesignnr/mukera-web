@@ -297,7 +297,7 @@ export const Faq = () => {
             Nenašli ste odpoveď na svoju otázku?
           </p>
           <a
-            href="#kontakt"
+            href="#spojte-sa"
             style={{
               display: "inline-flex",
               alignItems: "center",

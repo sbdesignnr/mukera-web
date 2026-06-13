@@ -46,7 +46,7 @@ const StatRow = ({ stat }: { stat: (typeof STATS)[number] }) => {
       <div style={{ fontFamily: "var(--font-heading)", fontSize: "52px", fontWeight: 300, color: "rgba(255,255,255,0.95)", lineHeight: 1 }}>
         {count}{stat.suffix}
       </div>
-      <div style={{ fontFamily: "var(--font-ui)", fontSize: "11px", color: "rgba(255,255,255,0.95)", letterSpacing: "0.18em", textTransform: "uppercase", marginTop: "6px" }}>
+      <div style={{ fontFamily: "var(--font-ui)", fontSize: "11px", color: "rgba(255,255,255,0.95)", letterSpacing: "0.18em", textTransform: "uppercase", marginTop: "14px" }}>
         {stat.label}
       </div>
     </div>
@@ -174,7 +174,7 @@ export const Hero = () => {
               {/* Primary */}
               <button
                 type="button"
-                onClick={() => document.getElementById("kontakt")?.scrollIntoView({ behavior: "smooth" })}
+                onClick={() => document.getElementById("spojte-sa")?.scrollIntoView({ behavior: "smooth" })}
                 style={{
                   fontFamily: "var(--font-ui)",
                   fontSize: "12px",

@@ -360,7 +360,7 @@ const Drawer = ({
             Máte otázku k tejto oblasti? Radi vám poskytneme nezáväznú konzultáciu.
           </p>
           <a
-            href="#kontakt"
+            href="#spojte-sa"
             onClick={onClose}
             style={{
               display: "inline-flex",

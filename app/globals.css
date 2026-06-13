@@ -108,6 +108,18 @@ html {
   .hero-grid { grid-template-columns: 1fr !important; }
 }
 
+/* Footer — vycentrovať na stred na mobile */
+@media (max-width: 767px) {
+  .footer-inner {
+    justify-content: center;
+    text-align: center;
+  }
+  .footer-links {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* Reviews carousel — focus ring len pri klávesovej navigácii */
 .reviews-carousel { outline: none; }
 .reviews-carousel:focus-visible {

@@ -555,6 +555,7 @@ export const Contact = () => {
         </div>
 
         <div
+          id="spojte-sa"
           style={{
             maxWidth: "1200px",
             margin: "0 auto",
@@ -563,6 +564,7 @@ export const Contact = () => {
             gap: "clamp(3rem, 6vw, 6rem)",
             alignItems: "start",
             position: "relative",
+            scrollMarginTop: "90px",
           }}
         >
           {/* LEFT — info + form */}

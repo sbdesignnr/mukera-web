@@ -66,19 +66,6 @@ export const Navbar = () => {
     animation: "navSlideIn 0.7s cubic-bezier(0.25,0.46,0.45,0.94) both",
   };
 
-  const monogramStyle: React.CSSProperties = {
-    fontFamily: "var(--font-heading)",
-    fontSize: "34px",
-    fontWeight: 500,
-    color: "#B5945A",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexShrink: 0,
-    letterSpacing: "-0.05em",
-    lineHeight: 1,
-  };
-
   return (
     <>
       {/* ── Header ── */}
@@ -87,42 +74,20 @@ export const Navbar = () => {
         {/* Logo */}
         <a
           href="#"
+          aria-label="JUDr. Peter Múkera — Advokátska kancelária"
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "12px",
             textDecoration: "none",
             zIndex: 60,
           }}
         >
-          <div style={monogramStyle}>PM</div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-            <span
-              style={{
-                fontFamily: "var(--font-heading)",
-                fontSize: "23px",
-                fontWeight: 500,
-                color: "rgba(255,255,255,0.98)",
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                whiteSpace: "nowrap",
-                lineHeight: 1.1,
-              }}
-            >
-              Peter Múkera
-            </span>
-            <span
-              style={{
-                fontFamily: "var(--font-ui)",
-                fontSize: "9px",
-                color: "rgba(181,148,90,0.8)",
-                letterSpacing: "0.25em",
-                textTransform: "uppercase",
-              }}
-            >
-              Advokátska kancelária
-            </span>
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/dr_mukera_logo.png"
+            alt="JUDr. Peter Múkera — Advokátska kancelária"
+            style={{ height: "50px", width: "auto", display: "block" }}
+          />
         </a>
 
         {/* Desktop nav — len >= 768px */}

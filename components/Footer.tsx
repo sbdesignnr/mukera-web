@@ -14,6 +14,7 @@ export const Footer = () => (
     }}
   >
     <div
+      className="footer-inner"
       style={{
         maxWidth: "1200px",
         margin: "0 auto",
@@ -37,7 +38,7 @@ export const Footer = () => (
       </p>
 
       {/* Right links */}
-      <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+      <div className="footer-links" style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
         {FOOTER_LINKS.map((link) => (
           <a
             key={link.label}
