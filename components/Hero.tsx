@@ -111,7 +111,7 @@ export const Hero = () => {
           display: "flex",
           alignItems: "center",
           padding: "0 clamp(1.25rem, 5vw, 3rem)",
-          paddingTop: "64px",
+          paddingTop: "92px",
         }}
       >
         <div

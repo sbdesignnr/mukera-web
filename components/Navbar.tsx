@@ -55,7 +55,7 @@ export const Navbar = () => {
     justifyContent: "space-between",
     alignItems: "center",
     padding: "0 clamp(1.25rem, 5vw, 3rem)",
-    height: "64px",
+    height: "92px",
     backgroundColor: scrolled ? "rgba(8,15,30,0.94)" : "transparent",
     backdropFilter: scrolled ? "blur(14px)" : "none",
     borderBottom: scrolled
@@ -86,7 +86,7 @@ export const Navbar = () => {
           <img
             src="/dr_mukera_logo.png"
             alt="JUDr. Peter Múkera — Advokátska kancelária"
-            style={{ height: "50px", width: "auto", display: "block" }}
+            style={{ height: "68px", width: "auto", display: "block" }}
           />
         </a>
 
