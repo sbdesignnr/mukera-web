@@ -151,7 +151,7 @@ export const About = () => {
                 textTransform: "uppercase",
               }}
             >
-              O kancelárií
+              O kancelárii
             </span>
           </div>
 
@@ -165,10 +165,11 @@ export const About = () => {
               marginBottom: "1.5rem",
             }}
           >
-            Právna ochrana,<br className="block md:hidden" />
-            ktorej môžete
+            Právne riešenia
             <br />
-            <em style={{ fontStyle: "italic", color: "#B5945A" }}>dôverovať.</em>
+            postavené na
+            <br />
+            <em style={{ fontStyle: "italic", color: "#B5945A" }}>skúsenostiach.</em>
           </h2>
 
           {/* Divider */}
@@ -193,9 +194,9 @@ export const About = () => {
               marginBottom: "1rem",
             }}
           >
-            Advokátska kancelária JUDr. Peter Múkera poskytuje komplexné právne
-            služby fyzickým osobám aj obchodným spoločnostiam s dôrazom na
-            osobný prístup a odbornosť overenú praxou.
+            Viac ako 25 rokov pomáhame klientom chrániť a&nbsp;presadzovať ich
+            práva a&nbsp;záujmy. Poskytujeme právne služby založené na dôvere,
+            diskrétnosti a&nbsp;dôslednej ochrane záujmov našich klientov.
           </p>
 
           <p
@@ -208,8 +209,11 @@ export const About = () => {
               marginBottom: "2.5rem",
             }}
           >
-            Každý klient je pre nás jedinečný. Vždy hľadáme riešenie šité na
-            mieru — efektívne, diskrétne a v súlade s Vašimi záujmami.
+            Naša advokátska kancelária stavia na dlhoročných skúsenostiach,
+            odbornosti a&nbsp;individuálnom prístupe ku každému klientovi.
+            Každému prípadu venujeme osobitnú pozornosť a&nbsp;hľadáme riešenia,
+            ktoré prinášajú právnu istotu aj v&nbsp;najnáročnejších životných
+            situáciách.
           </p>
 
           {/* Three values */}
@@ -220,18 +224,18 @@ export const About = () => {
             {[
               {
                 num: "01",
-                title: "Osobný prístup",
-                desc: "Každý prípad riešime individuálne, s plným nasadením.",
+                title: "Individuálny prístup",
+                desc: "Každý prípad posudzujeme samostatne a navrhujeme riešenia zodpovedajúce konkrétnej situácii klienta.",
               },
               {
                 num: "02",
-                title: "Odbornosť & prax",
-                desc: "Viac ako 25 rokov skúseností v oblasti slovenského práva.",
+                title: "Viac ako 25 rokov skúseností",
+                desc: "Máme dlhoročnú prax a odborné znalosti v oblasti trestného, obchodného, občianskeho, rodinného a pracovného práva.",
               },
               {
                 num: "03",
-                title: "Komplexné riešenia",
-                desc: "Od poradenstva až po zastupovanie — pod jednou strechou.",
+                title: "Komplexné právne služby",
+                desc: "Poskytujeme komplexné právne služby zahŕňajúce právne poradenstvo, prípravu právnych dokumentov a zastupovanie klientov pred súdmi a orgánmi verejnej moci.",
               },
             ].map((item) => (
               <div

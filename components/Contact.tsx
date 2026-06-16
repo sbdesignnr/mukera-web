@@ -320,10 +320,10 @@ const ContactItem = ({
 const PLACEHOLDER = "[doplniť]";
 
 const TEAM = [
-  { name: "JUDr. Peter Múkera ml.",      phone: "0904 808 234", email: "peter.mukera.ml@mukera.sk" },
-  { name: "JUDr. Peter Múkera st.",      phone: "0903 440 799", email: "peter.mukera@mukera.sk" },
-  { name: "JUDr. Kornelia Múkerová",     phone: "0904 385 972", email: "kornelia.mukerova@mukera.sk" },
-  { name: "JUDr. Sára Tarnociová, PhD.", phone: "0905 892 658", email: "tarnociova.sara@gmail.com" },
+  { name: "JUDr. Peter Múkera ml.",      role: "Advokát", phone: "0904 808 234", email: "peter.mukera.ml@mukera.sk" },
+  { name: "JUDr. Peter Múkera st.",      role: "Advokát", phone: "0903 440 799", email: "peter.mukera@mukera.sk" },
+  { name: "JUDr. Kornelia Múkerová",     role: "Advokát", phone: "0904 385 972", email: "kornelia.mukerova@mukera.sk" },
+  { name: "JUDr. Sára Tarnociová, PhD.", role: "Advokát", phone: "0905 892 658", email: "tarnociova.sara@gmail.com" },
 ];
 
 const TeamContact = ({
@@ -372,10 +372,12 @@ const TeamContact = ({
 
 const TeamMember = ({
   name,
+  role,
   phone,
   email,
 }: {
   name: string;
+  role: string;
   phone: string;
   email: string;
 }) => (
@@ -410,6 +412,19 @@ const TeamMember = ({
     >
       {name}
     </h3>
+
+    {/* Role — advokát */}
+    <span
+      style={{
+        fontFamily: "var(--font-ui)",
+        fontSize: "11px",
+        color: "rgba(181,148,90,0.85)",
+        letterSpacing: "0.22em",
+        textTransform: "uppercase",
+      }}
+    >
+      {role}
+    </span>
 
     {/* Gold rule */}
     <div style={{ width: 28, height: "1px", background: "rgba(181,148,90,0.4)", margin: "0.25rem 0 0.6rem" }} />
@@ -699,7 +714,7 @@ export const Contact = () => {
             >
               <iframe
                 title="Poloha kancelárie"
-                src="https://maps.google.com/maps?q=974%2001%20Bansk%C3%A1%20Bystrica&z=13&hl=sk&output=embed"
+                src="https://maps.google.com/maps?q=%C4%8Ceskoslovenskej%20arm%C3%A1dy%201007%2F25%2C%20974%2001%20Bansk%C3%A1%20Bystrica&z=17&hl=sk&output=embed"
                 width="100%"
                 height="100%"
                 style={{

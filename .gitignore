@@ -42,3 +42,6 @@ next-env.d.ts
 
 # claude code (local session data)
 .claude/
+
+# design source files (nepatria do public/, boli by verejne stiahnuteľné)
+*.psd

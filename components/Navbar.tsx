@@ -84,7 +84,7 @@ export const Navbar = () => {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/logo_PM.png"
+            src="/logo_peter_mukera_nove.png"
             alt="JUDr. Peter Múkera — Advokátska kancelária"
             style={{ height: "48px", width: "auto", display: "block" }}
           />

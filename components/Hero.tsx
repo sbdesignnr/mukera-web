@@ -165,8 +165,10 @@ export const Hero = () => {
               className="anim-4"
               style={{ fontFamily: "var(--font-ui)", fontSize: "16px", color: "rgba(255,255,255,0.55)", lineHeight: 1.95, maxWidth: "420px", marginTop: "1.25rem" }}
             >
-              Komplexné právne služby s&nbsp;osobným prístupom
-              a&nbsp;odbornosťou, ktorej môžete dôverovať.
+              Už viac ako 25 rokov poskytujeme právne služby jednotlivcom,
+              podnikateľom a&nbsp;obchodným spoločnostiam. Spájame odborné
+              znalosti, rodinnú tradíciu a&nbsp;individuálny prístup ku
+              každému klientovi.
             </p>
 
             {/* CTA buttons */}
