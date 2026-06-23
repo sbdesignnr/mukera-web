@@ -1,69 +1,36 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useI18n } from "./i18n";
 
 // ─── Data — skutočné Google recenzie (všetky 5★) ──────────────────────────────
+// Mená autorov zostávajú; texty recenzií sú preložené v translations.ts
+// (zachovávajú zmysel pôvodných slovenských recenzií).
 
-const REVIEWS = [
-  {
-    author: "Monika Sidorová",
-    text: "Chcem sa podeliť o skvelú skúsenosť so službami pána právnika Múkeru. Pomohol mi so založením, resp. prevzatím už existujúcej s.r.o, pripravil všetky potrebné dokumenty, vysvetlil celý proces. Všetko išlo hladko, rýchlo a bezproblémovo.",
-  },
-  {
-    author: "Nino Gál",
-    text: "Maximálna spokojnosť. Profesionálny, skúsený a veľmi ochotný právnik, ktorý sa naozaj venuje klientovi. Komunikácia bola rýchla a jasná, výsledok nad moje očakávania. Ak hľadáte spoľahlivého právnika, určite odporúčam.",
-  },
-  {
-    author: "Miso Miso",
-    text: "Moja skúsenosť bola pozitívna a nebol žiadny problém. So službami som bol nadmieru spokojný a môžem doporučiť pána advokáta.",
-  },
-  {
-    author: "Eva Halajová",
-    text: "Veľmi milý a ústretový pán advokát. Po stretnutí s ním som získala úplne iný pohľad na náš problém. Veľmi pekne mu za to ďakujem.",
-  },
-  {
-    author: "Miroslav Švec",
-    text: "Chcem sa srdečne poďakovať a zároveň odporučiť právnika JUDr. Petra Múkeru, s ktorým som mal tú česť spolupracovať. Bol som nadmieru spokojný – jeho prístup bol profesionálny, rýchly a mimoriadne ústretový.",
-  },
-  {
-    author: "Peter Pochyba",
-    text: "Môžem len odporučiť. Pán JUDr. Peter Múkera ml. mi všetko dopodrobna vysvetlil, ako mám postupovať. Jeho právna pomoc mi veľmi pomohla, oceňujem aj ľudský prístup. Ďakujem.",
-  },
-  {
-    author: "Michal M",
-    text: "Vynikajúci pán advokát. Doporučujem využiť jeho profesionálne právne služby.",
-  },
-  {
-    author: "Alina Malčeková",
-    text: "Ďakujem za poradu a ochotný prístup v riešení mojej otázky.",
-  },
-  {
-    author: "Peter Havran",
-    text: "Môžem len odporučiť. Veľká spokojnosť po všetkých stránkach.",
-  },
-  {
-    author: "Miroslav Vavra",
-    text: "Profesionalita, príjemné a ľudské vystupovanie, dobrá komunikácia, rozhodne odporúčam.",
-  },
-  {
-    author: "Sara Tarnociova",
-    text: "Oceňujem vysokoprofesionálny prístup pána doktora JUDr. Petra Múkeru ml. a zároveň príjemné prostredie tejto rodinnej advokátskej kancelárie.",
-  },
-  {
-    author: "Alexander Vegso",
-    text: "Poradil správne a načas, úplna spokojnosť.",
-  },
+const REVIEW_AUTHORS = [
+  "Monika Sidorová",
+  "Nino Gál",
+  "Miso Miso",
+  "Eva Halajová",
+  "Miroslav Švec",
+  "Peter Pochyba",
+  "Michal M",
+  "Alina Malčeková",
+  "Peter Havran",
+  "Miroslav Vavra",
+  "Sara Tarnociova",
+  "Alexander Vegso",
 ];
 
 const AUTOPLAY_MS = 6000;
 
 // ─── 5-star rating ─────────────────────────────────────────────────────────────
 
-const Stars = () => (
+const Stars = ({ label }: { label: string }) => (
   <div
     style={{ display: "flex", gap: "4px" }}
     role="img"
-    aria-label="Hodnotenie 5 z 5 hviezdičiek"
+    aria-label={label}
   >
     {Array.from({ length: 5 }).map((_, i) => (
       <svg key={i} width="17" height="17" viewBox="0 0 24 24" fill="#B5945A" aria-hidden="true">
@@ -127,7 +94,9 @@ const ArrowButton = ({
 // ─── Section ─────────────────────────────────────────────────────────────────
 
 export const Reviews = () => {
-  const count = REVIEWS.length;
+  const { t } = useI18n();
+  const reviews = REVIEW_AUTHORS.map((author, i) => ({ author, text: t.reviews.items[i] }));
+  const count = reviews.length;
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(false);
@@ -155,6 +124,7 @@ export const Reviews = () => {
   // Respect prefers-reduced-motion (no autoplay / no transitions)
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setReduced(mq.matches);
     const handler = (e: MediaQueryListEvent) => setReduced(e.matches);
     mq.addEventListener("change", handler);
@@ -217,7 +187,7 @@ export const Reviews = () => {
                 textTransform: "uppercase",
               }}
             >
-              Referencie
+              {t.reviews.kicker}
             </span>
             <div style={{ width: 28, height: "0.5px", background: "rgba(181,148,90,0.5)" }} />
           </div>
@@ -233,8 +203,8 @@ export const Reviews = () => {
               marginBottom: "1rem",
             }}
           >
-            Dôvera, ktorá{" "}
-            <em style={{ fontStyle: "italic", color: "#C9A96E" }}>hovorí za všetko.</em>
+            {t.reviews.title}{" "}
+            <em style={{ fontStyle: "italic", color: "#C9A96E" }}>{t.reviews.titleAccent}</em>
           </h2>
 
           {/* Subtitle */}
@@ -248,7 +218,7 @@ export const Reviews = () => {
               margin: "0 auto",
             }}
           >
-            Skutočné ohlasy klientov, ktorých sme mali tú česť zastupovať.
+            {t.reviews.subtitle}
           </p>
         </div>
 
@@ -257,7 +227,7 @@ export const Reviews = () => {
           className="reviews-carousel"
           role="group"
           aria-roledescription="carousel"
-          aria-label="Recenzie klientov"
+          aria-label={t.reviews.carouselLabel}
           tabIndex={0}
           onKeyDown={onKeyDown}
           onMouseEnter={() => setPaused(true)}
@@ -268,14 +238,14 @@ export const Reviews = () => {
         >
           {/* Slides — všetky v jednej grid bunke (crossfade, konzistentná výška) */}
           <div style={{ display: "grid" }}>
-            {REVIEWS.map((review, i) => {
+            {reviews.map((review, i) => {
               const isActive = i === active;
               return (
                 <article
                   key={i}
                   aria-hidden={!isActive}
                   aria-roledescription="slide"
-                  aria-label={`${i + 1} z ${count}`}
+                  aria-label={`${i + 1} ${t.reviews.of} ${count}`}
                   style={{
                     gridArea: "1 / 1",
                     background: "#0A1628",
@@ -316,7 +286,7 @@ export const Reviews = () => {
                   </span>
 
                   {/* Stars */}
-                  <Stars />
+                  <Stars label={t.reviews.ratingLabel} />
 
                   {/* Quote */}
                   <p
@@ -371,18 +341,18 @@ export const Reviews = () => {
               marginTop: "clamp(2rem, 4vw, 2.75rem)",
             }}
           >
-            <ArrowButton dir="left" onClick={() => go(-1)} label="Predchádzajúca recenzia" />
+            <ArrowButton dir="left" onClick={() => go(-1)} label={t.reviews.prev} />
 
             {/* Dots */}
             <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap", justifyContent: "center" }}>
-              {REVIEWS.map((_, i) => {
+              {reviews.map((_, i) => {
                 const isActive = i === active;
                 return (
                   <button
                     key={i}
                     type="button"
                     onClick={() => setActive(i)}
-                    aria-label={`Zobraziť recenziu ${i + 1}`}
+                    aria-label={`${t.reviews.gotoLabel} ${i + 1}`}
                     aria-current={isActive}
                     style={{
                       width: isActive ? "24px" : "7px",
@@ -399,7 +369,7 @@ export const Reviews = () => {
               })}
             </div>
 
-            <ArrowButton dir="right" onClick={() => go(1)} label="Nasledujúca recenzia" />
+            <ArrowButton dir="right" onClick={() => go(1)} label={t.reviews.next} />
           </div>
         </div>
 
@@ -425,7 +395,7 @@ export const Reviews = () => {
               textTransform: "uppercase",
             }}
           >
-            Recenzie našich klientov z Google
+            {t.reviews.footer}
           </span>
           <div style={{ width: 24, height: "0.5px", background: "rgba(181,148,90,0.3)" }} />
         </div>

@@ -2,13 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ShimmerText } from "./ShimmerText";
+import { useI18n } from "./i18n";
 
 // ─── Stats counter ────────────────────────────────────────────────────────────
 
-const STATS = [
-  { end: 25,  suffix: "+", label: "Rokov praxe" },
-  { end: 500, suffix: "+", label: "Spokojných klientov" },
-];
+type Stat = { end: number; suffix: string; label: string };
 
 const useCounter = (end: number, duration: number, started: boolean) => {
   const [count, setCount] = useState(0);
@@ -27,7 +25,7 @@ const useCounter = (end: number, duration: number, started: boolean) => {
   return count;
 };
 
-const StatRow = ({ stat }: { stat: (typeof STATS)[number] }) => {
+const StatRow = ({ stat }: { stat: Stat }) => {
   const [started, setStarted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -56,6 +54,11 @@ const StatRow = ({ stat }: { stat: (typeof STATS)[number] }) => {
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
 export const Hero = () => {
+  const { t } = useI18n();
+  const stats: Stat[] = [
+    { end: 25, suffix: "+", label: t.hero.statYears },
+    { end: 500, suffix: "+", label: t.hero.statClients },
+  ];
   const underlineRef = useRef<HTMLDivElement>(null);
   const h1Ref        = useRef<HTMLHeadingElement>(null);
   const [btnAHover, setBtnAHover]   = useState(false);
@@ -131,7 +134,7 @@ export const Hero = () => {
             <div className="anim-1" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
               <div style={{ width: 28, height: 1, background: "#B5945A", flexShrink: 0 }} />
               <span style={{ fontFamily: "var(--font-ui)", fontSize: "13px", color: "rgba(181,148,90,0.95)", letterSpacing: "0.3em", textTransform: "uppercase" }}>
-                Advokátska kancelária
+                {t.hero.eyebrow}
               </span>
             </div>
 
@@ -149,11 +152,11 @@ export const Hero = () => {
                 marginTop: "1.25rem",
               }}
             >
-              Vaše práva.
+              {t.hero.title1}
               <br />
-              Naša{" "}
+              {t.hero.title2}{" "}
               {shimmerSize > 0 && (
-                <ShimmerText text="priorita." fontSize={shimmerSize} color="#C9A96E" />
+                <ShimmerText text={t.hero.titleAccent} fontSize={shimmerSize} color="#C9A96E" />
               )}
             </h1>
 
@@ -165,10 +168,7 @@ export const Hero = () => {
               className="anim-4"
               style={{ fontFamily: "var(--font-ui)", fontSize: "16px", color: "rgba(255,255,255,0.55)", lineHeight: 1.95, maxWidth: "420px", marginTop: "1.25rem" }}
             >
-              Už viac ako 25 rokov poskytujeme právne služby jednotlivcom,
-              podnikateľom a&nbsp;obchodným spoločnostiam. Spájame odborné
-              znalosti, rodinnú tradíciu a&nbsp;individuálny prístup ku
-              každému klientovi.
+              {t.hero.paragraph}
             </p>
 
             {/* CTA buttons */}
@@ -195,7 +195,7 @@ export const Hero = () => {
                 onMouseEnter={() => { setBtnAHover(true); if (underlineRef.current) underlineRef.current.style.width = "100%"; }}
                 onMouseLeave={() => { setBtnAHover(false); if (underlineRef.current) underlineRef.current.style.width = "0%"; }}
               >
-                Dohodnúť konzultáciu
+                {t.hero.ctaPrimary}
                 <div
                   ref={underlineRef}
                   style={{ position: "absolute", bottom: 0, left: 0, height: "1px", width: "0%", background: "#B5945A", transition: "width 500ms cubic-bezier(0.25,0.46,0.45,0.94)" }}
@@ -233,7 +233,7 @@ export const Hero = () => {
                   if (arrow) { arrow.style.transform = "translateX(0)"; arrow.style.color = "inherit"; }
                 }}
               >
-                Naše služby
+                {t.hero.ctaSecondary}
                 <span data-arrow="" style={{ display: "inline-block", transition: "transform 400ms ease, color 400ms ease" }}>→</span>
               </button>
             </div>
@@ -247,11 +247,11 @@ export const Hero = () => {
             <span
               style={{ fontFamily: "var(--font-ui)", fontSize: "8px", color: "rgba(255,255,255,0.22)", letterSpacing: "0.3em", textTransform: "uppercase", writingMode: "vertical-rl", textOrientation: "mixed", transform: "rotate(180deg)", marginBottom: "24px" }}
             >
-              mukera.sk — advokát
+              {t.hero.brandTag}
             </span>
 
-            {STATS.map((stat, i) => (
-              <div key={stat.end} style={{ marginBottom: i < STATS.length - 1 ? "20px" : 0 }}>
+            {stats.map((stat, i) => (
+              <div key={stat.end} style={{ marginBottom: i < stats.length - 1 ? "20px" : 0 }}>
                 {i > 0 && (
                   <div style={{ width: 44, height: 1, background: "rgba(181,148,90,0.25)", marginBottom: "20px", marginLeft: "auto" }} />
                 )}
@@ -275,7 +275,7 @@ export const Hero = () => {
         }}
       >
         <span style={{ fontFamily: "var(--font-ui)", fontSize: "8px", color: "rgba(255,255,255,0.28)", letterSpacing: "0.15em", textTransform: "uppercase" }}>
-          Banská Bystrica, Slovenská republika
+          {t.hero.location}
         </span>
       </div>
     </section>

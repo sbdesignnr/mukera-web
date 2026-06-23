@@ -1,14 +1,16 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { useI18n, LanguageSwitcher } from "./i18n";
 
-const NAV_LINKS = [
-  { label: "O nás",      href: "#o-nas" },
-  { label: "Právne služby", href: "#sluzby" },
-  { label: "Kontakt",    href: "#kontakt" },
-  { label: "Referencie", href: "#referencie" },
-];
+const NAV_ITEMS = [
+  { key: "oNas", href: "#o-nas" },
+  { key: "sluzby", href: "#sluzby" },
+  { key: "kontakt", href: "#kontakt" },
+  { key: "referencie", href: "#referencie" },
+] as const;
 
 export const Navbar = () => {
+  const { t } = useI18n();
   const [scrolled, setScrolled]   = useState(false);
   const [open, setOpen]           = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
@@ -93,7 +95,7 @@ export const Navbar = () => {
         {/* Desktop nav — len >= 768px */}
         {isDesktop && (
           <nav
-            aria-label="Hlavná navigácia"
+            aria-label={t.nav.navAria}
             style={{
               position: "absolute",
               left: "50%",
@@ -103,7 +105,7 @@ export const Navbar = () => {
               gap: "28px",
             }}
           >
-            {NAV_LINKS.map((link, i) => (
+            {NAV_ITEMS.map((link, i) => (
               <span
                 key={link.href}
                 style={{ display: "flex", alignItems: "center", gap: "28px" }}
@@ -127,9 +129,9 @@ export const Navbar = () => {
                     e.currentTarget.style.color = "rgba(255,255,255,0.95)";
                   }}
                 >
-                  {link.label}
+                  {t.nav[link.key]}
                 </a>
-                {i < NAV_LINKS.length - 1 && (
+                {i < NAV_ITEMS.length - 1 && (
                   <div
                     aria-hidden="true"
                     style={{
@@ -148,6 +150,9 @@ export const Navbar = () => {
 
         {/* Right side */}
         <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+
+          {/* Prepínač jazykov — desktop */}
+          {isDesktop && <LanguageSwitcher />}
 
           {/* CTA button — len desktop */}
           {isDesktop && (
@@ -176,7 +181,7 @@ export const Navbar = () => {
                 if (ctaLineRef.current) ctaLineRef.current.style.width = "0%";
               }}
             >
-              Konzultácia
+              {t.nav.cta}
               <div
                 ref={ctaLineRef}
                 style={{
@@ -197,7 +202,7 @@ export const Navbar = () => {
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
-              aria-label={open ? "Zavrieť menu" : "Otvoriť menu"}
+              aria-label={open ? t.nav.menuClose : t.nav.menuOpen}
               aria-expanded={open}
               style={{
                 position: "relative",
@@ -275,7 +280,7 @@ export const Navbar = () => {
               padding: "128px 32px 0",
             }}
           >
-            {NAV_LINKS.map((link, i) => (
+            {NAV_ITEMS.map((link, i) => (
               <a
                 key={link.href}
                 href={link.href}
@@ -306,11 +311,16 @@ export const Navbar = () => {
                     color: "rgba(255,255,255,0.95)",
                   }}
                 >
-                  {link.label}
+                  {t.nav[link.key]}
                 </span>
               </a>
             ))}
           </nav>
+
+          {/* Prepínač jazykov — mobile */}
+          <div style={{ position: "relative", zIndex: 10, width: "100%", padding: "40px 32px 0" }}>
+            <LanguageSwitcher size="lg" />
+          </div>
 
           {/* Footer */}
           <div
@@ -341,7 +351,7 @@ export const Navbar = () => {
                     color: "#64748b",
                   }}
                 >
-                  KANCELÁRIA
+                  {t.nav.menuOffice}
                 </span>
                 <span
                   style={{
@@ -352,7 +362,7 @@ export const Navbar = () => {
                     color: "#64748b",
                   }}
                 >
-                  Banská Bystrica, SR
+                  {t.nav.menuCity}
                 </span>
               </div>
               <a

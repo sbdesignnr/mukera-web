@@ -1,90 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useI18n } from "./i18n";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
+// Texty (názov, popis, odrážky) sú v prekladovom slovníku (translations.ts);
+// tu zostáva len poradie odvetví + priradenie ikon podľa id.
 
-const SERVICES = [
-  {
-    id: "trestne",
-    title: "Trestné právo",
-    intro:
-      "Obhajoba, zastupovanie poškodeného a právna pomoc vo všetkých štádiách trestného konania.",
-    detail: [
-      "Obhajoba vo všetkých štádiách trestného konania.",
-      "Zastupovanie poškodeného a uplatnenie nároku na náhradu škody v trestnom (adhéznom) konaní.",
-      "Právne poradenstvo v trestných veciach.",
-      "Podávanie trestných oznámení, riadnych a mimoriadnych opravných prostriedkov a ďalších procesných návrhov a žiadostí.",
-    ],
-  },
-  {
-    id: "obchodne",
-    title: "Obchodné právo",
-    intro:
-      "Právne poradenstvo pre podnikateľov a obchodné spoločnosti vrátane vymáhania pohľadávok a zastupovania v obchodných sporoch.",
-    detail: [
-      "Zakladanie a zmeny v obchodných spoločnostiach vrátane zápisov do obchodného registra.",
-      "Príprava a revízia obchodných zmlúv.",
-      "Vymáhanie pohľadávok — mimosúdne aj súdne vrátane zastupovania v exekučnom konaní.",
-      "Právne poradenstvo pri fúziách, akvizíciách a prevode obchodných podielov.",
-      "Zastupovanie v obchodných sporoch pred súdmi.",
-    ],
-  },
-  {
-    id: "obcianske",
-    title: "Občianske právo",
-    intro:
-      "Ochrana práv, riešenie sporov a zastupovanie v občianskoprávnych veciach.",
-    detail: [
-      "Príprava a revízia občianskoprávnych zmlúv (kúpna zmluva, darovacia zmluva, zmluva o dielo a ďalšie).",
-      "Dedičské konania a majetkové vysporiadania.",
-      "Náhrada škody a uplatňovanie nárokov zo zodpovednosti za škodu.",
-      "Vlastnícke a susedské spory.",
-      "Ochrana osobnosti, náhrada nemajetkovej ujmy a ochrana pred neoprávneným zásahom.",
-      "Zastupovanie v občianskoprávnych sporoch pred súdmi.",
-    ],
-  },
-  {
-    id: "rodinne",
-    title: "Rodinné právo",
-    intro:
-      "Rozvody, rodičovské práva, výživné a majetkové vyporiadanie.",
-    detail: [
-      "Zastupovanie v konaní o rozvod manželstva a o úpravu výkonu rodičovských práv a povinností.",
-      "Určenie a vymáhanie výživného na deti, manžela a rozvedeného manžela.",
-      "Nahradenie súhlasu rodičov súdom.",
-      "Vyporiadanie bezpodielového spoluvlastníctva manželov po rozvode, zrušenie/zúženie BSM za trvania manželstva.",
-      "Určenie a zapretie otcovstva, osvojenie a poručníctvo.",
-    ],
-  },
-  {
-    id: "pracovne",
-    title: "Pracovné právo",
-    intro:
-      "Právne poradenstvo a zastupovanie v pracovnoprávnych vzťahoch a sporoch.",
-    detail: [
-      "Príprava a revízia pracovných zmlúv a interných predpisov zamestnávateľa.",
-      "Skončenie pracovného pomeru a náhrada mzdy.",
-      "Diskriminácia a ochrana práv zamestnancov.",
-      "Právne poradenstvo pre zamestnávateľov a zamestnancov v pracovnoprávnych vzťahoch.",
-      "Zastupovanie v pracovnoprávnych sporoch pred súdmi.",
-    ],
-  },
-  {
-    id: "nehnutelnosti",
-    title: "Nehnuteľnosti a zmluvy",
-    intro:
-      "Príprava zmlúv, prevody nehnuteľností a zastupovanie pri prevodoch nehnuteľností.",
-    detail: [
-      "Príprava a revízia kúpnych zmlúv, darovacích zmlúv, nájomných zmlúv a ďalších zmlúv.",
-      "Právne preverenie nehnuteľností pred kúpou (due diligence).",
-      "Záložné právo, vecné bremená a iné práva k cudzej veci.",
-      "Zrušenie a vyporiadanie podielového spoluvlastníctva.",
-      "Zastupovanie v katastrálnom konaní.",
-      "Právne poradenstvo pri developerských projektoch a správe bytových domov.",
-    ],
-  },
-];
+const SERVICE_IDS = [
+  "trestne",
+  "obchodne",
+  "obcianske",
+  "rodinne",
+  "pracovne",
+  "nehnutelnosti",
+] as const;
 
 // ─── Icons ───────────────────────────────────────────────────────────────────
 
@@ -150,6 +80,7 @@ const Drawer = ({
   onClose: () => void;
 }) => {
   const open = service !== null;
+  const { t } = useI18n();
 
   // Lock body scroll when open
   useEffect(() => {
@@ -230,7 +161,7 @@ const Drawer = ({
                 marginBottom: "8px",
               }}
             >
-              Oblasť praxe
+              {t.services.badge}
             </p>
             <h2
               style={{
@@ -248,7 +179,7 @@ const Drawer = ({
           {/* Close button */}
           <button
             onClick={onClose}
-            aria-label="Zavrieť"
+            aria-label={t.services.close}
             style={{
               flexShrink: 0,
               marginTop: "4px",
@@ -359,7 +290,7 @@ const Drawer = ({
               lineHeight: 1.6,
             }}
           >
-            Máte otázku k tejto oblasti? Radi vám poskytneme nezáväznú konzultáciu.
+            {t.services.ctaText}
           </p>
           <a
             href="#spojte-sa"
@@ -381,7 +312,7 @@ const Drawer = ({
             onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "#B5945A"; }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "#1B2A4A"; }}
           >
-            Dohodnúť konzultáciu
+            {t.services.ctaButton}
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.5}>
               <line x1="2" y1="6" x2="10" y2="6" />
               <polyline points="7,3 10,6 7,9" />
@@ -404,6 +335,7 @@ const ServiceCard = ({
   onOpen: (s: Service) => void;
   index: number;
 }) => {
+  const { t } = useI18n();
   const ref = useRef<HTMLDivElement>(null);
   const [hover, setHover] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -508,7 +440,7 @@ const ServiceCard = ({
           transition: "color 350ms ease",
         }}
       >
-        Zistiť viac
+        {t.services.more}
         <span
           style={{
             display: "inline-block",
@@ -526,6 +458,8 @@ const ServiceCard = ({
 // ─── Section ─────────────────────────────────────────────────────────────────
 
 export const Services = () => {
+  const { t } = useI18n();
+  const services: Service[] = SERVICE_IDS.map((id, i) => ({ id, ...t.services.items[i] }));
   const [activeService, setActiveService] = useState<Service | null>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const [headerVisible, setHeaderVisible] = useState(false);
@@ -582,7 +516,7 @@ export const Services = () => {
                 textTransform: "uppercase",
               }}
             >
-              Oblasti praxe
+              {t.services.kicker}
             </span>
             <div style={{ width: 32, height: "0.5px", background: "rgba(181,148,90,0.5)" }} />
           </div>
@@ -599,10 +533,10 @@ export const Services = () => {
               margin: "0 auto",
             }}
           >
-            Komplexné právne riešenia
+            {t.services.title}
             <br />
             <em style={{ fontStyle: "italic", color: "#B5945A" }}>
-              pre vaše potreby.
+              {t.services.titleAccent}
             </em>
           </h2>
         </div>
@@ -617,7 +551,7 @@ export const Services = () => {
             margin: "0 auto",
           }}
         >
-          {SERVICES.map((service, i) => (
+          {services.map((service, i) => (
             <ServiceCard
               key={service.id}
               service={service}

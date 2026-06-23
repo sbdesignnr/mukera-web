@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useI18n } from "./i18n";
 
 export const About = () => {
+  const { t } = useI18n();
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -125,7 +127,7 @@ export const About = () => {
                 marginBottom: "8px",
               }}
             >
-              Justitia — Symbol spravodlivosti
+              {t.about.caption}
             </div>
             <div style={{ width: "40px", height: "1px", background: "rgba(181,148,90,0.4)" }} />
           </div>
@@ -151,7 +153,7 @@ export const About = () => {
                 textTransform: "uppercase",
               }}
             >
-              O kancelárii
+              {t.about.kicker}
             </span>
           </div>
 
@@ -165,11 +167,11 @@ export const About = () => {
               marginBottom: "1.5rem",
             }}
           >
-            Právne riešenia
+            {t.about.title1}
             <br />
-            postavené na
+            {t.about.title2}
             <br />
-            <em style={{ fontStyle: "italic", color: "#B5945A" }}>skúsenostiach.</em>
+            <em style={{ fontStyle: "italic", color: "#B5945A" }}>{t.about.titleAccent}</em>
           </h2>
 
           {/* Divider */}
@@ -194,9 +196,7 @@ export const About = () => {
               marginBottom: "1rem",
             }}
           >
-            Viac ako 25 rokov pomáhame klientom chrániť a&nbsp;presadzovať ich
-            práva a&nbsp;záujmy. Poskytujeme právne služby založené na dôvere,
-            diskrétnosti a&nbsp;dôslednej ochrane záujmov našich klientov.
+            {t.about.para1}
           </p>
 
           <p
@@ -209,11 +209,7 @@ export const About = () => {
               marginBottom: "2.5rem",
             }}
           >
-            Naša advokátska kancelária stavia na dlhoročných skúsenostiach,
-            odbornosti a&nbsp;individuálnom prístupe ku každému klientovi.
-            Každému prípadu venujeme osobitnú pozornosť a&nbsp;hľadáme riešenia,
-            ktoré prinášajú právnu istotu aj v&nbsp;najnáročnejších životných
-            situáciách.
+            {t.about.para2}
           </p>
 
           {/* Three values */}
@@ -221,25 +217,9 @@ export const About = () => {
             className="reveal flex flex-col mb-10"
             style={{ borderTop: "0.5px solid rgba(27,42,74,0.08)" }}
           >
-            {[
-              {
-                num: "01",
-                title: "Individuálny prístup",
-                desc: "Každý prípad posudzujeme samostatne a navrhujeme riešenia zodpovedajúce konkrétnej situácii klienta.",
-              },
-              {
-                num: "02",
-                title: "Viac ako 25 rokov skúseností",
-                desc: "Máme dlhoročnú prax a odborné znalosti v oblasti trestného, obchodného, občianskeho, rodinného a pracovného práva.",
-              },
-              {
-                num: "03",
-                title: "Komplexné právne služby",
-                desc: "Poskytujeme komplexné právne služby zahŕňajúce právne poradenstvo, prípravu právnych dokumentov a zastupovanie klientov pred súdmi a orgánmi verejnej moci.",
-              },
-            ].map((item) => (
+            {t.about.values.map((item, i) => (
               <div
-                key={item.num}
+                key={i}
                 className="flex items-start gap-5 py-6 md:py-5"
                 style={{ borderBottom: "0.5px solid rgba(27,42,74,0.08)" }}
               >
@@ -254,7 +234,7 @@ export const About = () => {
                     paddingTop: "2px",
                   }}
                 >
-                  {item.num}
+                  {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
                   <div
@@ -294,8 +274,8 @@ export const About = () => {
             }}
           >
             {[
-              { num: "25+", label: "Rokov praxe" },
-              { num: "500+", label: "Spokojných klientov" },
+              { num: "25+", label: t.about.statYears },
+              { num: "500+", label: t.about.statClients },
             ].map((stat, i) => (
               <div
                 key={stat.label}

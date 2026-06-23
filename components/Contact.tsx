@@ -1,22 +1,32 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useI18n } from "./i18n";
+import type { Translation } from "./translations";
 
 // ─── Validation schema ────────────────────────────────────────────────────────
 
-const schema = z.object({
-  name: z.string().min(2, "Zadajte meno (min. 2 znaky)"),
-  email: z.string().email("Zadajte platnú e-mailovú adresu"),
-  phone: z.string().optional(),
-  message: z.string().min(10, "Správa musí mať aspoň 10 znakov"),
-  // Honeypot — neviditeľné pole, vypĺňajú ho iba boty (antispam).
-  company: z.string().optional(),
-});
+type FormData = {
+  name: string;
+  email: string;
+  phone?: string;
+  message: string;
+  company?: string; // honeypot
+};
 
-type FormData = z.infer<typeof schema>;
+// Schéma sa stavia z prekladov, aby chybové hlášky boli v aktuálnom jazyku.
+const makeSchema = (t: Translation) =>
+  z.object({
+    name: z.string().min(2, t.contact.errName),
+    email: z.string().email(t.contact.errEmail),
+    phone: z.string().optional(),
+    message: z.string().min(10, t.contact.errMessage),
+    // Honeypot — neviditeľné pole, vypĺňajú ho iba boty (antispam).
+    company: z.string().optional(),
+  });
 
 // ─── Doručovanie e-mailov ──────────────────────────────────────────────────────
 // Web3Forms doručí správu na office@mukera.sk bez potreby vlastného backendu
@@ -98,8 +108,10 @@ const focusStyle: React.CSSProperties = {
 type SubmitState = "idle" | "loading" | "success" | "error";
 
 const ContactForm = () => {
+  const { t } = useI18n();
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const schema = useMemo(() => makeSchema(t), [t]);
 
   const {
     register,
@@ -168,20 +180,20 @@ const ContactForm = () => {
           gap: "1.5rem",
         }}
       >
-        <Field label="Meno a priezvisko" error={errors.name?.message}>
+        <Field label={t.contact.fName} error={errors.name?.message}>
           <input
             {...register("name")}
-            placeholder="Ján Novák"
+            placeholder={t.contact.phName}
             style={getFieldStyle("name")}
             onFocus={() => setFocusedField("name")}
             onBlur={() => setFocusedField(null)}
           />
         </Field>
-        <Field label="E-mailová adresa" error={errors.email?.message}>
+        <Field label={t.contact.fEmail} error={errors.email?.message}>
           <input
             {...register("email")}
             type="email"
-            placeholder="jan@novak.sk"
+            placeholder={t.contact.phEmail}
             style={getFieldStyle("email")}
             onFocus={() => setFocusedField("email")}
             onBlur={() => setFocusedField(null)}
@@ -190,11 +202,11 @@ const ContactForm = () => {
       </div>
 
       {/* Phone */}
-      <Field label="Telefón (voliteľné)" error={errors.phone?.message}>
+      <Field label={t.contact.fPhone} error={errors.phone?.message}>
         <input
           {...register("phone")}
           type="tel"
-          placeholder="+421 9XX XXX XXX"
+          placeholder={t.contact.phPhone}
           style={getFieldStyle("phone")}
           onFocus={() => setFocusedField("phone")}
           onBlur={() => setFocusedField(null)}
@@ -202,11 +214,11 @@ const ContactForm = () => {
       </Field>
 
       {/* Message */}
-      <Field label="Správa" error={errors.message?.message}>
+      <Field label={t.contact.fMessage} error={errors.message?.message}>
         <textarea
           {...register("message")}
           rows={5}
-          placeholder="Popíšte stručne svoju situáciu..."
+          placeholder={t.contact.phMessage}
           style={{
             ...getFieldStyle("message"),
             resize: "none",
@@ -252,10 +264,10 @@ const ContactForm = () => {
           }}
         >
           {submitState === "loading"
-            ? "Odosielam..."
+            ? t.contact.sendLoading
             : submitState === "success"
-            ? "Správa odoslaná ✓"
-            : "Odoslať správu"}
+            ? t.contact.sendSuccess
+            : t.contact.sendIdle}
           {submitState === "idle" && (
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.5}>
               <line x1="2" y1="6" x2="10" y2="6" />
@@ -274,7 +286,7 @@ const ContactForm = () => {
               letterSpacing: "0.05em",
             }}
           >
-            Správu sa nepodarilo odoslať. Skúste neskôr alebo napíšte priamo na e-mail.
+            {t.contact.sendError}
           </p>
         )}
       </div>
@@ -354,10 +366,10 @@ const ContactItem = ({
 const PLACEHOLDER = "[doplniť]";
 
 const TEAM = [
-  { name: "JUDr. Peter Múkera ml.",      role: "Advokát", phone: "0904 808 234", email: "peter.mukera.ml@mukera.sk" },
-  { name: "JUDr. Peter Múkera st.",      role: "Advokát", phone: "0903 440 799", email: "peter.mukera@mukera.sk" },
-  { name: "JUDr. Kornelia Múkerová",     role: "Advokát", phone: "0904 385 972", email: "kornelia.mukerova@mukera.sk" },
-  { name: "JUDr. Sára Tarnociová, PhD.", role: "Advokát", phone: "0905 892 658", email: "tarnociova.sara@gmail.com" },
+  { name: "JUDr. Peter Múkera ml.",      phone: "0904 808 234", email: "peter.mukera.ml@mukera.sk" },
+  { name: "JUDr. Peter Múkera st.",      phone: "0903 440 799", email: "peter.mukera@mukera.sk" },
+  { name: "JUDr. Kornelia Múkerová",     phone: "0904 385 972", email: "kornelia.mukerova@mukera.sk" },
+  { name: "JUDr. Sára Tarnociová, PhD.", phone: "0905 892 658", email: "tarnociova.sara@gmail.com" },
 ];
 
 const TeamContact = ({
@@ -474,6 +486,7 @@ const TeamMember = ({
 // ─── Section ─────────────────────────────────────────────────────────────────
 
 export const Contact = () => {
+  const { t } = useI18n();
   const headerRef = useRef<HTMLDivElement>(null);
   const [headerVisible, setHeaderVisible] = useState(false);
   const teamRef = useRef<HTMLDivElement>(null);
@@ -570,7 +583,7 @@ export const Contact = () => {
                 textTransform: "uppercase",
               }}
             >
-              Advokátsky tím
+              {t.contact.teamKicker}
             </span>
           </div>
 
@@ -585,8 +598,8 @@ export const Contact = () => {
               marginBottom: "2.25rem",
             }}
           >
-            Náš skúsený{" "}
-            <em style={{ fontStyle: "italic", color: "#C9A96E" }}>advokátsky tím</em>
+            {t.contact.teamTitle}{" "}
+            <em style={{ fontStyle: "italic", color: "#C9A96E" }}>{t.contact.teamTitleAccent}</em>
           </h2>
 
           {/* Cards */}
@@ -598,7 +611,7 @@ export const Contact = () => {
             }}
           >
             {TEAM.map((member) => (
-              <TeamMember key={member.name} {...member} />
+              <TeamMember key={member.name} {...member} role={t.contact.teamRole} />
             ))}
           </div>
         </div>
@@ -639,7 +652,7 @@ export const Contact = () => {
                     textTransform: "uppercase",
                   }}
                 >
-                  Spojte sa s nami
+                  {t.contact.kicker}
                 </span>
               </div>
 
@@ -653,28 +666,28 @@ export const Contact = () => {
                   marginBottom: "1.75rem",
                 }}
               >
-                Sme tu, aby sme
+                {t.contact.title1}
                 <br />
-                chránili{" "}
-                <em style={{ fontStyle: "italic", color: "#C9A96E" }}>vaše záujmy.</em>
+                {t.contact.title2}{" "}
+                <em style={{ fontStyle: "italic", color: "#C9A96E" }}>{t.contact.titleAccent}</em>
               </h2>
 
               {/* Contact details */}
               <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", marginBottom: "2.5rem" }}>
                 <ContactItem
                   icon={<IconPin />}
-                  label="Adresa"
+                  label={t.contact.labelAddress}
                   value="Československej armády 1007/25, 974 01 Banská Bystrica"
                 />
                 <ContactItem
                   icon={<IconMail />}
-                  label="E-mail"
+                  label={t.contact.labelEmail}
                   value="office@mukera.sk"
                   href="mailto:office@mukera.sk"
                 />
                 <ContactItem
                   icon={<IconPhone />}
-                  label="Telefón"
+                  label={t.contact.labelPhone}
                   value="+421 904 808 234"
                   href="tel:+421904808234"
                 />
@@ -696,7 +709,7 @@ export const Contact = () => {
                   textTransform: "uppercase",
                 }}
               >
-                Kontaktný formulár
+                {t.contact.formKicker}
               </span>
             </div>
 
@@ -732,7 +745,7 @@ export const Contact = () => {
                   textTransform: "uppercase",
                 }}
               >
-                Kde nás nájdete
+                {t.contact.mapKicker}
               </span>
             </div>
 
@@ -747,7 +760,7 @@ export const Contact = () => {
               }}
             >
               <iframe
-                title="Poloha kancelárie"
+                title={t.contact.mapTitle}
                 src="https://maps.google.com/maps?q=48.7383325,19.1548837(Advok%C3%A1tska%20kancel%C3%A1ria%20JUDr.%20Peter%20M%C3%BAkera)&z=17&hl=sk&output=embed"
                 width="100%"
                 height="100%"
@@ -796,7 +809,7 @@ export const Contact = () => {
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
                 <polygon points="3 11 22 2 13 21 11 13 3 11" />
               </svg>
-              Získať trasu
+              {t.contact.directions}
             </a>
 
             {/* Opening hours */}
@@ -812,7 +825,7 @@ export const Contact = () => {
               }}
             >
               {[
-                { day: "Pondelok – Piatok", time: "9:00 – 17:00" },
+                { day: t.contact.hoursDay, time: "9:00 – 17:00" },
               ].map((row) => (
                 <div key={row.day} style={{ gridColumn: "span 2 / span 2", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <span style={{ fontFamily: "var(--font-ui)", fontSize: "15px", color: "rgba(255,255,255,0.6)" }}>{row.day}</span>

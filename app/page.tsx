@@ -1,3 +1,4 @@
+import { LanguageProvider } from "@/components/i18n";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
@@ -9,16 +10,18 @@ import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main>
-      <Navbar />
-      <Hero />
-      <div id="o-nas" />
-      <About />
-      <Services />
-      <Contact />
-      <Reviews />
-      <Faq />
-      <Footer />
-    </main>
+    <LanguageProvider>
+      <main>
+        <Navbar />
+        <Hero />
+        <div id="o-nas" />
+        <About />
+        <Services />
+        <Contact />
+        <Reviews />
+        <Faq />
+        <Footer />
+      </main>
+    </LanguageProvider>
   );
 }

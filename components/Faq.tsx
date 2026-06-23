@@ -1,27 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useI18n } from "./i18n";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
+// Otázky a odpovede sú v prekladovom slovníku (translations.ts).
 
-const FAQS = [
-  {
-    q: "Ako prebieha úvodná konzultácia?",
-    a: "Na prvom stretnutí si podrobne vypočujeme váš problém, zanalyzujeme dostupné dokumenty a navrhneme reálne právne kroky. Úvodná konzultácia nám slúži na zhodnotenie šancí na úspech.",
-  },
-  {
-    q: "Aké sú náklady na právne zastúpenie?",
-    a: "Odmena je vždy stanovená transparentne vopred – buď ako hodinová sadzba, paušálna odmena, alebo podielová odmena v závislosti od povahy prípadu a dohody s klientom.",
-  },
-  {
-    q: "Zastupujete klientov aj mimo Banskej Bystrice?",
-    a: "Áno, napriek tomu, že naše sídlo je v Banskej Bystrici, poskytujeme právne služby a zastupujeme klientov pred súdmi a úradmi na celom území Slovenskej republiky.",
-  },
-  {
-    q: "Čo si mám priniesť na prvé stretnutie?",
-    a: "Prineste si so sebou všetky relevantné zmluvy, rozhodnutia úradov, korešpondenciu (aj e-mailovú) a akékoľvek iné podklady, ktoré s vaším prípadom priamo súvisia.",
-  },
-];
+type FaqEntry = { q: string; a: string };
 
 // ─── Single accordion item ────────────────────────────────────────────────────
 
@@ -31,7 +16,7 @@ const FaqItem = ({
   isOpen,
   onToggle,
 }: {
-  item: (typeof FAQS)[number];
+  item: FaqEntry;
   index: number;
   isOpen: boolean;
   onToggle: () => void;
@@ -152,6 +137,7 @@ const FaqItem = ({
 // ─── Section ─────────────────────────────────────────────────────────────────
 
 export const Faq = () => {
+  const { t } = useI18n();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const [headerVisible, setHeaderVisible] = useState(false);
@@ -237,7 +223,7 @@ export const Faq = () => {
                 textTransform: "uppercase",
               }}
             >
-              FAQ
+              {t.faq.kicker}
             </span>
             <div style={{ width: 28, height: "0.5px", background: "rgba(181,148,90,0.45)" }} />
           </div>
@@ -252,10 +238,10 @@ export const Faq = () => {
               lineHeight: 1.15,
             }}
           >
-            Otázky, ktoré sa nás
+            {t.faq.title1}
             <br />
-            pýtate{" "}
-            <em style={{ fontStyle: "italic", color: "#C9A96E" }}>najčastejšie.</em>
+            {t.faq.title2}{" "}
+            <em style={{ fontStyle: "italic", color: "#C9A96E" }}>{t.faq.titleAccent}</em>
           </h2>
         </div>
 
@@ -263,7 +249,7 @@ export const Faq = () => {
         <div style={{ width: "100%", height: "0.5px", background: "rgba(181,148,90,0.15)", marginBottom: 0 }} />
 
         {/* Accordion items */}
-        {FAQS.map((item, i) => (
+        {t.faq.items.map((item, i) => (
           <FaqItem
             key={i}
             item={item}
@@ -294,7 +280,7 @@ export const Faq = () => {
               textAlign: "center",
             }}
           >
-            Nenašli ste odpoveď na svoju otázku?
+            {t.faq.ctaText}
           </p>
           <a
             href="#spojte-sa"
@@ -323,7 +309,7 @@ export const Faq = () => {
               el.style.borderColor = "rgba(181,148,90,0.4)";
             }}
           >
-            Napíšte nám priamo
+            {t.faq.ctaLink}
             <span style={{ display: "inline-block" }}>→</span>
           </a>
         </div>

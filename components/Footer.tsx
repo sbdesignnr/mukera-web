@@ -1,11 +1,15 @@
 "use client";
 
-const FOOTER_LINKS = [
-  { label: "Ochrana osobných údajov", href: "/gdpr" },
-  { label: "Webdesign by SB Design", href: "https://sbdesign.sk" },
-];
+import { useI18n } from "./i18n";
 
-export const Footer = () => (
+const FOOTER_LINKS = [
+  { key: "gdpr", href: "/gdpr" },
+  { key: "webdesign", href: "https://sbdesign.sk" },
+] as const;
+
+export const Footer = () => {
+  const { t } = useI18n();
+  return (
   <footer
     style={{
       background: "#050B14",
@@ -34,14 +38,14 @@ export const Footer = () => (
           letterSpacing: "0.05em",
         }}
       >
-        © 2026 JUDr. Peter Múkera. Všetky práva vyhradené.
+        © 2026 JUDr. Peter Múkera. {t.footer.rights}
       </p>
 
       {/* Right links */}
       <div className="footer-links" style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
         {FOOTER_LINKS.map((link) => (
           <a
-            key={link.label}
+            key={link.key}
             href={link.href}
             target={link.href.startsWith("http") ? "_blank" : undefined}
             rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
@@ -56,10 +60,11 @@ export const Footer = () => (
             onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "rgba(181,148,90,0.7)"; }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.2)"; }}
           >
-            {link.label}
+            {t.footer[link.key]}
           </a>
         ))}
       </div>
     </div>
   </footer>
-);
+  );
+};
