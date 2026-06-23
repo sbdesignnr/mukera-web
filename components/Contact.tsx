@@ -12,9 +12,17 @@ const schema = z.object({
   email: z.string().email("Zadajte platnú e-mailovú adresu"),
   phone: z.string().optional(),
   message: z.string().min(10, "Správa musí mať aspoň 10 znakov"),
+  // Honeypot — neviditeľné pole, vypĺňajú ho iba boty (antispam).
+  company: z.string().optional(),
 });
 
 type FormData = z.infer<typeof schema>;
+
+// ─── Doručovanie e-mailov ──────────────────────────────────────────────────────
+// Web3Forms doručí správu na office@mukera.sk bez potreby vlastného backendu
+// (web je statický export). Bezplatný access key získaš na https://web3forms.com
+// — zadáš office@mukera.sk a kľúč príde do tej schránky. Kľúč je bezpečné mať v kóde.
+const WEB3FORMS_ACCESS_KEY = "REPLACE_WITH_WEB3FORMS_ACCESS_KEY";
 
 // ─── Icons ───────────────────────────────────────────────────────────────────
 
@@ -101,14 +109,30 @@ const ContactForm = () => {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = async (data: FormData) => {
+    // Honeypot — skryté pole vypĺňajú iba boty. Predstierame úspech a nič neodošleme.
+    if (data.company) {
+      setSubmitState("success");
+      reset();
+      return;
+    }
     setSubmitState("loading");
     try {
-      const res = await fetch("/api/contact.php", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: "Nový dopyt z webu mukera.sk",
+          from_name: "Web mukera.sk",
+          name: data.name,
+          email: data.email,
+          phone: data.phone || "neuvedené",
+          message: data.message,
+          replyto: data.email,
+        }),
       });
-      if (res.ok) {
+      const json = await res.json().catch(() => ({ success: false }));
+      if (res.ok && json.success) {
         setSubmitState("success");
         reset();
       } else {
@@ -126,11 +150,21 @@ const ContactForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }}>
-      {/* Name + Email row */}
+      {/* Honeypot — skryté pole, vypĺňajú ho iba boty (antispam) */}
+      <input
+        {...register("company")}
+        type="text"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }}
+      />
+
+      {/* Name + Email row — na úzkych displejoch sa zalomí pod seba */}
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "1fr 1fr",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))",
           gap: "1.5rem",
         }}
       >
@@ -727,6 +761,43 @@ export const Contact = () => {
                 allowFullScreen
               />
             </div>
+
+            {/* Trasa — otvorí navigáciu v Google Mapách */}
+            <a
+              href="https://www.google.com/maps/dir/?api=1&destination=48.7383325,19.1548837"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                marginTop: "0.75rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "10px",
+                padding: "14px 20px",
+                border: "0.5px solid rgba(181,148,90,0.35)",
+                background: "rgba(181,148,90,0.06)",
+                fontFamily: "var(--font-ui)",
+                fontSize: "11px",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: "#C9A96E",
+                textDecoration: "none",
+                transition: "background 250ms ease, border-color 250ms ease",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.background = "rgba(181,148,90,0.14)";
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(181,148,90,0.6)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.background = "rgba(181,148,90,0.06)";
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(181,148,90,0.35)";
+              }}
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="3 11 22 2 13 21 11 13 3 11" />
+              </svg>
+              Získať trasu
+            </a>
 
             {/* Opening hours */}
             <div

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 
@@ -21,6 +21,12 @@ export const metadata: Metadata = {
   title: "JUDr. Peter Múkera | Advokátska kancelária",
   description:
     "Advokátska kancelária JUDr. Peter Múkera v Banskej Bystrici. Trestné, obchodné, občianske, pracovné a rodinné právo.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#080F1E",
 };
 
 export default function RootLayout({
