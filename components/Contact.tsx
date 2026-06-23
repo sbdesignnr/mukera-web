@@ -714,7 +714,7 @@ export const Contact = () => {
             >
               <iframe
                 title="Poloha kancelárie"
-                src="https://maps.google.com/maps?q=%C4%8Ceskoslovenskej%20arm%C3%A1dy%201007%2F25%2C%20974%2001%20Bansk%C3%A1%20Bystrica&z=17&hl=sk&output=embed"
+                src="https://maps.google.com/maps?q=48.7383325,19.1548837(Advok%C3%A1tska%20kancel%C3%A1ria%20JUDr.%20Peter%20M%C3%BAkera)&z=17&hl=sk&output=embed"
                 width="100%"
                 height="100%"
                 style={{

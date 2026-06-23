@@ -45,3 +45,6 @@ next-env.d.ts
 
 # design source files (nepatria do public/, boli by verejne stiahnuteľné)
 *.psd
+
+# iCloud placeholder stuby (vznikajú pri odložení súboru na iCloud)
+*.icloud
