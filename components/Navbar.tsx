@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useI18n, LanguageSwitcher } from "./i18n";
 
 const NAV_ITEMS = [
@@ -14,7 +14,6 @@ export const Navbar = () => {
   const [scrolled, setScrolled]   = useState(false);
   const [open, setOpen]           = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
-  const ctaLineRef                = useRef<HTMLDivElement>(null);
 
   // Scroll listener
   useEffect(() => {
@@ -154,6 +153,14 @@ export const Navbar = () => {
           {/* Prepínač jazykov — desktop */}
           {isDesktop && <LanguageSwitcher />}
 
+          {/* Jemný oddeľovač medzi jazykom a CTA */}
+          {isDesktop && (
+            <span
+              aria-hidden="true"
+              style={{ width: "1px", height: "18px", background: "rgba(255,255,255,0.14)" }}
+            />
+          )}
+
           {/* CTA button — len desktop */}
           {isDesktop && (
             <button
@@ -163,37 +170,32 @@ export const Navbar = () => {
               }
               style={{
                 fontFamily: "var(--font-ui)",
-                fontSize: "12px",
-                color: "#B5945A",
-                letterSpacing: "0.25em",
+                fontSize: "11px",
+                color: "#C9A96E",
+                letterSpacing: "0.22em",
                 textTransform: "uppercase",
-                padding: "0 0 8px",
-                border: "none",
-                background: "none",
+                padding: "9px 20px",
+                border: "0.5px solid rgba(181,148,90,0.5)",
+                background: "transparent",
                 cursor: "pointer",
-                position: "relative",
                 whiteSpace: "nowrap",
+                lineHeight: 1,
+                transition: "background 300ms ease, color 300ms ease, border-color 300ms ease",
               }}
-              onMouseEnter={() => {
-                if (ctaLineRef.current) ctaLineRef.current.style.width = "100%";
+              onMouseEnter={(e) => {
+                const b = e.currentTarget as HTMLButtonElement;
+                b.style.background = "#B5945A";
+                b.style.borderColor = "#B5945A";
+                b.style.color = "#0B1220";
               }}
-              onMouseLeave={() => {
-                if (ctaLineRef.current) ctaLineRef.current.style.width = "0%";
+              onMouseLeave={(e) => {
+                const b = e.currentTarget as HTMLButtonElement;
+                b.style.background = "transparent";
+                b.style.borderColor = "rgba(181,148,90,0.5)";
+                b.style.color = "#C9A96E";
               }}
             >
               {t.nav.cta}
-              <div
-                ref={ctaLineRef}
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  height: "1px",
-                  width: "0%",
-                  background: "#B5945A",
-                  transition: "width 500ms cubic-bezier(0.25,0.46,0.45,0.94)",
-                }}
-              />
             </button>
           )}
 
