@@ -108,6 +108,9 @@ html {
   .hero-grid { grid-template-columns: 1fr !important; }
 }
 
+/* Footer — desktop: copyright vľavo, odkazy vpravo */
+.footer-inner { justify-content: space-between; }
+
 /* Footer — vycentrovať na stred na mobile */
 @media (max-width: 767px) {
   .footer-inner {

@@ -393,6 +393,7 @@ export const Reviews = () => {
               color: "rgba(255,255,255,0.4)",
               letterSpacing: "0.25em",
               textTransform: "uppercase",
+              textAlign: "center",
             }}
           >
             {t.reviews.footer}

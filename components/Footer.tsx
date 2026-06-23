@@ -25,7 +25,6 @@ export const Footer = () => {
         display: "flex",
         flexWrap: "wrap",
         alignItems: "center",
-        justifyContent: "space-between",
         gap: "1rem",
       }}
     >
