@@ -18,7 +18,6 @@ const REVIEW_AUTHORS = [
   "Alina Malčeková",
   "Peter Havran",
   "Miroslav Vavra",
-  "Sara Tarnociova",
   "Alexander Vegso",
 ];
 
