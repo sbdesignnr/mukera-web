@@ -32,7 +32,7 @@ const makeSchema = (t: Translation) =>
 // Web3Forms doručí správu na office@mukera.sk bez potreby vlastného backendu
 // (web je statický export). Bezplatný access key získaš na https://web3forms.com
 // — zadáš office@mukera.sk a kľúč príde do tej schránky. Kľúč je bezpečné mať v kóde.
-const WEB3FORMS_ACCESS_KEY = "REPLACE_WITH_WEB3FORMS_ACCESS_KEY";
+const WEB3FORMS_ACCESS_KEY = "3bfb3a79-b9c8-4626-a922-9c5477bf7db5";
 
 // ─── Icons ───────────────────────────────────────────────────────────────────
 
