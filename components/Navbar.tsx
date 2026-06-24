@@ -87,6 +87,9 @@ export const Navbar = () => {
           <img
             src="/logo_peter_mukera_nove.png"
             alt="JUDr. Peter Múkera — Advokátska kancelária"
+            width={640}
+            height={136}
+            decoding="async"
             style={{ height: "48px", width: "auto", display: "block" }}
           />
         </a>
@@ -239,6 +242,7 @@ export const Navbar = () => {
           className={open ? "menu-overlay menu-open" : "menu-overlay"}
           role="dialog"
           aria-modal={true}
+          aria-label={t.nav.navAria}
           aria-hidden={!open}
           style={{
             position: "fixed",

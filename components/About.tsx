@@ -92,6 +92,10 @@ export const About = () => {
           <img
             src="/justitia.webp"
             alt="Justitia"
+            width={1200}
+            height={1800}
+            loading="lazy"
+            decoding="async"
             className="object-cover object-top lg:object-right"
             style={{
               position: "absolute",

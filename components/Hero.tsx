@@ -91,6 +91,10 @@ export const Hero = () => {
       <img
         src="/hero-bg.webp"
         alt=""
+        width={1600}
+        height={1067}
+        fetchPriority="high"
+        decoding="async"
         style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", opacity: 0.4 }}
       />
 

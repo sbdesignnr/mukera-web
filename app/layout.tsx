@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Cormorant_Garamond, Inter, Tenor_Sans } from "next/font/google";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -14,6 +14,14 @@ const inter = Inter({
   weight: ["400", "500", "600"],
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+// Tenor Sans (UI font) self-hosted cez next/font — bez render-blocking Google Fonts @importu
+const tenor = Tenor_Sans({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-tenor",
   display: "swap",
 });
 
@@ -35,8 +43,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="sk" className={`${cormorant.variable} ${inter.variable}`}>
-      <body>{children}</body>
+    <html lang="sk" className={`${cormorant.variable} ${inter.variable} ${tenor.variable}`}>
+      <body>
+        {/* Preload LCP obrázka (hero pozadie) — rýchlejšie vykreslenie */}
+        <link rel="preload" as="image" href="/hero-bg.webp" type="image/webp" fetchPriority="high" />
+        {children}
+      </body>
     </html>
   );
 }

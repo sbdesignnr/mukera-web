@@ -117,7 +117,7 @@ const Drawer = ({
       <div
         role="dialog"
         aria-modal="true"
-        aria-label={service?.title}
+        aria-label={service?.title ?? t.services.badge}
         style={{
           position: "fixed",
           top: 0,
