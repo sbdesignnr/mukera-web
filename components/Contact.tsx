@@ -777,7 +777,7 @@ export const Contact = () => {
 
             {/* Trasa — otvorí navigáciu v Google Mapách */}
             <a
-              href="https://www.google.com/maps/dir/?api=1&destination=48.7383325,19.1548837"
+              href="https://www.google.com/maps/dir/?api=1&destination=Advok%C3%A1tska%20kancel%C3%A1ria%20JUDr.%20Peter%20M%C3%BAkera%2C%20%C4%8Ceskoslovenskej%20arm%C3%A1dy%201007%2F25%2C%20974%2001%20Bansk%C3%A1%20Bystrica"
               target="_blank"
               rel="noopener noreferrer"
               style={{
