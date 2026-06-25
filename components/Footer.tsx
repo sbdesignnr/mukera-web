@@ -3,7 +3,7 @@
 import { useI18n } from "./i18n";
 
 const FOOTER_LINKS = [
-  { key: "gdpr", href: "/gdpr" },
+  { key: "gdpr", href: "/gdpr/" },
   { key: "webdesign", href: "https://sbdesign.sk" },
 ] as const;
 

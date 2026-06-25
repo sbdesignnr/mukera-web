@@ -48,3 +48,6 @@ next-env.d.ts
 
 # iCloud placeholder stuby (vznikajú pri odložení súboru na iCloud)
 *.icloud
+
+# nepoužívaný zdrojový hero obrázok (web používa hero-bg.webp); iCloud ho opakovane obnovuje
+/public/hero-bg.jpg

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useI18n } from "./i18n";
+import { useCookieConsent } from "./CookieConsent";
 import type { Translation } from "./translations";
 
 // ─── Validation schema ────────────────────────────────────────────────────────
@@ -487,6 +488,7 @@ const TeamMember = ({
 
 export const Contact = () => {
   const { t } = useI18n();
+  const { consent, accept } = useCookieConsent();
   const headerRef = useRef<HTMLDivElement>(null);
   const [headerVisible, setHeaderVisible] = useState(false);
   const teamRef = useRef<HTMLDivElement>(null);
@@ -759,20 +761,75 @@ export const Contact = () => {
                 border: "0.5px solid rgba(181,148,90,0.1)",
               }}
             >
-              <iframe
-                title={t.contact.mapTitle}
-                src="https://maps.google.com/maps?q=48.7383325,19.1548837(Advok%C3%A1tska%20kancel%C3%A1ria%20JUDr.%20Peter%20M%C3%BAkera)&z=17&hl=sk&output=embed"
-                width="100%"
-                height="100%"
-                style={{
-                  border: "none",
-                  position: "absolute",
-                  inset: 0,
-                }}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              />
+              {consent === "accepted" ? (
+                <iframe
+                  title={t.contact.mapTitle}
+                  src="https://maps.google.com/maps?q=48.7383325,19.1548837(Advok%C3%A1tska%20kancel%C3%A1ria%20JUDr.%20Peter%20M%C3%BAkera)&z=17&hl=sk&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{
+                    border: "none",
+                    position: "absolute",
+                    inset: 0,
+                  }}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+              ) : (
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "1.1rem",
+                    textAlign: "center",
+                    padding: "1.5rem",
+                    background: "rgba(255,255,255,0.03)",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontFamily: "var(--font-ui)",
+                      fontSize: "13px",
+                      color: "rgba(255,255,255,0.55)",
+                      lineHeight: 1.6,
+                      maxWidth: "320px",
+                    }}
+                  >
+                    {t.cookies.mapBlocked}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={accept}
+                    style={{
+                      fontFamily: "var(--font-ui)",
+                      fontSize: "11px",
+                      letterSpacing: "0.2em",
+                      textTransform: "uppercase",
+                      color: "#C9A96E",
+                      background: "rgba(181,148,90,0.06)",
+                      border: "0.5px solid rgba(181,148,90,0.4)",
+                      padding: "12px 22px",
+                      cursor: "pointer",
+                      transition: "background 250ms ease, border-color 250ms ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLButtonElement).style.background = "rgba(181,148,90,0.16)";
+                      (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(181,148,90,0.65)";
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLButtonElement).style.background = "rgba(181,148,90,0.06)";
+                      (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(181,148,90,0.4)";
+                    }}
+                  >
+                    {t.cookies.mapButton}
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Trasa — otvorí navigáciu v Google Mapách */}

@@ -198,19 +198,19 @@ const sk = {
     items: [
       {
         q: "Ako prebieha úvodná konzultácia?",
-        a: "Na prvom stretnutí si podrobne vypočujeme váš problém, zanalyzujeme dostupné dokumenty a navrhneme reálne právne kroky. Úvodná konzultácia nám slúži na zhodnotenie šancí na úspech.",
-      },
-      {
-        q: "Aké sú náklady na právne zastúpenie?",
-        a: "Odmena je vždy stanovená transparentne vopred – buď ako hodinová sadzba, paušálna odmena, alebo podielová odmena v závislosti od povahy prípadu a dohody s klientom.",
-      },
-      {
-        q: "Zastupujete klientov aj mimo Banskej Bystrice?",
-        a: "Áno, napriek tomu, že naše sídlo je v Banskej Bystrici, poskytujeme právne služby a zastupujeme klientov pred súdmi a úradmi na celom území Slovenskej republiky.",
+        a: "Každý prípad začína dôkladným porozumením situácie klienta. Na prvom stretnutí si podrobne vypočujeme váš prípad, oboznámime sa s dostupnými dokumentmi a posúdime možnosti ďalšieho postupu. Na základe získaných informácií vám poskytneme právne stanovisko a navrhneme najvhodnejšie riešenie.",
       },
       {
         q: "Čo si mám priniesť na prvé stretnutie?",
-        a: "Prineste si so sebou všetky relevantné zmluvy, rozhodnutia úradov, korešpondenciu (aj e-mailovú) a akékoľvek iné podklady, ktoré s vaším prípadom priamo súvisia.",
+        a: "Na prvé stretnutie si prineste všetky dokumenty, ktoré súvisia s vaším prípadom, napríklad zmluvy, rozhodnutia, korešpondenciu alebo inú relevantnú dokumentáciu. Ak niektoré podklady nemáte k dispozícii, posúdime, aké dokumenty bude potrebné zabezpečiť pre ďalší postup.",
+      },
+      {
+        q: "Zastupujete klientov aj mimo Banskej Bystrice?",
+        a: "Áno, naša advokátska kancelária poskytuje právne služby klientom z celého Slovenska. Zastupujeme fyzické osoby, podnikateľov a obchodné spoločnosti pred súdmi, orgánmi verejnej moci a ďalšími inštitúciami na celom území Slovenskej republiky.",
+      },
+      {
+        q: "Aké sú náklady na právne zastúpenie?",
+        a: "Výška odmeny závisí od povahy, rozsahu a náročnosti konkrétneho prípadu. Podmienky spolupráce vrátane spôsobu odmeňovania si s klientom dohodneme vždy vopred ešte pred začatím poskytovania právnych služieb.",
       },
     ],
   },
@@ -251,6 +251,16 @@ const sk = {
     rights: "Všetky práva vyhradené.",
     gdpr: "Ochrana osobných údajov",
     webdesign: "Webdesign by SB Design",
+  },
+  cookies: {
+    bannerTitle: "Cookies a súkromie",
+    bannerText:
+      "Tieto stránky používajú nevyhnutné funkčné úložisko a po vašom súhlase aj mapu Google (cookies tretej strany). Viac v zásadách ochrany osobných údajov.",
+    accept: "Prijať všetko",
+    decline: "Iba nevyhnutné",
+    more: "Viac informácií",
+    mapBlocked: "Mapa Google sa zobrazí po súhlase s cookies tretej strany.",
+    mapButton: "Zobraziť mapu",
   },
 };
 
@@ -431,19 +441,19 @@ const en: Translation = {
     items: [
       {
         q: "How does the initial consultation work?",
-        a: "At the first meeting we listen to your problem in detail, analyse the available documents and propose realistic legal steps. The initial consultation helps us assess the chances of success.",
-      },
-      {
-        q: "What are the costs of legal representation?",
-        a: "The fee is always set transparently in advance – either as an hourly rate, a flat fee, or a contingency fee depending on the nature of the case and the agreement with the client.",
-      },
-      {
-        q: "Do you represent clients outside Banská Bystrica as well?",
-        a: "Yes. Although our office is in Banská Bystrica, we provide legal services and represent clients before courts and authorities throughout the Slovak Republic.",
+        a: "Every case begins with a thorough understanding of the client's situation. At the first meeting we listen to your case in detail, review the available documents and assess the options for proceeding. Based on the information gathered, we provide a legal opinion and propose the most suitable solution.",
       },
       {
         q: "What should I bring to the first meeting?",
-        a: "Bring all relevant contracts, decisions of authorities, correspondence (including e-mails) and any other documents directly related to your case.",
+        a: "Bring to the first meeting all documents related to your case, for example contracts, decisions, correspondence or other relevant documentation. If some materials are not available to you, we will assess which documents need to be obtained for the next steps.",
+      },
+      {
+        q: "Do you represent clients outside Banská Bystrica as well?",
+        a: "Yes, our law firm provides legal services to clients from all over Slovakia. We represent individuals, entrepreneurs and companies before courts, public authorities and other institutions throughout the Slovak Republic.",
+      },
+      {
+        q: "What are the costs of legal representation?",
+        a: "The amount of the fee depends on the nature, scope and complexity of the particular case. The terms of cooperation, including the method of remuneration, are always agreed with the client in advance, before the provision of legal services begins.",
       },
     ],
   },
@@ -484,6 +494,16 @@ const en: Translation = {
     rights: "All rights reserved.",
     gdpr: "Privacy policy",
     webdesign: "Webdesign by SB Design",
+  },
+  cookies: {
+    bannerTitle: "Cookies & privacy",
+    bannerText:
+      "This site uses necessary functional storage and, with your consent, the Google map (third-party cookies). Learn more in our privacy policy.",
+    accept: "Accept all",
+    decline: "Necessary only",
+    more: "Learn more",
+    mapBlocked: "The Google map will load once you accept third-party cookies.",
+    mapButton: "Show map",
   },
 };
 
@@ -662,19 +682,19 @@ const de: Translation = {
     items: [
       {
         q: "Wie läuft die Erstberatung ab?",
-        a: "Beim ersten Treffen hören wir uns Ihr Anliegen ausführlich an, analysieren die verfügbaren Unterlagen und schlagen realistische rechtliche Schritte vor. Die Erstberatung dient uns zur Einschätzung der Erfolgsaussichten.",
-      },
-      {
-        q: "Wie hoch sind die Kosten der rechtlichen Vertretung?",
-        a: "Das Honorar wird stets transparent im Voraus festgelegt – entweder als Stundensatz, Pauschalhonorar oder Erfolgshonorar, je nach Art des Falls und Vereinbarung mit dem Mandanten.",
-      },
-      {
-        q: "Vertreten Sie Mandanten auch außerhalb von Banská Bystrica?",
-        a: "Ja. Obwohl sich unser Sitz in Banská Bystrica befindet, erbringen wir Rechtsdienstleistungen und vertreten Mandanten vor Gerichten und Behörden im gesamten Gebiet der Slowakischen Republik.",
+        a: "Jeder Fall beginnt mit einem gründlichen Verständnis der Situation des Mandanten. Beim ersten Treffen hören wir uns Ihren Fall ausführlich an, machen uns mit den verfügbaren Unterlagen vertraut und prüfen die Möglichkeiten des weiteren Vorgehens. Auf Grundlage der gewonnenen Informationen geben wir Ihnen eine rechtliche Stellungnahme und schlagen die am besten geeignete Lösung vor.",
       },
       {
         q: "Was soll ich zum ersten Treffen mitbringen?",
-        a: "Bringen Sie alle relevanten Verträge, Behördenbescheide, Korrespondenz (auch E-Mails) und alle weiteren Unterlagen mit, die unmittelbar mit Ihrem Fall zusammenhängen.",
+        a: "Bringen Sie zum ersten Treffen alle Unterlagen mit, die mit Ihrem Fall zusammenhängen, zum Beispiel Verträge, Bescheide, Korrespondenz oder sonstige relevante Dokumente. Falls Ihnen einige Unterlagen nicht zur Verfügung stehen, prüfen wir, welche Dokumente für das weitere Vorgehen zu beschaffen sind.",
+      },
+      {
+        q: "Vertreten Sie Mandanten auch außerhalb von Banská Bystrica?",
+        a: "Ja, unsere Anwaltskanzlei erbringt Rechtsdienstleistungen für Mandanten aus der ganzen Slowakei. Wir vertreten Privatpersonen, Unternehmer und Gesellschaften vor Gerichten, Behörden und anderen Institutionen im gesamten Gebiet der Slowakischen Republik.",
+      },
+      {
+        q: "Wie hoch sind die Kosten der rechtlichen Vertretung?",
+        a: "Die Höhe des Honorars richtet sich nach Art, Umfang und Schwierigkeit des konkreten Falls. Die Bedingungen der Zusammenarbeit, einschließlich der Art der Vergütung, vereinbaren wir mit dem Mandanten stets im Voraus, noch vor Beginn der Erbringung der Rechtsdienstleistungen.",
       },
     ],
   },
@@ -715,6 +735,16 @@ const de: Translation = {
     rights: "Alle Rechte vorbehalten.",
     gdpr: "Datenschutz",
     webdesign: "Webdesign by SB Design",
+  },
+  cookies: {
+    bannerTitle: "Cookies & Datenschutz",
+    bannerText:
+      "Diese Website verwendet notwendige funktionale Speicherung und – mit Ihrer Einwilligung – die Google-Karte (Cookies von Drittanbietern). Mehr dazu in unserer Datenschutzerklärung.",
+    accept: "Alle akzeptieren",
+    decline: "Nur notwendige",
+    more: "Mehr erfahren",
+    mapBlocked: "Die Google-Karte wird nach Ihrer Einwilligung in Cookies von Drittanbietern geladen.",
+    mapButton: "Karte anzeigen",
   },
 };
 
@@ -893,19 +923,19 @@ const pl: Translation = {
     items: [
       {
         q: "Jak przebiega wstępna konsultacja?",
-        a: "Na pierwszym spotkaniu szczegółowo wysłuchujemy Twojego problemu, analizujemy dostępne dokumenty i proponujemy realne kroki prawne. Wstępna konsultacja służy nam do oceny szans na powodzenie.",
-      },
-      {
-        q: "Jakie są koszty zastępstwa prawnego?",
-        a: "Wynagrodzenie jest zawsze ustalane w sposób przejrzysty z góry – jako stawka godzinowa, wynagrodzenie ryczałtowe lub wynagrodzenie prowizyjne, w zależności od charakteru sprawy i ustaleń z klientem.",
-      },
-      {
-        q: "Czy reprezentujecie klientów także poza Bańską Bystrzycą?",
-        a: "Tak. Mimo że nasza siedziba znajduje się w Bańskiej Bystrzycy, świadczymy usługi prawne i reprezentujemy klientów przed sądami i urzędami na terenie całej Republiki Słowackiej.",
+        a: "Każda sprawa zaczyna się od dokładnego zrozumienia sytuacji klienta. Na pierwszym spotkaniu szczegółowo wysłuchujemy Twojej sprawy, zapoznajemy się z dostępnymi dokumentami i oceniamy możliwości dalszego postępowania. Na podstawie uzyskanych informacji przedstawiamy opinię prawną i proponujemy najlepsze rozwiązanie.",
       },
       {
         q: "Co powinienem przynieść na pierwsze spotkanie?",
-        a: "Proszę przynieść wszystkie istotne umowy, decyzje urzędów, korespondencję (również e-mailową) oraz wszelkie inne dokumenty bezpośrednio związane z Twoją sprawą.",
+        a: "Na pierwsze spotkanie proszę przynieść wszystkie dokumenty związane z Twoją sprawą, na przykład umowy, decyzje, korespondencję lub inną istotną dokumentację. Jeśli niektórych materiałów nie posiadasz, ocenimy, jakie dokumenty będzie trzeba uzyskać do dalszego postępowania.",
+      },
+      {
+        q: "Czy reprezentujecie klientów także poza Bańską Bystrzycą?",
+        a: "Tak, nasza kancelaria świadczy usługi prawne klientom z całej Słowacji. Reprezentujemy osoby fizyczne, przedsiębiorców i spółki przed sądami, organami władzy publicznej oraz innymi instytucjami na terenie całej Republiki Słowackiej.",
+      },
+      {
+        q: "Jakie są koszty zastępstwa prawnego?",
+        a: "Wysokość wynagrodzenia zależy od charakteru, zakresu i stopnia skomplikowania konkretnej sprawy. Warunki współpracy, w tym sposób wynagradzania, ustalamy z klientem zawsze z góry, jeszcze przed rozpoczęciem świadczenia usług prawnych.",
       },
     ],
   },
@@ -946,6 +976,16 @@ const pl: Translation = {
     rights: "Wszelkie prawa zastrzeżone.",
     gdpr: "Ochrona danych osobowych",
     webdesign: "Webdesign by SB Design",
+  },
+  cookies: {
+    bannerTitle: "Pliki cookies i prywatność",
+    bannerText:
+      "Ta strona używa niezbędnego magazynu funkcjonalnego, a za Twoją zgodą także mapy Google (pliki cookies podmiotów trzecich). Więcej w polityce prywatności.",
+    accept: "Zaakceptuj wszystko",
+    decline: "Tylko niezbędne",
+    more: "Więcej informacji",
+    mapBlocked: "Mapa Google zostanie załadowana po wyrażeniu zgody na pliki cookies podmiotów trzecich.",
+    mapButton: "Pokaż mapę",
   },
 };
 
