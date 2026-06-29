@@ -1,8 +1,8 @@
 // ─── Obsah stránky Ochrana osobných údajov + Cookies ───────────────────────────
 // DRAFT pripravený na mieru webu (kontaktný formulár Web3Forms -> office@mukera.sk,
 // Google Mapy po súhlase, jazyk v localStorage).
-// MIESTA NA DOPLNENIE advokátom: IČO a číslo zápisu v SAK ([doplniť] / [to be completed] / ...).
-// Právne znenie pred ostrým spustením prosím skontrolujte.
+// IČO (48 411 124) a číslo zápisu v SAK (7155) sú doplnené.
+// Právne znenie nech advokát pred ostrým spustením ešte skontroluje.
 
 import type { Locale } from "./translations";
 
@@ -30,7 +30,7 @@ const sk: GdprDoc = {
     {
       heading: "Prevádzkovateľ",
       paragraphs: [
-        "Prevádzkovateľom je advokátska kancelária JUDr. Peter Múkera, so sídlom Československej armády 1007/25, 974 01 Banská Bystrica, IČO: [doplniť], zapísaná v zozname advokátov Slovenskej advokátskej komory pod č. [doplniť].",
+        "Prevádzkovateľom je advokátska kancelária JUDr. Peter Múkera, so sídlom Československej armády 1007/25, 974 01 Banská Bystrica, IČO: 48 411 124, zapísaná v zozname advokátov Slovenskej advokátskej komory pod č. 7155.",
         "Kontakt vo veciach ochrany osobných údajov: e-mail office@mukera.sk, tel. +421 904 808 234.",
       ],
     },
@@ -109,7 +109,7 @@ const en: GdprDoc = {
     {
       heading: "Controller",
       paragraphs: [
-        "The controller is the law firm JUDr. Peter Múkera, with its registered office at Československej armády 1007/25, 974 01 Banská Bystrica, Slovakia, Company ID: [to be completed], registered in the list of lawyers of the Slovak Bar Association under no. [to be completed].",
+        "The controller is the law firm JUDr. Peter Múkera, with its registered office at Československej armády 1007/25, 974 01 Banská Bystrica, Slovakia, Company ID (IČO): 48 411 124, registered in the list of lawyers of the Slovak Bar Association under no. 7155.",
         "Contact for data protection matters: e-mail office@mukera.sk, tel. +421 904 808 234.",
       ],
     },
@@ -188,7 +188,7 @@ const de: GdprDoc = {
     {
       heading: "Verantwortlicher",
       paragraphs: [
-        "Verantwortlicher ist die Anwaltskanzlei JUDr. Peter Múkera mit Sitz in Československej armády 1007/25, 974 01 Banská Bystrica, Slowakei, ID-Nr.: [zu ergänzen], eingetragen in der Liste der Rechtsanwälte der Slowakischen Anwaltskammer unter Nr. [zu ergänzen].",
+        "Verantwortlicher ist die Anwaltskanzlei JUDr. Peter Múkera mit Sitz in Československej armády 1007/25, 974 01 Banská Bystrica, Slowakei, ID-Nr. (IČO): 48 411 124, eingetragen in der Liste der Rechtsanwälte der Slowakischen Anwaltskammer unter Nr. 7155.",
         "Kontakt in Datenschutzangelegenheiten: E-Mail office@mukera.sk, Tel. +421 904 808 234.",
       ],
     },
@@ -267,7 +267,7 @@ const pl: GdprDoc = {
     {
       heading: "Administrator",
       paragraphs: [
-        "Administratorem jest kancelaria adwokacka JUDr. Peter Múkera z siedzibą przy Československej armády 1007/25, 974 01 Banská Bystrica, Słowacja, REGON/IČO: [do uzupełnienia], wpisana na listę adwokatów Słowackiej Izby Adwokackiej pod nr [do uzupełnienia].",
+        "Administratorem jest kancelaria adwokacka JUDr. Peter Múkera z siedzibą przy Československej armády 1007/25, 974 01 Banská Bystrica, Słowacja, IČO: 48 411 124, wpisana na listę adwokatów Słowackiej Izby Adwokackiej pod nr 7155.",
         "Kontakt w sprawach ochrony danych: e-mail office@mukera.sk, tel. +421 904 808 234.",
       ],
     },

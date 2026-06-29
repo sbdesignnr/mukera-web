@@ -16,6 +16,7 @@ type FormData = {
   phone?: string;
   message: string;
   company?: string; // honeypot
+  consent: boolean;
 };
 
 // Schéma sa stavia z prekladov, aby chybové hlášky boli v aktuálnom jazyku.
@@ -27,6 +28,8 @@ const makeSchema = (t: Translation) =>
     message: z.string().min(10, t.contact.errMessage),
     // Honeypot — neviditeľné pole, vypĺňajú ho iba boty (antispam).
     company: z.string().optional(),
+    // Povinný súhlas so spracovaním osobných údajov.
+    consent: z.boolean().refine((v) => v === true, t.contact.errConsent),
   });
 
 // ─── Doručovanie e-mailov ──────────────────────────────────────────────────────
@@ -229,6 +232,56 @@ const ContactForm = () => {
           onBlur={() => setFocusedField(null)}
         />
       </Field>
+
+      {/* Súhlas so spracovaním osobných údajov — povinné */}
+      <div>
+        <label style={{ display: "flex", alignItems: "flex-start", gap: "10px", cursor: "pointer" }}>
+          <input
+            type="checkbox"
+            {...register("consent")}
+            style={{
+              marginTop: "2px",
+              width: "16px",
+              height: "16px",
+              flexShrink: 0,
+              accentColor: "#B5945A",
+              cursor: "pointer",
+            }}
+          />
+          <span
+            style={{
+              fontFamily: "var(--font-ui)",
+              fontSize: "13px",
+              color: errors.consent ? "#e07070" : "rgba(255,255,255,0.55)",
+              lineHeight: 1.6,
+            }}
+          >
+            {t.contact.consentText}{" "}
+            <a
+              href="/gdpr/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "rgba(201,169,110,0.95)", textDecoration: "underline", textUnderlineOffset: "2px" }}
+            >
+              {t.contact.consentLink}
+            </a>
+            {t.contact.consentSuffix}
+          </span>
+        </label>
+        {errors.consent && (
+          <p
+            style={{
+              fontFamily: "var(--font-ui)",
+              fontSize: "11px",
+              color: "#e07070",
+              marginTop: "8px",
+              letterSpacing: "0.05em",
+            }}
+          >
+            {errors.consent.message}
+          </p>
+        )}
+      </div>
 
       {/* Submit */}
       <div>

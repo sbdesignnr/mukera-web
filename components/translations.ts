@@ -246,6 +246,10 @@ const sk = {
     directions: "Získať trasu",
     mapTitle: "Poloha kancelárie",
     hoursDay: "Pondelok – Piatok",
+    consentText: "Súhlasím so spracovaním osobných údajov v súlade so",
+    consentLink: "zásadami ochrany osobných údajov",
+    consentSuffix: ".",
+    errConsent: "Pre odoslanie je potrebný súhlas so spracovaním osobných údajov.",
   },
   footer: {
     rights: "Všetky práva vyhradené.",
@@ -489,6 +493,10 @@ const en: Translation = {
     directions: "Get directions",
     mapTitle: "Office location",
     hoursDay: "Monday – Friday",
+    consentText: "I consent to the processing of my personal data in accordance with the",
+    consentLink: "privacy policy",
+    consentSuffix: ".",
+    errConsent: "Consent to the processing of personal data is required to submit.",
   },
   footer: {
     rights: "All rights reserved.",
@@ -730,6 +738,10 @@ const de: Translation = {
     directions: "Route berechnen",
     mapTitle: "Standort der Kanzlei",
     hoursDay: "Montag – Freitag",
+    consentText: "Ich bin mit der Verarbeitung meiner personenbezogenen Daten gemäß der",
+    consentLink: "Datenschutzerklärung",
+    consentSuffix: " einverstanden.",
+    errConsent: "Für das Absenden ist die Einwilligung in die Verarbeitung personenbezogener Daten erforderlich.",
   },
   footer: {
     rights: "Alle Rechte vorbehalten.",
@@ -971,6 +983,10 @@ const pl: Translation = {
     directions: "Wyznacz trasę",
     mapTitle: "Lokalizacja kancelarii",
     hoursDay: "Poniedziałek – Piątek",
+    consentText: "Wyrażam zgodę na przetwarzanie moich danych osobowych zgodnie z",
+    consentLink: "polityką prywatności",
+    consentSuffix: ".",
+    errConsent: "Do wysłania wymagana jest zgoda na przetwarzanie danych osobowych.",
   },
   footer: {
     rights: "Wszelkie prawa zastrzeżone.",
